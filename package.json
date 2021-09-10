@@ -1,0 +1,26 @@
+{
+  "name": "huynen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Karin1996/Huynen.git"
+  },
+  "scripts": {
+    "watch": "parcel watch index.html --public-url \"./\""
+  },
+  "author": "Karin Kreeft",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Karin1996/Huynen/issues"
+  },
+  "homepage": "https://github.com/Karin1996/Huynen#readme",
+  "devDependencies": {
+  },
+  "dependencies": {
+    "parcel-bundler": "^1.12.5",
+    "sass": "^1.39.2",
+    "three": "^0.132.2"
+  }
+}
