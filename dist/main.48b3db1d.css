@@ -34,8 +34,36 @@ body {
 
 h1 {
   font-size: 7rem;
-  width: 100%;
   text-align: center;
+  position: relative;
+}
+
+h1::before {
+  content: "";
+  position: absolute;
+  width: 3.75rem;
+  height: 3.75rem;
+  top: -2.4rem;
+  left: -2.8rem;
+  background-image: url(twoLeafs.239d0303.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  filter: invert(100%);
+  transform: scaleX(-1);
+}
+
+h1::after {
+  content: "";
+  position: absolute;
+  width: 2.1rem;
+  height: 2.1rem;
+  bottom: 0.7rem;
+  right: -2rem;
+  background-image: url(oneLeaf.f3e3303d.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  transform: rotate(20deg);
+  filter: invert(100%);
 }
 
 h3 {

@@ -189,7 +189,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./..\\fonts\\Karinhuynen-Regular.otf":[["Karinhuynen-Regular.4b8cbcd9.otf","fonts/Karinhuynen-Regular.otf"],"fonts/Karinhuynen-Regular.otf"],"./..\\fonts\\FrederickatheGreat-Regular.ttf":[["FrederickatheGreat-Regular.4dfb66f0.ttf","fonts/FrederickatheGreat-Regular.ttf"],"fonts/FrederickatheGreat-Regular.ttf"],"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./..\\fonts\\Karinhuynen-Regular.otf":[["Karinhuynen-Regular.4b8cbcd9.otf","fonts/Karinhuynen-Regular.otf"],"fonts/Karinhuynen-Regular.otf"],"./..\\fonts\\FrederickatheGreat-Regular.ttf":[["FrederickatheGreat-Regular.4dfb66f0.ttf","fonts/FrederickatheGreat-Regular.ttf"],"fonts/FrederickatheGreat-Regular.ttf"],"./..\\images\\twoLeafs.png":[["twoLeafs.239d0303.png","images/twoLeafs.png"],"images/twoLeafs.png"],"./..\\images\\oneLeaf.png":[["oneLeaf.f3e3303d.png","images/oneLeaf.png"],"images/oneLeaf.png"],"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
