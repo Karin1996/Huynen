@@ -1,6 +1,6 @@
-// --IMPORTS--
+//Imports
 import * as THREE from 'three';
-
+import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 
 //Scene
 const scene = new THREE.Scene();
@@ -13,22 +13,25 @@ camera.position.set(0,0,0);
 //Renderer
 const renderer = new THREE.WebGLRenderer({antialias: true});
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.shadowMap.enabled = true;
-renderer.render(scene, camera);
+
 /*
-update aspect ratio
-set renderer size to new window size
-render scene and camera
+Update aspect ratio
+Set renderer size to new window size
+Render scene and camera
 */
-window.addEventListener('resize', OnWindowResize, false);
+window.addEventListener('resize', OnWindowResize);
 function OnWindowResize(){
+    Render();
+}
+
+function Render(){
     camera.aspect = window.innerWidth / window.innerHeight;
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.render(scene, camera);
 }
+
 //Append the renderer to the div sceneCanvas
-sceneCanvas = document.getElementById('sceneCanvas');
-document.body.appendChild(sceneCanvas);
+let sceneCanvas = document.getElementById('sceneCanvas');
 sceneCanvas.appendChild(renderer.domElement);
 
 //Lights
@@ -38,3 +41,14 @@ dirLight.position.set(2, 4, 1);
 dirLight.castShadow = true;
 
 scene.add(amLight, dirLight);
+
+setTimeout(Render, 100);
+
+export{
+    scene,
+    camera,
+    renderer,
+    Render,
+    THREE,
+    OrbitControls
+};

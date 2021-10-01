@@ -1,13 +1,14 @@
 [
     {
-        "model_id": 0,
-        "name": "namehere",
-        "src": "src",
+        "model_id": 1,
+        "name": "player",
+        "src": "../models/player.gltf",
         "x_pos": 0,
         "y_pos": 0,
         "z_pos": 0,
-        "keyframes": 0,
-        "clips": [{"name": "thisname", "startframe": 0, "endframe": 10}],
+        "static": false,
+        "keyframes": 180,
+        "clips": [{"name": "idle", "startframe": 0, "endframe": 120}, {"name": "walk", "startframe": 140, "endframe": 180}],
         "information_id": 0
     }
 ]

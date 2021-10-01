@@ -16,8 +16,7 @@
     "url": "https://github.com/Karin1996/Huynen/issues"
   },
   "homepage": "https://github.com/Karin1996/Huynen#readme",
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
     "parcel-bundler": "^1.12.5",
     "sass": "^1.39.2",
