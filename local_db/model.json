@@ -1,0 +1,13 @@
+[
+    {
+        "model_id": 0,
+        "name": "namehere",
+        "src": "src",
+        "x_pos": 0,
+        "y_pos": 0,
+        "z_pos": 0,
+        "keyframes": 0,
+        "clips": [{"name": "thisname", "startframe": 0, "endframe": 10}],
+        "information_id": 0
+    }
+]

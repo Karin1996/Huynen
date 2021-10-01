@@ -36534,7 +36534,7 @@ if (typeof window !== 'undefined') {
     window.__THREE__ = REVISION;
   }
 }
-},{}],"js/scene.js":[function(require,module,exports) {
+},{}],"js/scene_setup.js":[function(require,module,exports) {
 "use strict";
 
 var THREE = _interopRequireWildcard(require("three"));
@@ -36785,5 +36785,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/scene.js"], null)
-//# sourceMappingURL=scene.829ff4d6.js.map
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/scene_setup.js"], null)
+//# sourceMappingURL=scene_setup.de982ba0.js.map

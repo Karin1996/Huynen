@@ -146,4 +146,9 @@ div.btn:hover > p {
   transition: all linear 200ms;
 }
 
+#sceneCanvas {
+  width: 100vw;
+  height: 100vh;
+}
+
 /*# sourceMappingURL=main.48b3db1d.css.map */

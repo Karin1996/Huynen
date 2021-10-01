@@ -1,0 +1,10 @@
+[
+    {
+        "npc_id": 0,
+        "name": "namehere",
+        "model_id": 0,
+        "dialoguesequence": [{"text": "text"}],
+        "questdialogue": [{"text": "text"}],
+        "defaultdialogue": "doei"
+    }
+]
