@@ -1,6 +1,8 @@
 //Imports
 import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
+import {TransformControls} from 'three/examples/jsm/controls/TransformControls.js';
 
 //Scene
 const scene = new THREE.Scene();
@@ -50,5 +52,7 @@ export{
     renderer,
     Render,
     THREE,
-    OrbitControls
+    OrbitControls,
+    GLTFLoader,
+    TransformControls
 };
