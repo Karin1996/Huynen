@@ -6,7 +6,7 @@ import {TransformControls} from 'three/examples/jsm/controls/TransformControls.j
 
 //Scene
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xc4c4c4);
+scene.background = new THREE.Color(0xa6c8ff);
 
 //Camera
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 500);
@@ -15,6 +15,7 @@ camera.position.set(0,0,0);
 //Renderer
 const renderer = new THREE.WebGLRenderer({antialias: true});
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.shadowMap.enabled = true;
 
 /*
 Update aspect ratio
@@ -29,6 +30,7 @@ function OnWindowResize(){
 function Render(){
     camera.aspect = window.innerWidth / window.innerHeight;
     renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.updateProjectionMatrix();
     renderer.render(scene, camera);
 }
 
@@ -37,14 +39,19 @@ let sceneCanvas = document.getElementById('sceneCanvas');
 sceneCanvas.appendChild(renderer.domElement);
 
 //Lights
-const amLight = new THREE.AmbientLight(0x32a852, 1);
-const dirLight = new THREE.DirectionalLight(0xFF0000, 1);
-dirLight.position.set(2, 4, 1);
+let hemiLight = new THREE.HemisphereLight(0x71baeb, 0x88bf91, 0.6);
+let dirLight = new THREE.DirectionalLight(0xfff7de, 1);
+const lightHelper = new THREE.DirectionalLightHelper( dirLight, 5 );
+
+dirLight.position.set(0, 10, 0);
+//For daylight to nighttime simulation rotate dir light on z over time
+dirLight.rotation.set(0, 0, 40);
 dirLight.castShadow = true;
+dirLight.position.set(2, 4, 1);
 
-scene.add(amLight, dirLight);
+scene.add(lightHelper, hemiLight, dirLight);
 
-setTimeout(Render, 100);
+//setTimeout(Render, 100);
 
 export{
     scene,
