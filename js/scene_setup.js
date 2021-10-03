@@ -16,6 +16,8 @@ camera.position.set(0,0,0);
 const renderer = new THREE.WebGLRenderer({antialias: true});
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.setClearColor(0xa6c8ff);
 
 /*
 Update aspect ratio
@@ -39,17 +41,23 @@ let sceneCanvas = document.getElementById('sceneCanvas');
 sceneCanvas.appendChild(renderer.domElement);
 
 //Lights
-let hemiLight = new THREE.HemisphereLight(0x71baeb, 0x88bf91, 0.6);
-let dirLight = new THREE.DirectionalLight(0xfff7de, 1);
-const lightHelper = new THREE.DirectionalLightHelper( dirLight, 5 );
+let ambientLight = new THREE.AmbientLight(0xbaeaf7, 1);
+let pointLight = new THREE.PointLight(0xfff6cf, 1, 100);
+pointLight.castShadow = true;
+const lightHelper = new THREE.PointLightHelper(pointLight, 5);
+pointLight.position.set(10,10,1);
+pointLight.shadow.mapSize.width = 2048;
+pointLight.shadow.mapSize.height = 2048;
+pointLight.shadow.camera.near = 1; // default
+pointLight.shadow.camera.far = 500; // default
+pointLight.shadow.radius= 4;
 
-dirLight.position.set(0, 10, 0);
-//For daylight to nighttime simulation rotate dir light on z over time
-dirLight.rotation.set(0, 0, 40);
-dirLight.castShadow = true;
-dirLight.position.set(2, 4, 1);
+renderer.shadowMapEnabled = true;
+renderer.shadowMapSoft = true;
+renderer.shadowMapType = THREE.PCFSoftShadowMap;
 
-scene.add(lightHelper, hemiLight, dirLight);
+
+scene.add(ambientLight, pointLight, lightHelper);
 
 //setTimeout(Render, 100);
 
@@ -58,6 +66,7 @@ export{
     camera,
     renderer,
     Render,
+    pointLight,
     THREE,
     OrbitControls,
     GLTFLoader,

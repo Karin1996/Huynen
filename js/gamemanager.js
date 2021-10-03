@@ -5,6 +5,7 @@ import {
     scene,
     camera,
     renderer,
+    pointLight,
     Render,
     THREE,
     OrbitControls,
@@ -18,17 +19,19 @@ import {
 
 let debug_mode = true;
 
+//Var declarations
 const orbitControls = new OrbitControls(camera, renderer.domElement);
 const loader = new GLTFLoader();
 const controls = new TransformControls(camera, renderer.domElement);
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
-const toonMaterial = new THREE.MeshToonMaterial({color: 0xff0000});
+let player_model;
+let player_height;
+let distance;
+
 
 //debug mode
 if(debug_mode){
-    camera.position.z = 4;
-    camera.position.y = 4;
     let gridHelper = new THREE.GridHelper(10,10);
     const axesHelper = new THREE.AxesHelper( 5 );
     orbitControls.update();
@@ -61,9 +64,16 @@ if(debug_mode){
         mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
         mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
         //Execute SelectModel
-        SelectModel();
+       // SelectModel();
     });
 }
+camera.position.z = 3;
+camera.position.y = 3;
+camera.rotation.x = -40*(Math.PI/180);
+orbitControls.enablePan = false;
+orbitControls.enableRotate = false;
+orbitControls.enableZoom = false;
+
 //Select the model that is clicked (has a raycast hit)
 function SelectModel(){
     raycaster.setFromCamera(mouse, camera);
@@ -85,7 +95,7 @@ models.forEach(element => {
             const model = gltf.scene;
             model.position.set(element.x_pos, element.y_pos, element.z_pos);
             model.rotation.set(element.x_rot*(Math.PI/180), element.y_rot*(Math.PI/180), element.z_rot*(Math.PI/180));
-            controls.attach(gltf.scene);
+            //controls.attach(gltf.scene);
             model.name = element.name;
             model.model_id = element.model_id;
             model.castShadow = true;
@@ -93,7 +103,11 @@ models.forEach(element => {
             //Get the mesh from the object
             model.traverse((o) => {
                 //Set the object material to the toonshader using the embedded texture
-                if(o.isMesh) o.material = new THREE.MeshToonMaterial({map: o.material.map});
+                if(o.isMesh){
+                    o.material = new THREE.MeshToonMaterial({map: o.material.map});
+                    o.receiveShadow = true;
+                    o.castShadow = true;
+                }
             });
             scene.add(controls, model);
         });
@@ -103,9 +117,7 @@ models.forEach(element => {
     }
 });
 
-
 //Load the player model
-let player_model;
 loader.load(player.modelinfo.src, function(gltf){
     //console.log(gltf);
     player_model = gltf.scene;
@@ -113,14 +125,17 @@ loader.load(player.modelinfo.src, function(gltf){
     player_model.position.set(player.modelinfo.x_pos, player.modelinfo.y_pos, player.modelinfo.z_pos);
     player_model.rotation.set(player.modelinfo.x_rot*(Math.PI/180), player.modelinfo.y_rot*(Math.PI/180), player.modelinfo.z_rot*(Math.PI/180));
     player_model.attach(camera);
-    player_model.castShadow = true;
-    player_model.receiveShadow = true;
+    player_model.attach(pointLight);
     //Get the mesh from the object
     player_model.traverse((o) => {
         //Set the object material to the toonshader using the embedded texture
-        if(o.isMesh) o.material = new THREE.MeshToonMaterial({map: o.material.map});
+        if(o.isMesh){
+            o.material = new THREE.MeshToonMaterial({map: o.material.map});
+            o.receiveShadow = true;
+            o.castShadow = true;
+            player_height = o.geometry.boundingBox.max.y;
+        }
     });
-    console.log("player", player_model);
     scene.add(player_model);
 });
 window.addEventListener("click", function(e){
@@ -132,15 +147,26 @@ window.addEventListener("click", function(e){
 //Move the player to the location that was clicked (has a raycast hit)
 function MovePlayer(){
     raycaster.setFromCamera(mouse, camera);
-    const clickLocation = raycaster.intersectObject(scene, true);
-    const x = clickLocation[0].point.x;
-    const y = 0; //TODO: y should be a different value than point click. Probably calculated from a ground model that will be loaded in.
-    const z = clickLocation[0].point.z;
+    const clickLocation = raycaster.intersectObjects(scene.children, true);
 
-    player_model.position.set(x, y, z);
-    //return x, y, z;
+    //For every object intersected check the type
+    clickLocation.forEach(element => {
+        //Only if the hit object is a mesh look for the name of the object it is in
+        if(element.object.type == "Mesh"){
+            //If the object is the ground. Get the x, y, z position
+            if(element.object.parent.name == "ground"){
+                distance = element.distance;
+                const x = element.point.x;
+                const y = element.point.y;
+                const z = element.point.z;
+                player_model.position.set(x, y, z);
+                //Lerp position. Use the distance gained and divide that by step/speed size until location is reached
+                //player_model.position.lerp(new THREE.Vector3(x,y,z), 0,5);
+            }
+        }
+    });
+
 }
-//console.log(player_model);
 
 function RenderLoop() {
     //var delta = clock.getDelta();
