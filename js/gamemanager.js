@@ -5,7 +5,7 @@ import {
     scene,
     camera,
     renderer,
-    pointLight,
+    spotlight,
     Render,
     THREE,
     OrbitControls,
@@ -26,9 +26,8 @@ const controls = new TransformControls(camera, renderer.domElement);
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 let player_model;
-let player_height;
 let distance;
-
+let selectedObject;
 
 //debug mode
 if(debug_mode){
@@ -57,6 +56,7 @@ if(debug_mode){
     });
     controls.addEventListener('mouseUp', function () {
         orbitControls.enabled = true;
+        console.log(selectedObject);
     });
 
     //When a click event is triggered get mouse location
@@ -64,15 +64,11 @@ if(debug_mode){
         mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
         mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
         //Execute SelectModel
-       // SelectModel();
+        SelectModel();
     });
 }
 camera.position.z = 3;
 camera.position.y = 2;
-camera.rotation.x = -10*(Math.PI/180);
-orbitControls.enablePan = false;
-orbitControls.enableRotate = false;
-orbitControls.enableZoom = false;
 
 //Select the model that is clicked (has a raycast hit)
 function SelectModel(){
@@ -81,8 +77,10 @@ function SelectModel(){
     
     hitObjects.forEach(element => {
         //Only if the hit object is a mesh attach the transform controls
-        if(element.object.type == "Mesh"){
+        if(element.object.type == "Mesh" && element.object.parent.name !== "ground"){
             controls.attach(element.object.parent);
+            console.log(element.object.position);
+            selectedObject = element.object.parent;
         }
     });
 }
@@ -94,12 +92,11 @@ models.forEach(element => {
         loader.load(element.src, function (gltf){
             const model = gltf.scene;
             model.position.set(element.x_pos, element.y_pos, element.z_pos);
-            model.rotation.set(element.x_rot*(Math.PI/180), element.y_rot*(Math.PI/180), element.z_rot*(Math.PI/180));
-            //controls.attach(gltf.scene);
+            model.rotation.set(element.x_rot*(Math.PI/2), element.y_rot*(Math.PI/2), element.z_rot*(Math.PI/2));
+            model.scale.set(element.x_scale, element.y_scale, element.z_scale);
             model.name = element.name;
             model.model_id = element.model_id;
-            model.castShadow = true;
-            model.receiveShadow = true;
+            console.log("console", model);
             //Get the mesh from the object
             model.traverse((o) => {
                 //Set the object material to the toonshader using the embedded texture
@@ -123,9 +120,9 @@ loader.load(player.modelinfo.src, function(gltf){
     player_model = gltf.scene;
     //console.log(player_model);
     player_model.position.set(player.modelinfo.x_pos, player.modelinfo.y_pos, player.modelinfo.z_pos);
-    player_model.rotation.set(player.modelinfo.x_rot*(Math.PI/180), player.modelinfo.y_rot*(Math.PI/180), player.modelinfo.z_rot*(Math.PI/180));
-    player_model.attach(camera);
-    player_model.attach(pointLight);
+    player_model.rotation.set(player.modelinfo.x_rot*(Math.PI/2), player.modelinfo.y_rot*(Math.PI/2), player.modelinfo.z_rot*(Math.PI/2));
+    //player_model.attach(camera);
+   // player_model.attach(pointLight);
     //Get the mesh from the object
     player_model.traverse((o) => {
         //Set the object material to the toonshader using the embedded texture
@@ -133,7 +130,6 @@ loader.load(player.modelinfo.src, function(gltf){
             o.material = new THREE.MeshToonMaterial({map: o.material.map});
             o.receiveShadow = true;
             o.castShadow = true;
-            player_height = o.geometry.boundingBox.max.y;
         }
     });
     scene.add(player_model);
@@ -144,7 +140,7 @@ window.addEventListener("click", function(e){
     mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
     //Execute MovePlayer
-    MovePlayer();
+    //MovePlayer();
 });
 //Move the player to the location that was clicked (has a raycast hit)
 function MovePlayer(){
