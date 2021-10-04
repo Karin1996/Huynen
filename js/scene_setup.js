@@ -9,6 +9,7 @@ import {PointerLockControls} from 'three/examples/jsm/controls/PointerLockContro
 //Scene
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xa6c8ff);
+scene.fog = new THREE.Fog(0xd8eaed, 1, 80);
 
 //Camera
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 500);
@@ -17,8 +18,6 @@ camera.position.set(0,0,0);
 //Renderer
 const renderer = new THREE.WebGLRenderer({antialias: true});
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.setClearColor(0xa6c8ff);
 
 /*
@@ -44,31 +43,36 @@ sceneCanvas.appendChild(renderer.domElement);
 
 //Lights
 let ambientLight = new THREE.AmbientLight(0xbaeaf7, 1);
-let pointLight = new THREE.PointLight(0xfff6cf, 1, 100);
-pointLight.castShadow = true;
-const lightHelper = new THREE.PointLightHelper(pointLight, 5);
-pointLight.position.set(10,10,1);
-pointLight.shadow.mapSize.width = 2048;
-pointLight.shadow.mapSize.height = 2048;
-pointLight.shadow.camera.near = 1; // default
-pointLight.shadow.camera.far = 500; // default
-pointLight.shadow.radius= 4;
+let spotlight = new THREE.SpotLight(0xfff5c7, 0.8);
 
-renderer.shadowMapEnabled = true;
+const lightHelper = new THREE.SpotLightHelper(spotlight, 0xff0000);
+
+spotlight.castShadow = true;
+spotlight.position.set(80, 55, 0);
+spotlight.shadow.mapSize.width = 2048;
+spotlight.shadow.mapSize.height = 2048;
+spotlight.shadow.radius = 10;
+const d = 30;
+spotlight.shadow.camera.left = - d;
+spotlight.shadow.camera.right = d;
+spotlight.shadow.camera.top = d;
+spotlight.shadow.camera.bottom = - d; 
+spotlight.shadow.camera.near = 1; 
+spotlight.shadow.camera.far = 500;
+
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.shadowMapSoft = true;
-renderer.shadowMapType = THREE.PCFSoftShadowMap;
 
+scene.add(ambientLight, spotlight, lightHelper);
 
-scene.add(ambientLight, pointLight, lightHelper);
-
-//setTimeout(Render, 100);
 
 export{
     scene,
     camera,
     renderer,
     Render,
-    pointLight,
+    spotlight,
     THREE,
     OrbitControls,
     GLTFLoader,

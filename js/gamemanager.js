@@ -5,7 +5,7 @@ import {
     scene,
     camera,
     renderer,
-    pointLight,
+    spotlight,
     Render,
     THREE,
     OrbitControls,
@@ -36,6 +36,9 @@ fpcontrols.lookSpeed = 0;
 fpcontrols.lookVertical = true;
 controls.noFly = true;
 
+let player_model;
+let distance;
+let selectedObject;
 
 //debug mode
 if(debug_mode){
@@ -71,7 +74,7 @@ if(debug_mode){
         mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
         mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
         //Execute SelectModel
-       // SelectModel();
+        SelectModel();
     });
 }
 camera.position.z = 0;
@@ -85,8 +88,10 @@ function SelectModel(){
     
     hitObjects.forEach(element => {
         //Only if the hit object is a mesh attach the transform controls
-        if(element.object.type == "Mesh"){
+        if(element.object.type == "Mesh" && element.object.parent.name !== "ground"){
             controls.attach(element.object.parent);
+            console.log(element.object.position);
+            selectedObject = element.object.parent;
         }
     });
 }
@@ -98,12 +103,11 @@ models.forEach(element => {
         loader.load(element.src, function (gltf){
             const model = gltf.scene;
             model.position.set(element.x_pos, element.y_pos, element.z_pos);
-            model.rotation.set(element.x_rot*(Math.PI/180), element.y_rot*(Math.PI/180), element.z_rot*(Math.PI/180));
-            //controls.attach(gltf.scene);
+            model.rotation.set(element.x_rot*(Math.PI/2), element.y_rot*(Math.PI/2), element.z_rot*(Math.PI/2));
+            model.scale.set(element.x_scale, element.y_scale, element.z_scale);
             model.name = element.name;
             model.model_id = element.model_id;
-            model.castShadow = true;
-            model.receiveShadow = true;
+            console.log("console", model);
             //Get the mesh from the object
             model.traverse((o) => {
                 //Set the object material to the toonshader using the embedded texture
@@ -121,12 +125,33 @@ models.forEach(element => {
     }
 });
 
-//Doesnt work on mobile
+//Load the player model
+loader.load(player.modelinfo.src, function(gltf){
+    //console.log(gltf);
+    player_model = gltf.scene;
+    //console.log(player_model);
+    player_model.position.set(player.modelinfo.x_pos, player.modelinfo.y_pos, player.modelinfo.z_pos);
+    player_model.rotation.set(player.modelinfo.x_rot*(Math.PI/2), player.modelinfo.y_rot*(Math.PI/2), player.modelinfo.z_rot*(Math.PI/2));
+    //player_model.attach(camera);
+   // player_model.attach(pointLight);
+    //Get the mesh from the object
+    player_model.traverse((o) => {
+        //Set the object material to the toonshader using the embedded texture
+        if(o.isMesh){
+            o.material = new THREE.MeshToonMaterial({map: o.material.map});
+            o.receiveShadow = true;
+            o.castShadow = true;
+        }
+    });
+    scene.add(player_model);
+});
+
 window.addEventListener("dblclick", function(e){
     mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
     //Execute MovePlayer
+    MovePlayer();
     if(movePlayer == true){
         MovePlayer();
     }
@@ -139,7 +164,6 @@ window.addEventListener("mouseup", function(e){
     fpcontrols.lookSpeed = 0;
     movePlayer = true;
 });
-
 //Move the player to the location that was clicked (has a raycast hit)
 function MovePlayer(){
     raycaster.setFromCamera(mouse, camera);
