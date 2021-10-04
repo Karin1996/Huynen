@@ -68,8 +68,8 @@ if(debug_mode){
     });
 }
 camera.position.z = 3;
-camera.position.y = 3;
-camera.rotation.x = -40*(Math.PI/180);
+camera.position.y = 2;
+camera.rotation.x = -10*(Math.PI/180);
 orbitControls.enablePan = false;
 orbitControls.enableRotate = false;
 orbitControls.enableZoom = false;
@@ -138,9 +138,11 @@ loader.load(player.modelinfo.src, function(gltf){
     });
     scene.add(player_model);
 });
+
 window.addEventListener("click", function(e){
     mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
     //Execute MovePlayer
     MovePlayer();
 });
