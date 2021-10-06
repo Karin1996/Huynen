@@ -111,7 +111,7 @@ models.forEach(element => {
         loader.load(element.src, function (gltf){
             const model = gltf.scene;
             model.position.set(element.x_pos, element.y_pos, element.z_pos);
-            model.rotation.set(element.x_rot*(Math.PI/2), element.y_rot*(Math.PI/2), element.z_rot*(Math.PI/2));
+            model.rotation.set(element.x_rot*(Math.PI/180), element.y_rot*(Math.PI/180), element.z_rot*(Math.PI/180));
             model.scale.set(element.x_scale, element.y_scale, element.z_scale);
             model.name = element.name;
             model.model_id = element.model_id;
@@ -138,7 +138,7 @@ loader.load(player.modelinfo.src, function(gltf){
     player_model = gltf.scene;
     //console.log(player_model);
     player_model.position.set(player.modelinfo.x_pos, player.modelinfo.y_pos, player.modelinfo.z_pos);
-    player_model.rotation.set(player.modelinfo.x_rot*(Math.PI/2), player.modelinfo.y_rot*(Math.PI/2), player.modelinfo.z_rot*(Math.PI/2));
+    player_model.rotation.set(player.modelinfo.x_rot*(Math.PI/180), player.modelinfo.y_rot*(Math.PI/180), player.modelinfo.z_rot*(Math.PI/180));
     //player_model.attach(camera);
    // player_model.attach(pointLight);
     //Get the mesh from the object
