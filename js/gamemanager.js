@@ -18,27 +18,35 @@ import {
 import {
     player
 } from "../js/player";
+import { Vector3 } from "three";
 
 //Var declarations
-let debug_mode = true;
+let debug_mode = false;
 const loader = new GLTFLoader();
 //const orbitControls = new OrbitControls(camera, renderer.domElement);
 const controls = new TransformControls(camera, renderer.domElement);
 const pointerControls = new PointerLockControls(camera, renderer.domElement);
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
-let distance_ground = 1.6;
+let distance_ground = 1.5;
 let clock = new THREE.Clock();
 let movePlayer = true;
 const fpcontrols = new FirstPersonControls(camera, renderer.domElement);
+const look_speed = 0.12;
 fpcontrols.movementSpeed = 0;
 fpcontrols.lookSpeed = 0;
 fpcontrols.lookVertical = true;
-controls.noFly = true;
-
+fpcontrols.enableDamping = true;
+fpcontrols.noFly = true;
 let player_model;
-let distance;
+let step = 0.1;
 let selectedObject;
+
+let inMotion = false;
+
+document.addEventListener('DOMContentLoaded', window.addEventListener("mousemove", function(e){
+    //If mouse moves more than x, only then enable look around
+}), false); 
 
 //debug mode
 if(debug_mode){
@@ -90,7 +98,7 @@ function SelectModel(){
         //Only if the hit object is a mesh attach the transform controls
         if(element.object.type == "Mesh" && element.object.parent.name !== "ground"){
             controls.attach(element.object.parent);
-            console.log(element.object.position);
+            //console.log(element.object.position);
             selectedObject = element.object.parent;
         }
     });
@@ -107,7 +115,6 @@ models.forEach(element => {
             model.scale.set(element.x_scale, element.y_scale, element.z_scale);
             model.name = element.name;
             model.model_id = element.model_id;
-            console.log("console", model);
             //Get the mesh from the object
             model.traverse((o) => {
                 //Set the object material to the toonshader using the embedded texture
@@ -146,26 +153,52 @@ loader.load(player.modelinfo.src, function(gltf){
     scene.add(player_model);
 });
 
-window.addEventListener("dblclick", function(e){
+window.addEventListener("mousedown", function(e){
     mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
     //Execute MovePlayer
-    MovePlayer();
-    if(movePlayer == true){
+    if(movePlayer && !inMotion){
+        fpcontrols.lookSpeed = 0;
+        inMotion = true;
+        movePlayer = false;
         MovePlayer();
     }
 });
-window.addEventListener("mousedown", function(e){
-    fpcontrols.lookSpeed = 0.2;
-    movePlayer = false;
-});
-window.addEventListener("mouseup", function(e){
-    fpcontrols.lookSpeed = 0;
-    movePlayer = true;
-});
+// window.addEventListener("mousedown", function(e){
+//     //if (!inMotion) {
+//         fpcontrols.lookSpeed = 0.2;
+//         movePlayer = false;
+//     //}
+// });
+// window.addEventListener("mouseup", function(e){
+//     //if (!inMotion) {
+//         fpcontrols.lookSpeed = 0;
+//         movePlayer = true;
+//     //}
+// });
+
+function animatePosition(a, b, distance, camera, percentage=0){
+    if (percentage >= 0.2) {
+        fpcontrols.lookSpeed = look_speed;
+        inMotion = false;
+        movePlayer = true;
+        return;
+    }
+
+    // Determine the step size (constant)
+    let steps = Math.round(distance / step);
+    let percentage_step = 1 / steps;
+
+    setTimeout(function(){
+        camera.position.lerpVectors(a, b, percentage);
+        animatePosition(a, b, distance, camera, percentage + percentage_step);
+    }, 30);
+}
+
 //Move the player to the location that was clicked (has a raycast hit)
 function MovePlayer(){
+    const a_pos = camera.position;
     raycaster.setFromCamera(mouse, camera);
     const clickLocation = raycaster.intersectObjects(scene.children, true);
 
@@ -175,18 +208,17 @@ function MovePlayer(){
         if(element.object.type == "Mesh"){
         //If the object is the ground. Get the x, y, z position
             if(element.object.parent.name == "ground"){
-                //distance = element.distance;
-                const x = element.point.x;
-                distance_ground = element.point.y + 1.6;
-                const z = element.point.z;
-                camera.position.set(x, distance_ground, z);
+                const distance = element.distance;
+                const b_pos = new Vector3(element.point.x, element.point.y + 1.6, element.point.z);
+
+                animatePosition(a_pos, b_pos, distance, camera);
                 }
             }
     });
 }
 
 function RenderLoop() {
-    fpcontrols.update(clock.getDelta());
+    fpcontrols.update(clock.getDelta()); //To be able to look around
 	requestAnimationFrame(RenderLoop);
 	Render();
 }
