@@ -71,7 +71,8 @@ if(debug_mode){
     });
 }
 camera.position.z = 3;
-camera.position.y = 1;
+camera.position.y = 2;
+camera.rotation.x = -20*(Math.PI/180);
 
 //Select the model that is clicked (has a raycast hit)
 function SelectModel(){
@@ -174,10 +175,13 @@ function MovePlayer(){
             //If the object is the ground. Get the x, y, z position
             if(element.object.parent.name == "ground"){
                 console.log(element.object.parent);
-                const distance = element.distance;
-                const b_pos = new Vector3(element.point.x, element.point.y, element.point.z);
-
-                animatePosition(a_pos, b_pos, distance, player_model);
+                const x = element.point.x;
+                const y = element.point.y;
+                const z = element.point.z;
+                player_model.position.set(x, y, z);
+                // const distance = element.distance;
+                // const b_pos = new Vector3(element.point.x, element.point.y, element.point.z);
+                // animatePosition(a_pos, b_pos, distance, player_model);
             }
         }
     });
