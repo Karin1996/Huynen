@@ -67,8 +67,8 @@ if(debug_mode){
         SelectModel();
     });
 }
-camera.position.z = 3;
-camera.position.y = 2;
+camera.position.z = 4;
+camera.position.y = 1;
 
 //Select the model that is clicked (has a raycast hit)
 function SelectModel(){
@@ -88,7 +88,7 @@ function SelectModel(){
 //Loop over the model json file and get all the static models
 models.forEach(element => {
     //If the object is static add it to the scene
-    if(element.static === true){
+    //if(element.static === true){
         loader.load(element.src, function (gltf){
             const model = gltf.scene;
             model.position.set(element.x_pos, element.y_pos, element.z_pos);
@@ -96,44 +96,49 @@ models.forEach(element => {
             model.scale.set(element.x_scale, element.y_scale, element.z_scale);
             model.name = element.name;
             model.model_id = element.model_id;
-            console.log("console", model);
             //Get the mesh from the object
             model.traverse((o) => {
-                //Set the object material to the toonshader using the embedded texture
                 if(o.isMesh){
-                    o.material = new THREE.MeshToonMaterial({map: o.material.map});
+                    //Get the correct textureMaps
+                    const texture = new THREE.TextureLoader().load("../textures/"+model.name+"_tex_color.jpg");
+                    const ao = new THREE.TextureLoader().load("../textures/"+model.name+"_tex_ao.jpg");
+                    const emit = new THREE.TextureLoader().load("../textures/"+model.name+"_tex_emit.jpg");
+                    //Set the object material to the toonshader using the textureMaps
+                    o.material = new THREE.MeshToonMaterial({map:texture, aoMap:ao, emissiveMap:emit});
                     o.receiveShadow = true;
                     o.castShadow = true;
                 }
             });
             scene.add(controls, model);
         });
-    }
-    else{
-        return;
-    }
+    //}
+    //else{
+    //    return;
+    //}
 });
 
 //Load the player model
-loader.load(player.modelinfo.src, function(gltf){
-    //console.log(gltf);
+/*loader.load(player.modelinfo.src, function(gltf){
     player_model = gltf.scene;
-    //console.log(player_model);
     player_model.position.set(player.modelinfo.x_pos, player.modelinfo.y_pos, player.modelinfo.z_pos);
     player_model.rotation.set(player.modelinfo.x_rot*(Math.PI/2), player.modelinfo.y_rot*(Math.PI/2), player.modelinfo.z_rot*(Math.PI/2));
     //player_model.attach(camera);
-   // player_model.attach(pointLight);
     //Get the mesh from the object
     player_model.traverse((o) => {
         //Set the object material to the toonshader using the embedded texture
         if(o.isMesh){
-            o.material = new THREE.MeshToonMaterial({map: o.material.map});
+            //Get the correct textureMaps
+            const texture = new THREE.TextureLoader().load("../textures/"+player_model.name+"_tex_color.jpg");
+            const ao = new THREE.TextureLoader().load("../textures/"+player_model.name+"_tex_ao.jpg");
+            const emit = new THREE.TextureLoader().load("../textures/"+player_model.name+"_tex_emit.jpg");
+            //Set the object material to the toonshader using the textureMaps
+            o.material = new THREE.MeshToonMaterial({map:texture, aoMap:ao, emissiveMap:emit});
             o.receiveShadow = true;
             o.castShadow = true;
         }
     });
     scene.add(player_model);
-});
+});*/
 
 window.addEventListener("click", function(e){
     mouse.x = (e.clientX / window.innerWidth) * 2 - 1;

@@ -10,7 +10,7 @@ scene.background = new THREE.Color(0xa6c8ff);
 scene.fog = new THREE.Fog(0xd8eaed, 1, 80);
 
 //Camera
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 500);
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.2, 300);
 camera.position.set(0,0,0);
 
 //Renderer
@@ -30,6 +30,7 @@ function OnWindowResize(){
 
 function Render(){
     camera.aspect = window.innerWidth / window.innerHeight;
+    renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     camera.updateProjectionMatrix();
     renderer.render(scene, camera);
@@ -40,29 +41,28 @@ let sceneCanvas = document.getElementById('sceneCanvas');
 sceneCanvas.appendChild(renderer.domElement);
 
 //Lights
-let ambientLight = new THREE.AmbientLight(0xbaeaf7, 1);
-let spotlight = new THREE.SpotLight(0xfff5c7, 0.8);
+let ambientLight = new THREE.AmbientLight(0xcce0ff, 1);
+let dirLight = new THREE.DirectionalLight(0xfff5c7, 1);
 
-const lightHelper = new THREE.SpotLightHelper(spotlight, 0xff0000);
-
-spotlight.castShadow = true;
-spotlight.position.set(80, 55, 0);
-spotlight.shadow.mapSize.width = 2048;
-spotlight.shadow.mapSize.height = 2048;
-spotlight.shadow.radius = 10;
+//Light settings
+dirLight.position.set(100, 40, 40);
+dirLight.castShadow = true;
+dirLight.shadow.mapSize.width = 1024;
+dirLight.shadow.mapSize.height = 1024;
 const d = 30;
-spotlight.shadow.camera.left = - d;
-spotlight.shadow.camera.right = d;
-spotlight.shadow.camera.top = d;
-spotlight.shadow.camera.bottom = - d; 
-spotlight.shadow.camera.near = 1; 
-spotlight.shadow.camera.far = 500;
-
+dirLight.shadow.camera.left = - d;
+dirLight.shadow.camera.right = d;
+dirLight.shadow.camera.top = d;
+dirLight.shadow.camera.bottom = - d; 
+dirLight.shadow.camera.near = 0.2;
+dirLight.shadow.camera.far = 300;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.shadowMapSoft = true;
+//dirLight.radius = 10;
 
-scene.add(ambientLight, spotlight, lightHelper);
+
+scene.add(ambientLight, dirLight);
 
 
 export{
@@ -70,7 +70,7 @@ export{
     camera,
     renderer,
     Render,
-    spotlight,
+   //spotlight,
     THREE,
     OrbitControls,
     GLTFLoader,
