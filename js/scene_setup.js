@@ -72,7 +72,6 @@ export{
     camera,
     renderer,
     Render,
-   //spotlight,
     THREE,
     OrbitControls,
     GLTFLoader,

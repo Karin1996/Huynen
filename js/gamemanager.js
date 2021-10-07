@@ -5,7 +5,6 @@ import {
     scene,
     camera,
     renderer,
-    spotlight,
     Render,
     THREE,
     OrbitControls,
