@@ -10,30 +10,49 @@ import {
     THREE,
     OrbitControls,
     GLTFLoader,
-    TransformControls
+    TransformControls,
+    FirstPersonControls,
+    PointerLockControls
 } from "../js/scene_setup";
 
 import {
     player
 } from "../js/player";
-
-let debug_mode = true;
+import { Vector3 } from "three";
 
 //Var declarations
-const orbitControls = new OrbitControls(camera, renderer.domElement);
+let debug_mode = false;
 const loader = new GLTFLoader();
+//const orbitControls = new OrbitControls(camera, renderer.domElement);
 const controls = new TransformControls(camera, renderer.domElement);
+const pointerControls = new PointerLockControls(camera, renderer.domElement);
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
+let distance_ground = 1.5;
+let clock = new THREE.Clock();
+let movePlayer = true;
+const fpcontrols = new FirstPersonControls(camera, renderer.domElement);
+const look_speed = 0.12;
+fpcontrols.movementSpeed = 0;
+fpcontrols.lookSpeed = 0;
+fpcontrols.lookVertical = true;
+fpcontrols.enableDamping = true;
+fpcontrols.noFly = true;
 let player_model;
-let distance;
+let step = 0.1;
 let selectedObject;
+
+let inMotion = false;
+
+document.addEventListener('DOMContentLoaded', window.addEventListener("mousemove", function(e){
+    //If mouse moves more than x, only then enable look around
+}), false); 
 
 //debug mode
 if(debug_mode){
     let gridHelper = new THREE.GridHelper(10,10);
     const axesHelper = new THREE.AxesHelper( 5 );
-    orbitControls.update();
+    //orbitControls.update();
     scene.add(gridHelper, axesHelper);
     //When pressing G, R or S change the transform controls mode
     window.addEventListener('keydown', function (event) {
@@ -52,11 +71,10 @@ if(debug_mode){
 
     // When clicking disable orbitControls. You cant move object easily otherwise
     controls.addEventListener('mouseDown', function () {
-        orbitControls.enabled = false;
+       // orbitControls.enabled = false;
     });
     controls.addEventListener('mouseUp', function () {
-        orbitControls.enabled = true;
-        console.log(selectedObject);
+        //orbitControls.enabled = true;
     });
 
     //When a click event is triggered get mouse location
@@ -67,8 +85,9 @@ if(debug_mode){
         SelectModel();
     });
 }
-camera.position.z = 4;
-camera.position.y = 1;
+camera.position.z = 0;
+camera.position.y = distance_ground;
+
 
 //Select the model that is clicked (has a raycast hit)
 function SelectModel(){
@@ -79,7 +98,7 @@ function SelectModel(){
         //Only if the hit object is a mesh attach the transform controls
         if(element.object.type == "Mesh" && element.object.parent.name !== "ground"){
             controls.attach(element.object.parent);
-            console.log(element.object.position);
+            //console.log(element.object.position);
             selectedObject = element.object.parent;
         }
     });
@@ -92,7 +111,7 @@ models.forEach(element => {
         loader.load(element.src, function (gltf){
             const model = gltf.scene;
             model.position.set(element.x_pos, element.y_pos, element.z_pos);
-            model.rotation.set(element.x_rot*(Math.PI/2), element.y_rot*(Math.PI/2), element.z_rot*(Math.PI/2));
+            model.rotation.set(element.x_rot*(Math.PI/180), element.y_rot*(Math.PI/180), element.z_rot*(Math.PI/180));
             model.scale.set(element.x_scale, element.y_scale, element.z_scale);
             model.name = element.name;
             model.model_id = element.model_id;
@@ -121,7 +140,7 @@ models.forEach(element => {
 /*loader.load(player.modelinfo.src, function(gltf){
     player_model = gltf.scene;
     player_model.position.set(player.modelinfo.x_pos, player.modelinfo.y_pos, player.modelinfo.z_pos);
-    player_model.rotation.set(player.modelinfo.x_rot*(Math.PI/2), player.modelinfo.y_rot*(Math.PI/2), player.modelinfo.z_rot*(Math.PI/2));
+    player_model.rotation.set(player.modelinfo.x_rot*(Math.PI/180), player.modelinfo.y_rot*(Math.PI/180), player.modelinfo.z_rot*(Math.PI/180));
     //player_model.attach(camera);
     //Get the mesh from the object
     player_model.traverse((o) => {
@@ -140,15 +159,52 @@ models.forEach(element => {
     scene.add(player_model);
 });*/
 
-window.addEventListener("click", function(e){
+window.addEventListener("mousedown", function(e){
     mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
     //Execute MovePlayer
-    //MovePlayer();
+    if(movePlayer && !inMotion){
+        fpcontrols.lookSpeed = 0;
+        inMotion = true;
+        movePlayer = false;
+        MovePlayer();
+    }
 });
+// window.addEventListener("mousedown", function(e){
+//     //if (!inMotion) {
+//         fpcontrols.lookSpeed = 0.2;
+//         movePlayer = false;
+//     //}
+// });
+// window.addEventListener("mouseup", function(e){
+//     //if (!inMotion) {
+//         fpcontrols.lookSpeed = 0;
+//         movePlayer = true;
+//     //}
+// });
+
+function animatePosition(a, b, distance, camera, percentage=0){
+    if (percentage >= 0.2) {
+        fpcontrols.lookSpeed = look_speed;
+        inMotion = false;
+        movePlayer = true;
+        return;
+    }
+
+    // Determine the step size (constant)
+    let steps = Math.round(distance / step);
+    let percentage_step = 1 / steps;
+
+    setTimeout(function(){
+        camera.position.lerpVectors(a, b, percentage);
+        animatePosition(a, b, distance, camera, percentage + percentage_step);
+    }, 30);
+}
+
 //Move the player to the location that was clicked (has a raycast hit)
 function MovePlayer(){
+    const a_pos = camera.position;
     raycaster.setFromCamera(mouse, camera);
     const clickLocation = raycaster.intersectObjects(scene.children, true);
 
@@ -156,23 +212,19 @@ function MovePlayer(){
     clickLocation.forEach(element => {
         //Only if the hit object is a mesh look for the name of the object it is in
         if(element.object.type == "Mesh"){
-            //If the object is the ground. Get the x, y, z position
+        //If the object is the ground. Get the x, y, z position
             if(element.object.parent.name == "ground"){
-                distance = element.distance;
-                const x = element.point.x;
-                const y = element.point.y;
-                const z = element.point.z;
-                player_model.position.set(x, y, z);
-                //Lerp position. Use the distance gained and divide that by step/speed size until location is reached
-                //player_model.position.lerp(new THREE.Vector3(x,y,z), 0,5);
-            }
-        }
-    });
+                const distance = element.distance;
+                const b_pos = new Vector3(element.point.x, element.point.y + 1.6, element.point.z);
 
+                animatePosition(a_pos, b_pos, distance, camera);
+                }
+            }
+    });
 }
 
 function RenderLoop() {
-    //var delta = clock.getDelta();
+    fpcontrols.update(clock.getDelta()); //To be able to look around
 	requestAnimationFrame(RenderLoop);
 	Render();
 }

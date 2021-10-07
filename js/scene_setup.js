@@ -3,6 +3,8 @@ import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 import {TransformControls} from 'three/examples/jsm/controls/TransformControls.js';
+import {FirstPersonControls} from 'three/examples/jsm/controls/FirstPersonControls.js';
+import {PointerLockControls} from 'three/examples/jsm/controls/PointerLockControls.js';
 
 //Scene
 const scene = new THREE.Scene();
@@ -74,5 +76,7 @@ export{
     THREE,
     OrbitControls,
     GLTFLoader,
-    TransformControls
+    TransformControls,
+    FirstPersonControls,
+    PointerLockControls
 };
