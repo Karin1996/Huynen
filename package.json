@@ -12,12 +12,13 @@
   },
   "author": "Karin Kreeft",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Karin1996/Huynen/issues"
-  },
   "homepage": "https://github.com/Karin1996/Huynen#readme",
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/node": "^16.10.3"
+  },
   "dependencies": {
+    "debug.js": "^1.1.5",
+    "load.js": "^3.1.2",
     "parcel-bundler": "^1.12.5",
     "sass": "^1.39.2",
     "three": "^0.132.2"

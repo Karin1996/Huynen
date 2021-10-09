@@ -11,6 +11,5 @@ let player_model = model_json.find(obj=> obj.model_id === player.model_id);
 //Add the correct object from model_json to player object
 player.modelinfo = player_model;
 
-
 //Export player object
 export {player};
