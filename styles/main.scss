@@ -18,8 +18,10 @@ $lightBlue: #adbac2;
 
 html{
     font-size: 100%;
-    box-sizing: border-box;
     font-family: $mainFont;
+    -webkit-box-sizing: padding-box;
+    -moz-box-sizing: padding-box;
+    box-sizing: border-box;
 }
 *, *::before, *::after{
     box-sizing: inherit;
@@ -43,12 +45,12 @@ body{
     flex-direction: column;
 }
 
-h1{
+h1#title{
     font-size: 7rem;
     text-align: center;
     position: relative;
 }
-h1::before{
+h1#title::before{
     content: "";
     position: absolute;
     width: 3.75rem;
@@ -61,7 +63,7 @@ h1::before{
     filter: invert(100%);
     transform: scaleX(-1);
 }
-h1::after{
+h1#title::after{
     content: "";
     position: absolute;
     width: 2.1rem;
@@ -74,7 +76,7 @@ h1::after{
     transform: rotate(20deg);
     filter: invert(100%);
 }
-h3{
+h3#subtitle{
     color: $lightBlue;
     font-size: 1.75rem;
     font-family: $secondaryFont;
@@ -120,7 +122,7 @@ div.explanation p{
     cursor: default;
     margin-left: 1rem;
 }
-a{
+div.btn a{
     position: relative;
     width: 12rem;
     height: 12rem;
@@ -132,7 +134,7 @@ a{
     cursor: pointer;
     transition: all linear 300ms;
 }
-div::before{
+div.btn::before{
     content: " ";
     position: absolute;
     top: 0;
@@ -147,7 +149,7 @@ div::before{
     cursor: pointer;
     transition: all linear 300ms;
 }
-p{
+div.btn p{
     text-align: center;
     position: absolute;
     width: 100%;
@@ -187,4 +189,47 @@ div.btn:hover > p{
     width: 100vw;
     height: 100vh;
     cursor: crosshair;
+}
+
+#dialogue{
+    width: 415px;
+    height: 290px;
+    z-index: 3;
+    position: absolute;
+    bottom: 30px;
+    background-image: url("../images/dialogueUI.png");
+    background-position: center center;
+    background-size: cover;
+}
+#dialoguePerson{
+    font-size: 1rem;
+    color: $greyish;
+    width: 120px;
+    transform: rotate(-3deg);
+    text-align: center;
+    text-transform: uppercase;
+    font-family: $mainFont;
+    position: relative;
+    top: 24px;
+    left: 44px;
+}
+#dialogueDescription{
+    max-height: 201px;
+    width: 332px;
+    left: 38px;
+    position: relative;
+    top: 45.2px;
+    font-family: $secondaryFont;
+    font-size: 1.1rem;
+    overflow-y: scroll;
+    padding: 8px 10px;
+    scrollbar-width: thin;
+    scrollbar-color: $blue #14191d9c;
+}
+::-webkit-scrollbar {
+    width: 8px;
+    background: #14191d9c;
+}
+::-webkit-scrollbar-thumb {
+    background: $blue;
 }

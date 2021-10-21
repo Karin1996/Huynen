@@ -1,4 +1,4 @@
-//SCRIPT TO LOAD IN ALL THE 3D MODELS//
+//SCRIPT TO LOAD AND MUTATE ALL THE 3D MODELS
 //Get json files
 let models = require("../local_db/model.json");
 
@@ -35,17 +35,17 @@ models.forEach(element => {
                         o.receiveShadow = true;
                         o.castShadow = true;
                     }
-                    
-                    const lm = new THREE.TextureLoader().load("../models/"+model.name+"_lm.jpg");
                     //If the element needs to be doublesided
                     if(element.doublesided){
                         o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide});
                     }
                     //Element doesn't need to be doublesided or is not a plane
                     else{
-                        //var uvs = o.geometry.attributes.uv.array;
-                        //o.geometry.addAttribute( 'uv2', new THREE.BufferAttribute( uvs, 2 ) );
                         o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.FrontSide, shadowSide: THREE.FrontSide});
+                        //Make a bounding box for the collision detection around the object. Will later generate matrix
+                        o.geometry.computeBoundingBox();
+                        const box = new THREE.BoxHelper(model, 0xffff00 );
+                        scene.add(box);
                     }
                 }
             });

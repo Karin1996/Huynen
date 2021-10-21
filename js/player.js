@@ -1,3 +1,5 @@
+//SCRIPT TO LOAD IN ALL PLAYER INFORMATION
+
 //Get json files
 let player_json = require("../local_db/player.json");
 let model_json = require("../local_db/model.json");

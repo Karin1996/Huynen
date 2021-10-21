@@ -1,4 +1,4 @@
-//SCRIPT TO ENABLE DEBUG MODE//
+//SCRIPT FOR DEBUGGING
 import {
     scene,
     camera,
@@ -15,7 +15,7 @@ const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 const stats = Stats();
 let selectedObject;
-let debug_mode = true;
+let debug_mode = false;
 
 //debug mode
 if(debug_mode){
