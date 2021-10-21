@@ -1,4 +1,5 @@
 //Imports
+import { dir } from 'console';
 import * as THREE from 'three';
 
 //Scene
@@ -11,7 +12,7 @@ const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerH
 camera.position.set(0,0,0);
 
 //Renderer
-const renderer = new THREE.WebGLRenderer({antialias: true});
+const renderer = new THREE.WebGLRenderer({antialias: true, alpha:true, });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(0xa6c8ff);
 
@@ -39,26 +40,38 @@ sceneCanvas.appendChild(renderer.domElement);
 
 //Lights
 let ambientLight = new THREE.AmbientLight(0xcce0ff, 1);
-let dirLight = new THREE.DirectionalLight(0xfff5c7, 1);
+let dirLight = new THREE.DirectionalLight(0xfff5c7);
+let dirHelper = new THREE.DirectionalLightHelper(dirLight, 5);
+const camHelper = new THREE.CameraHelper(camera);
+scene.add(dirHelper, camHelper);
 
 //Light settings
 dirLight.position.set(100, 40, 40);
+
+//Shadows are to dark, currently this is the lightest method to reduce shadow intensity
+let dirLight2 = dirLight.clone();
 dirLight.castShadow = true;
-dirLight.shadow.mapSize.width = 1024;
-dirLight.shadow.mapSize.height = 1024;
-const d = 30;
-dirLight.shadow.camera.left = - d;
-dirLight.shadow.camera.right = d;
-dirLight.shadow.camera.top = d;
-dirLight.shadow.camera.bottom = - d; 
-dirLight.shadow.camera.near = 0.2;
-dirLight.shadow.camera.far = 300;
+dirLight2.castShadow = false;
+dirLight.intensity = 0.3;
+dirLight2.intensity = 0.7;
+
+dirLight.shadow.mapSize.width = 512;
+dirLight.shadow.mapSize.height = 512;
+
+dirLight.shadow.camera.left = -30;
+dirLight.shadow.camera.right = 30;
+dirLight.shadow.camera.top = 30;
+dirLight.shadow.camera.bottom = -30;
+dirLight.shadow.camera.near = 50;
+dirLight.shadow.camera.far = 250;
+dirLight.shadow.bias = -0.004;
+
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.shadowMapSoft = true;
-dirLight.shadow.bias = 0.0001;
+//renderer.shadowMap.needsUpdate = true;
 
-scene.add(ambientLight, dirLight);
+scene.add(ambientLight, dirLight, dirLight2);
 
 
 export{

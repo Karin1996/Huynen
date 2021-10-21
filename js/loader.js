@@ -7,6 +7,7 @@ import {
     THREE,
 } from "./debug";
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
+import { on } from "events";
 
 
 //Var declarations
@@ -25,9 +26,16 @@ models.forEach(element => {
             model.model_id = element.model_id;
             //Get the mesh from the object
             model.traverse((o) => {
-                if(o.isMesh){       
-                    o.receiveShadow = false;
-                    o.castShadow = false;
+                if(o.isMesh){
+                    if(o.name == "GroundPlane"){
+                        o.receiveShadow = true;
+                        o.castShadow = false;
+                    }
+                    else{
+                        o.receiveShadow = true;
+                        o.castShadow = true;
+                    }
+                    
                     const lm = new THREE.TextureLoader().load("../models/"+model.name+"_lm.jpg");
                     //If the element needs to be doublesided
                     if(element.doublesided){
@@ -35,9 +43,9 @@ models.forEach(element => {
                     }
                     //Element doesn't need to be doublesided or is not a plane
                     else{
-                        var uvs = o.geometry.attributes.uv.array;
-                        o.geometry.addAttribute( 'uv2', new THREE.BufferAttribute( uvs, 2 ) );
-                        o.material = new THREE.MeshToonMaterial({map: o.material.map, lightMap:lm});
+                        //var uvs = o.geometry.attributes.uv.array;
+                        //o.geometry.addAttribute( 'uv2', new THREE.BufferAttribute( uvs, 2 ) );
+                        o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.FrontSide, shadowSide: THREE.FrontSide});
                     }
                 }
             });
