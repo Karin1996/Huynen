@@ -10,7 +10,6 @@ import {TransformControls} from 'three/examples/jsm/controls/TransformControls';
 
 
 //Var declarations
-const orbitControls = new OrbitControls(camera, renderer.domElement);
 const controls = new TransformControls(camera, renderer.domElement);
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
@@ -19,6 +18,7 @@ let debug_mode = true;
 
 //debug mode
 if(debug_mode){
+    const orbitControls = new OrbitControls(camera, renderer.domElement);
     let gridHelper = new THREE.GridHelper(10,10);
     const axesHelper = new THREE.AxesHelper( 5 );
     scene.add(gridHelper, axesHelper);
@@ -52,6 +52,7 @@ if(debug_mode){
         //Execute SelectModel
         SelectModel();
     });
+    scene.add(controls);
 }
 
 //Select the model that is clicked (has a raycast hit)
@@ -67,7 +68,6 @@ function SelectModel(){
             selectedObject = element.object.parent;
         }
     });
-    scene.add(controls);
 }
 
 export{
@@ -76,5 +76,6 @@ export{
     renderer,
     THREE, 
     mouse,
-    raycaster
+    raycaster, 
+    debug_mode
 };

@@ -25,15 +25,20 @@ models.forEach(element => {
             model.model_id = element.model_id;
             //Get the mesh from the object
             model.traverse((o) => {
-                if(o.isMesh){
-                    //Get the correct textureMaps
-                    const texture = new THREE.TextureLoader().load("../textures/"+model.name+"_tex_color.jpg");
-                    const ao = new THREE.TextureLoader().load("../textures/"+model.name+"_tex_ao.jpg");
-                    const emit = new THREE.TextureLoader().load("../textures/"+model.name+"_tex_emit.jpg");
-                    //Set the object material to the toonshader using the textureMaps
-                    o.material = new THREE.MeshToonMaterial({map:texture, aoMap:ao, emissiveMap:emit});
-                    o.receiveShadow = true;
-                    o.castShadow = true;
+                if(o.isMesh){       
+                    o.receiveShadow = false;
+                    o.castShadow = false;
+                    const lm = new THREE.TextureLoader().load("../models/"+model.name+"_lm.jpg");
+                    //If the element needs to be doublesided
+                    if(element.doublesided){
+                        o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide});
+                    }
+                    //Element doesn't need to be doublesided or is not a plane
+                    else{
+                        var uvs = o.geometry.attributes.uv.array;
+                        o.geometry.addAttribute( 'uv2', new THREE.BufferAttribute( uvs, 2 ) );
+                        o.material = new THREE.MeshToonMaterial({map: o.material.map, lightMap:lm});
+                    }
                 }
             });
             scene.add(model);

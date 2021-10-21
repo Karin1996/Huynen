@@ -56,6 +56,7 @@ dirLight.shadow.camera.far = 300;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.shadowMapSoft = true;
+dirLight.shadow.bias = 0.0001;
 
 scene.add(ambientLight, dirLight);
 

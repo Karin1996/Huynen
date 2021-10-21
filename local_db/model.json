@@ -1,24 +1,6 @@
 [
     {
         "model_id": 1,
-        "name": "person",
-        "src": "../models/player.gltf",
-        "x_pos": -2,
-        "y_pos": 0,
-        "z_pos": 0,
-        "x_rot": 0,
-        "y_rot": 180,
-        "z_rot": 0,
-        "x_scale": 1,
-        "y_scale": 1,
-        "z_scale": 1,
-        "static": false,
-        "keyframes": 180,
-        "clips": [{"name": "idle", "startframe": 0, "endframe": 120}, {"name": "walk", "startframe": 140, "endframe": 180}],
-        "information_id": 0
-    },
-    {
-        "model_id": 2,
         "name": "ground",
         "src": "../models/ground.gltf",
         "x_pos": 0,
@@ -30,17 +12,18 @@
         "x_scale": 1,
         "y_scale": 1,
         "z_scale": 1,
-        "static": true,
+        "static": false,
+        "doublesided": false,
         "keyframes": 0,
         "clips": [],
         "information_id": 0
     },
     {
-        "model_id": 9,
-        "name": "suzanne",
-        "src": "../models/baking_test.gltf",
-        "x_pos": 0.3,
-        "y_pos": 0.2,
+        "model_id": 2,
+        "name": "monkey1",
+        "src": "../models/monkey1.gltf",
+        "x_pos": 0,
+        "y_pos": 1,
         "z_pos": 0,
         "x_rot": 0,
         "y_rot": 0,
@@ -48,9 +31,10 @@
         "x_scale": 1,
         "y_scale": 1,
         "z_scale": 1,
-        "static": true,
+        "static": false,
+        "doublesided": false,
         "keyframes": 0,
         "clips": [],
         "information_id": 0
-    }
+    }  
 ]

@@ -8,7 +8,7 @@ import * as movement from "../js/movement.js";
 const clock = new scene_setup.THREE.Clock();
 
 function RenderLoop() {
-    movement.fpcontrols.update(clock.getDelta()); //To be able to look around
+    if(!debug.debug_mode){movement.fpcontrols.update(clock.getDelta());} //To be able to look around
 	requestAnimationFrame(RenderLoop);
 	scene_setup.Render();
 }

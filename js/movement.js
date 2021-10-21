@@ -5,7 +5,8 @@ import {
     renderer,
     THREE,
     mouse,
-    raycaster
+    raycaster,
+    debug_mode
 } from "../js/debug";
 import {FirstPersonControls} from 'three/examples/jsm/controls/FirstPersonControls';
 
@@ -27,19 +28,21 @@ camera.position.z = 0;
 camera.position.y = distance_ground;
 
 
-//On mouse click get mouse position and execute MovePlayer
-window.addEventListener("mousedown", function(e){
-    mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+if(!debug_mode){
+    //On mouse click get mouse position and execute MovePlayer
+    window.addEventListener("mousedown", function(e){
+        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
-    //Execute MovePlayer
-    if(movePlayer && !inMotion){
-        fpcontrols.lookSpeed = 0;
-        inMotion = true;
-        movePlayer = false;
-        MovePlayer();
-    }
-});
+        //Execute MovePlayer
+        if(movePlayer && !inMotion){
+            fpcontrols.lookSpeed = 0;
+            inMotion = true;
+            movePlayer = false;
+            MovePlayer();
+        }
+    });
+}
 
 function AnimatePosition(a, b, distance, camera, percentage=0){
     if (percentage >= 0.2) {
