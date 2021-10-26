@@ -89,9 +89,47 @@
         "y_scale": 1,
         "z_scale": 1,
         "static": false,
+        "doublesided": true,
+        "keyframes": 0,
+        "clips": [],
+        "information_id": 0
+    },
+    {
+        "model_id": 5,
+        "name": "beech",
+        "src": "../models/beech_branch1.gltf",
+        "x_pos": -20,
+        "y_pos": 0,
+        "z_pos": -10,
+        "x_rot": 0,
+        "y_rot": 0,
+        "z_rot": 0,
+        "x_scale": 1,
+        "y_scale": 1,
+        "z_scale": 1,
+        "static": false,
         "doublesided": false,
         "keyframes": 0,
         "clips": [],
         "information_id": 0
-    }    
+    },
+    {
+        "model_id": 5,
+        "name": "boar",
+        "src": "../models/boar.gltf",
+        "x_pos": 0,
+        "y_pos": 0.2,
+        "z_pos": 0,
+        "x_rot": 0,
+        "y_rot": 0,
+        "z_rot": 0,
+        "x_scale": 0.5,
+        "y_scale": 0.5,
+        "z_scale": 0.5,
+        "static": false,
+        "doublesided": false,
+        "keyframes": 0,
+        "clips": [],
+        "information_id": 0
+    }          
 ]

@@ -77,8 +77,8 @@ function MovePlayer(){
                 const distance = element.distance;
                 const b_pos = new THREE.Vector3(element.point.x, element.point.y + 1.6, element.point.z);
                 AnimatePosition(a_pos, b_pos, distance, camera);
-                }
             }
+        }
     });
 }
 
