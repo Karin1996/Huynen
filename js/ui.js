@@ -10,7 +10,7 @@ if(document.getElementById("dialogue")){
     
     //Create person name element and fill with the correct information
     dialoguePerson = document.createElement('h1');
-    dialoguePerson.innerHTML = "HALLLOOO";
+    dialoguePerson.innerHTML = "Bewoner 1";
     dialoguePerson.setAttribute("id", "dialoguePerson");
 
     //Create dialogue description element and fill with the correct information

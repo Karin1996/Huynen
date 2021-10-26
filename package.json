@@ -8,7 +8,7 @@
     "url": "git+https://github.com/Karin1996/Huynen.git"
   },
   "scripts": {
-    "watch": "parcel watch index.html --public-url \"./\""
+    "watch": "parcel watch index.html --public-url \"./\" --no-source-maps"
   },
   "author": "Karin Kreeft",
   "license": "ISC",

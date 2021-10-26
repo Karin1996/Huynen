@@ -1,19 +1,20 @@
 //SCRIPT TO SETUP THE SCENE WITH CAMERA, RENDERER AND LIGHTS
 //Imports
 import { dir } from 'console';
+import { render } from 'sass';
 import * as THREE from 'three';
 
 //Scene
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xa6c8ff);
-scene.fog = new THREE.Fog(0xd8eaed, 1, 80);
+scene.fog = new THREE.Fog(0xc1dcf7, 1, 100);
 
 //Camera
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.2, 300);
 camera.position.set(0,0,0);
 
 //Renderer
-const renderer = new THREE.WebGLRenderer({antialias: true, alpha:true, });
+const renderer = new THREE.WebGLRenderer({antialias: true, alpha:true, premultipliedAlpha: false});
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(0xa6c8ff);
 
@@ -64,12 +65,18 @@ dirLight.shadow.camera.right = 30;
 dirLight.shadow.camera.top = 30;
 dirLight.shadow.camera.bottom = -30;
 dirLight.shadow.camera.near = 50;
-dirLight.shadow.camera.far = 250;
-dirLight.shadow.bias = -0.004;
+dirLight.shadow.camera.far = 150;
+dirLight.shadow.bias = 0;
 
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.shadowMapSoft = true;
+// renderer.toneMapping = THREE.ACESFilmicToneMapping;
+// renderer.outputEncoding = THREE.sRGBEncoding;
+//renderer.gammaOutput = true;
+//renderer.gammaFactor = 6;
+//renderer.outputEncoding = THREE.sRGBEncoding;
+//renderer.localClippingEnabled = true;
 //renderer.shadowMap.needsUpdate = true;
 
 scene.add(ambientLight, dirLight, dirLight2);
