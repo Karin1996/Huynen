@@ -1,4 +1,3 @@
-//SCRIPT TO SETUP THE SCENE WITH CAMERA, RENDERER AND LIGHTS
 //Imports
 import { dir } from 'console';
 import { render } from 'sass';
