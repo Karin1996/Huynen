@@ -6,15 +6,16 @@ import {
     scene,
     THREE,
 } from "./debug";
-//import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
 import { DRACOLoader } from "three/examples/jsm/loaders/dracoloader";
 
 
 //Var declarations
-//const loader = new GLTFLoader();
-const loader = new DRACOLoader();
-loader.setDecoderPath("three/examples/js/libs/draco/");
-loader.preload();
+const loader = new GLTFLoader();
+//const loader = new DRACOLoader();
+//loader.setDecoderPath("three/examples/js/libs/draco");
+//loader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+//loader.preload();
 
 //Loop over the model json file and get all the static models
 models.forEach(element => {
@@ -42,6 +43,9 @@ models.forEach(element => {
                 if(element.doublesided){
                     o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide});
                 }
+                //if(element.transparent){
+                 //   o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide, transparent: true, opacity: 0.2});
+                //}
                 //Element doesn't need to be doublesided or is not a plane
                 else{
                     o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.FrontSide});

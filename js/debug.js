@@ -9,6 +9,7 @@ import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 import {TransformControls} from 'three/examples/jsm/controls/TransformControls';
 import Stats from 'three/examples/jsm/libs/stats.module';
 
+
 //Var declarations
 const controls = new TransformControls(camera, renderer.domElement);
 const raycaster = new THREE.Raycaster();

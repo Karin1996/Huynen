@@ -13,12 +13,9 @@
   "author": "Karin Kreeft",
   "license": "ISC",
   "homepage": "https://github.com/Karin1996/Huynen#readme",
-  "devDependencies": {
-    "@types/node": "^16.10.3"
-  },
   "dependencies": {
     "parcel-bundler": "^1.12.5",
-    "sass": "^1.39.2",
+    "sass": "^1.43.4",
     "three": "^0.133.1"
   }
 }

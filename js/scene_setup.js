@@ -1,6 +1,4 @@
 //Imports
-import { dir } from 'console';
-import { render } from 'sass';
 import * as THREE from 'three';
 
 //Scene
@@ -43,8 +41,8 @@ sceneCanvas.appendChild(renderer.domElement);
 let ambientLight = new THREE.AmbientLight(0xcce0ff, 1);
 let dirLight = new THREE.DirectionalLight(0xfff5c7);
 let dirHelper = new THREE.DirectionalLightHelper(dirLight, 5);
-const camHelper = new THREE.CameraHelper(camera);
-scene.add(dirHelper, camHelper);
+//const camHelper = new THREE.CameraHelper(camera);
+scene.add(dirHelper);
 
 //Light settings
 dirLight.position.set(100, 40, 40);
