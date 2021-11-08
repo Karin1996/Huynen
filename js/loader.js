@@ -28,32 +28,36 @@ models.forEach(element => {
         model.scale.set(element.x_scale, element.y_scale, element.z_scale);
         model.name = element.name;
         model.model_id = element.model_id;
+        if(element.information_id > 0){
+            model.information_id = element.information_id;
+        } 
         //Get the mesh from the object
         model.traverse((o) => {
             if(o.isMesh){
-                if(o.name == "GroundPlane"){
-                    o.receiveShadow = true;
-                    o.castShadow = false;
-                }
-                else{
+                //Check the extra properties for certain values that determine how it will be displayed
+                element.properties.forEach(e => {
                     o.receiveShadow = true;
                     o.castShadow = true;
-                }
-                //If the element needs to be doublesided
-                if(element.doublesided){
-                    o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide});
-                }
-                //if(element.transparent){
-                 //   o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide, transparent: true, opacity: 0.2});
-                //}
-                //Element doesn't need to be doublesided or is not a plane
-                else{
-                    o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.FrontSide});
-                    //Make a bounding box for the collision detection around the object. Will later generate matrix
-                    //o.geometry.computeBoundingBox();
-                    //const box = new THREE.BoxHelper(model, 0xffff00 );
-                    //scene.add(box);
-                }
+
+                    switch(e){
+                        case "ground":
+                            o.material = new THREE.MeshToonMaterial({map: o.material.map});
+                            o.castShadow = false;
+                            break;
+                        case "doublesided":
+                            o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide});
+                            break;
+                        case "transparent":
+                            o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide, transparent: true, opacity: 0.2});
+                            break;
+                        case "static":
+                            o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide});
+                            //Make a bounding box for the collision detection around the object. Will later generate matrix
+                            //o.geometry.computeBoundingBox();
+                            //const box = new THREE.BoxHelper(model, 0xffff00 );
+                            //scene.add(box);
+                    }
+                });
             }
         });
         scene.add(model);

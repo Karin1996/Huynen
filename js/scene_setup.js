@@ -11,7 +11,7 @@ const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerH
 camera.position.set(0,0,0);
 
 //Renderer
-const renderer = new THREE.WebGLRenderer({antialias: true, alpha:true, premultipliedAlpha: false});
+const renderer = new THREE.WebGLRenderer({antialias: true, alpha:true});
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(0xa6c8ff);
 
@@ -40,9 +40,8 @@ sceneCanvas.appendChild(renderer.domElement);
 //Lights
 let ambientLight = new THREE.AmbientLight(0xcce0ff, 1);
 let dirLight = new THREE.DirectionalLight(0xfff5c7);
-let dirHelper = new THREE.DirectionalLightHelper(dirLight, 5);
-//const camHelper = new THREE.CameraHelper(camera);
-scene.add(dirHelper);
+//let dirHelper = new THREE.DirectionalLightHelper(dirLight, 5);
+//scene.add(dirHelper);
 
 //Light settings
 dirLight.position.set(100, 40, 40);
@@ -62,8 +61,8 @@ dirLight.shadow.camera.right = 30;
 dirLight.shadow.camera.top = 30;
 dirLight.shadow.camera.bottom = -30;
 dirLight.shadow.camera.near = 50;
-dirLight.shadow.camera.far = 150;
-dirLight.shadow.bias = 0;
+dirLight.shadow.camera.far = 250;
+dirLight.shadow.bias = 0.1;
 
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;

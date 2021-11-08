@@ -1,6 +1,7 @@
 //SCRIPT TO MANAGE DIFFERENT STATES//
 import * as scene_setup from "../js/scene_setup.js";
 import * as debug from "../js/debug.js";
+import * as ui from "../js/ui.js";
 import * as loader from "../js/loader.js";
 import * as movement from "../js/movement.js";
 

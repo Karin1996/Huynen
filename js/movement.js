@@ -8,6 +8,9 @@ import {
     raycaster,
     debug_mode
 } from "../js/debug";
+import {
+    Interact
+} from "../js/ui";
 import {FirstPersonControls} from 'three/examples/jsm/controls/FirstPersonControls';
 
 
@@ -18,14 +21,14 @@ fpcontrols.lookSpeed = 0;
 fpcontrols.lookVertical = true;
 fpcontrols.enableDamping = true;
 fpcontrols.noFly = true;
-const look_speed = 0.12;
-let step = 0.1;
-let distance_ground = 1.5;
-let movePlayer = true;
+const LOOK_SPEED = 0.12;
+const STEP = 0.1;
+const DISTANCE_GROUND = 1.5;
+let playable = true;
 let inMotion = false;
 
 camera.position.z = 0;
-camera.position.y = distance_ground;
+camera.position.y = DISTANCE_GROUND;
 
 
 if(!debug_mode){
@@ -34,11 +37,11 @@ if(!debug_mode){
         mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
         mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
-        //Execute MovePlayer
-        if(movePlayer && !inMotion){
+        //Execute playable
+        if (playable && !inMotion){
             fpcontrols.lookSpeed = 0;
             inMotion = true;
-            movePlayer = false;
+            playable = false;
             MovePlayer();
         }
     });
@@ -46,14 +49,14 @@ if(!debug_mode){
 
 function AnimatePosition(a, b, distance, camera, percentage=0){
     if (percentage >= 0.2) {
-        fpcontrols.lookSpeed = look_speed;
+        fpcontrols.lookSpeed = LOOK_SPEED;
         inMotion = false;
-        movePlayer = true;
+        playable = true;
         return;
     }
 
     // Determine the step size (constant)
-    let steps = Math.round(distance / step);
+    let steps = Math.round(distance / STEP);
     let percentage_step = 1 / steps;
 
     setTimeout(function(){
@@ -75,13 +78,20 @@ function MovePlayer(){
         //If the object is the ground. Get the x, y, z position
             if(element.object.parent.name == "ground"){
                 const distance = element.distance;
-                const b_pos = new THREE.Vector3(element.point.x, element.point.y + 1.6, element.point.z);
+                const b_pos = new THREE.Vector3(element.point.x, element.point.y + DISTANCE_GROUND, element.point.z);
                 AnimatePosition(a_pos, b_pos, distance, camera);
             }
+            else{
+                return;
+            }
+        }
+        else{
+            return;
         }
     });
 }
 
 export{
-    fpcontrols
+    fpcontrols,
+    playable
 };

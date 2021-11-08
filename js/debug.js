@@ -67,7 +67,7 @@ function SelectModel(){
         //Only if the hit object is a mesh attach the transform controls
         if(element.object.type == "Mesh" && element.object.parent.name !== "ground"){
             controls.attach(element.object.parent);
-            console.log(element.object.position); //To see the pos, rot and scale of object
+            console.log("pos:", element.object.position); //To see the pos, rot and scale of object
             selectedObject = element.object.parent;
         }
     });
