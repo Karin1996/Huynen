@@ -1,6 +1,7 @@
 //SCRIPT TO LOAD AND MUTATE ALL THE 3D MODELS
 //Get json files
 let models = require("../local_db/model.json");
+//let shaders = require("../js/shaders.js");
 
 import {
     scene,
@@ -36,22 +37,33 @@ models.forEach(element => {
             if(o.isMesh){
                 //Check the extra properties for certain values that determine how it will be displayed
                 element.properties.forEach(e => {
+                    o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide});
                     o.receiveShadow = true;
                     o.castShadow = true;
 
                     switch(e){
                         case "ground":
-                            o.material = new THREE.MeshToonMaterial({map: o.material.map});
+                            o.material.side = THREE.FrontSide;
                             o.castShadow = false;
                             break;
-                        case "doublesided":
-                            o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide});
-                            break;
                         case "transparent":
-                            o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide, transparent: true, opacity: 0.2});
+                            o.material.transparent = true;
+                            o.material.opacity = 0.2;
+                            break;
+                        case "interactable":
+                            //If the object is interactable make a clone of it for the outline
+                            console.log(o);
+                            let clone = o.clone();
+                            clone.material = new THREE.MeshBasicMaterial({ color: 0x00ba54, side: THREE.BackSide});
+                            //Set the positions, rotation and scale of the clone to the original object
+                            clone.position.set(element.x_pos, element.y_pos, element.z_pos);
+                            clone.rotation.set(element.x_rot*(Math.PI/180), element.y_rot*(Math.PI/180), element.z_rot*(Math.PI/180));
+                            clone.scale.set(element.x_scale, element.y_scale, element.z_scale);
+                            clone.scale.multiplyScalar(1.03);
+
+                            scene.add(clone);
                             break;
                         case "static":
-                            o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide});
                             //Make a bounding box for the collision detection around the object. Will later generate matrix
                             //o.geometry.computeBoundingBox();
                             //const box = new THREE.BoxHelper(model, 0xffff00 );
