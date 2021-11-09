@@ -4,7 +4,6 @@ import {playable} from "./movement";
 
 //SCRIPT TO MAKE AND MUTATE ALL THE UI ELEMENTS
 //let makeVisible = false;
-
 window.addEventListener("mousemove", Interact);
 
 let visible = false;
@@ -39,12 +38,14 @@ function Interact(){
             //Get the distance from the camera to the intersected object
             let distance = camera.position.distanceTo(element.object.parent.getWorldPosition(new THREE.Vector3()));
             //If the player is close enough show UI to indicate that the object has information
-            if(distance < 10){
+            if(distance < 20){
+                //Create the position of the UI element
                 const rootPos = element.object.parent.position;
-                console.log(distance);
-                //console.log("distance:", distance, "name:", element.object.parent.name);
+                const objectHeight = element.object.parent.maxHeight;
+                console.log(objectHeight);
+                //console.log(distance);
                 if (!visible) {
-                    MakeIndicationUI(rootPos);
+                    MakeIndicationUI(rootPos, objectHeight);
                     visible = true;
                 }
             }
@@ -58,20 +59,20 @@ function Interact(){
     }
 }
 
-function MakeIndicationUI(rootPos){
-    //Only execute making the UI once when the function is called
+function MakeIndicationUI(rootPos, objectHeight){
+    //Only Execute making the UI once when the function is called
     console.log("makeVisible");
 
     //Get Texture
     const indicationImg = new THREE.TextureLoader().load("../images/object_questionmark.png");
-    //Make the spitematerial
+    //Make the spritematerial
     const uiMaterial = new THREE.SpriteMaterial({
         map: indicationImg
     })
 
     //Make the sprite and set the sprite positions
     ui = new THREE.Sprite(uiMaterial);
-    ui.position.y = 1.5;
+    ui.position.y = objectHeight + 0.5;
     ui.position.x = rootPos.x;
     ui.position.z = rootPos.z;
     scene.add(ui);

@@ -29,6 +29,7 @@ models.forEach(element => {
         model.scale.set(element.x_scale, element.y_scale, element.z_scale);
         model.name = element.name;
         model.model_id = element.model_id;
+        model.maxHeight = 0;
         if(element.information_id > 0){
             model.information_id = element.information_id;
         } 
@@ -53,6 +54,12 @@ models.forEach(element => {
                         case "interactable":
                             if(o.name == "Outline"){
                                 o.material = new THREE.MeshBasicMaterial({color: 0x00ba54});
+                                //Make a box to get the height of the object for the UI elements
+                                const box = new THREE.Box3().setFromObject(model);
+                                const helper = new THREE.Box3Helper(box, 0x0000ff); 
+                                //Make a property in the model that contains the maxheight of the object
+                                model.maxHeight = box.max.y;
+                                scene.add(helper);
                             }
                             else{
                                 o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide});
@@ -70,6 +77,5 @@ models.forEach(element => {
         scene.add(model);
     });
 });
-
 
 
