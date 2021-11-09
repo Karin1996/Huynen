@@ -51,17 +51,12 @@ models.forEach(element => {
                             o.material.opacity = 0.2;
                             break;
                         case "interactable":
-                            //If the object is interactable make a clone of it for the outline
-                            console.log(o);
-                            let clone = o.clone();
-                            clone.material = new THREE.MeshBasicMaterial({ color: 0x00ba54, side: THREE.BackSide});
-                            //Set the positions, rotation and scale of the clone to the original object
-                            clone.position.set(element.x_pos, element.y_pos, element.z_pos);
-                            clone.rotation.set(element.x_rot*(Math.PI/180), element.y_rot*(Math.PI/180), element.z_rot*(Math.PI/180));
-                            clone.scale.set(element.x_scale, element.y_scale, element.z_scale);
-                            clone.scale.multiplyScalar(1.03);
-
-                            scene.add(clone);
+                            if(o.name == "Outline"){
+                                o.material = new THREE.MeshBasicMaterial({color: 0x00ba54});
+                            }
+                            else{
+                                o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide});
+                            }
                             break;
                         case "static":
                             //Make a bounding box for the collision detection around the object. Will later generate matrix
