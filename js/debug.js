@@ -16,7 +16,7 @@ const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 const stats = Stats();
 let selectedObject;
-let debug_mode = false;
+let debug_mode = true;
 
 //debug mode
 if(debug_mode){

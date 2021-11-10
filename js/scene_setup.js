@@ -15,6 +15,15 @@ const renderer = new THREE.WebGLRenderer({antialias: true, alpha:true});
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(0xa6c8ff);
 
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMapSoft = true;
+renderer.physicallyCorrectLights = true;
+renderer.physicallyBasedShading = true;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.1; 
+renderer.outputEncoding = THREE.sRGBEncoding;
+
 /*
 Update aspect ratio
 Set renderer size to new window size
@@ -38,7 +47,7 @@ let sceneCanvas = document.getElementById('sceneCanvas');
 sceneCanvas.appendChild(renderer.domElement);
 
 //Lights
-let ambientLight = new THREE.AmbientLight(0xcce0ff, 1);
+let ambientLight = new THREE.AmbientLight(0xcce0ff, 0.4);
 let dirLight = new THREE.DirectionalLight(0xfff5c7);
 //let dirHelper = new THREE.DirectionalLightHelper(dirLight, 5);
 //scene.add(dirHelper);
@@ -50,8 +59,8 @@ dirLight.position.set(100, 40, 40);
 let dirLight2 = dirLight.clone();
 dirLight.castShadow = true;
 dirLight2.castShadow = false;
-dirLight.intensity = 0.3;
-dirLight2.intensity = 0.7;
+dirLight.intensity = 0.5;
+dirLight2.intensity = 0.9;
 
 dirLight.shadow.mapSize.width = 512;
 dirLight.shadow.mapSize.height = 512;
@@ -60,20 +69,9 @@ dirLight.shadow.camera.left = -30;
 dirLight.shadow.camera.right = 30;
 dirLight.shadow.camera.top = 30;
 dirLight.shadow.camera.bottom = -30;
-dirLight.shadow.camera.near = 50;
+dirLight.shadow.camera.near = 20;
 dirLight.shadow.camera.far = 250;
-dirLight.shadow.bias = 0.1;
-
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-renderer.shadowMapSoft = true;
-// renderer.toneMapping = THREE.ACESFilmicToneMapping;
-// renderer.outputEncoding = THREE.sRGBEncoding;
-//renderer.gammaOutput = true;
-//renderer.gammaFactor = 6;
-//renderer.outputEncoding = THREE.sRGBEncoding;
-//renderer.localClippingEnabled = true;
-//renderer.shadowMap.needsUpdate = true;
+dirLight.shadow.bias = 0.15;
 
 scene.add(ambientLight, dirLight, dirLight2);
 

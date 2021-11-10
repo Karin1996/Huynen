@@ -9,6 +9,7 @@ import {
 } from "./debug";
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
 import { DRACOLoader } from "three/examples/jsm/loaders/dracoloader";
+import { sRGBEncoding } from "three";
 
 
 //Var declarations
@@ -41,7 +42,7 @@ models.forEach(element => {
                     o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide});
                     o.receiveShadow = true;
                     o.castShadow = true;
-
+                    
                     switch(e){
                         case "ground":
                             o.material.side = THREE.FrontSide;
@@ -53,7 +54,7 @@ models.forEach(element => {
                             break;
                         case "interactable":
                             if(o.name == "Outline"){
-                                o.material = new THREE.MeshBasicMaterial({color: 0x00ba54});
+                                o.material = new THREE.MeshBasicMaterial({color: 0xff0000});
                                 //Make a box to get the height of the object for the UI elements
                                 const box = new THREE.Box3().setFromObject(model);
                                 const helper = new THREE.Box3Helper(box, 0x0000ff); 
