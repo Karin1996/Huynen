@@ -1,6 +1,6 @@
 [
     {
-        "model_id": 1,
+        "model_id": 0,
         "name": "ground",
         "src": "../models/ground.gltf",
         "x_pos": 0,
@@ -12,13 +12,13 @@
         "x_scale": 1,
         "y_scale": 1,
         "z_scale": 1,
-        "properties": ["ground"],
+        "property": "ground",
         "keyframes": 0,
         "clips": [],
         "information_id": 0
     },
     {
-        "model_id": 2,
+        "model_id": 1,
         "name": "beech_tree_ao",
         "src": "../models/beech_tree2_ao.gltf",
         "x_pos": -4,
@@ -30,7 +30,7 @@
         "x_scale": 1,
         "y_scale": 1,
         "z_scale": 1,
-        "properties": ["static"],
+        "property": "static",
         "keyframes": 0,
         "clips": [],
         "information_id": 1
@@ -48,7 +48,7 @@
         "x_scale": 1,
         "y_scale": 1,
         "z_scale": 1,
-        "properties": ["static"],
+        "property": "static",
         "keyframes": 0,
         "clips": [],
         "information_id": 0
@@ -66,7 +66,7 @@
         "x_scale": 1,
         "y_scale": 1,
         "z_scale": 1,
-        "properties": ["interactable"],
+        "property": "interactable",
         "keyframes": 0,
         "clips": [],
         "information_id": 0
@@ -84,7 +84,7 @@
         "x_scale": 1,
         "y_scale": 1,
         "z_scale": 1,
-        "properties": ["interactable"],
+        "property": "interactable",
         "keyframes": 0,
         "clips": [],
         "information_id": 0

@@ -8,9 +8,7 @@ import {
     raycaster,
     debug_mode
 } from "../js/debug";
-import {
-    Interact
-} from "../js/ui";
+import {CheckUI} from '../js/ui copy';
 import {FirstPersonControls} from 'three/examples/jsm/controls/FirstPersonControls';
 
 
@@ -54,7 +52,6 @@ function AnimatePosition(a, b, distance, camera, percentage=0){
         playable = true;
         return;
     }
-
     // Determine the step size (constant)
     let steps = Math.round(distance / STEP);
     let percentage_step = 1 / steps;
@@ -92,6 +89,5 @@ function MovePlayer(){
 }
 
 export{
-    fpcontrols,
-    playable
+    fpcontrols
 };

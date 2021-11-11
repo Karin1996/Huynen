@@ -13,7 +13,7 @@ function Interact(){
     //If playable is true, the player is not moving at the moment, cast a ray
     if(playable){
         raycaster.setFromCamera(mouse, camera);    
-        const hitObjects = raycaster.intersectObjects(scene.children, true);
+        const hitObjects = raycaster.intersectObjects(scene.children, false);
 
         // Obtain the distances
         let distances = [];

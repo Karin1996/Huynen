@@ -3,7 +3,8 @@ import {
     scene,
     camera,
     renderer,
-    THREE
+    THREE,
+    Render
 } from "../js/scene_setup";
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 import {TransformControls} from 'three/examples/jsm/controls/TransformControls';
@@ -16,15 +17,30 @@ const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 const stats = Stats();
 let selectedObject;
-let debug_mode = true;
+let debug_mode = false;
+//Set the length of the raycaster ray
+raycaster.near = 0;
+raycaster.far = 15;
 
-//debug mode
-if(debug_mode){
+window.addEventListener('keydown', function(e) {
+    if (e.key == "Enter") {
+        Orbit();
+        debug_mode = !debug_mode;
+	}
+});
+
+
+function Orbit(){
     document.body.appendChild(stats.dom);
+
     const orbitControls = new OrbitControls(camera, renderer.domElement);
+    orbitControls.position = camera.position;
+    Render();
+
     let gridHelper = new THREE.GridHelper(10,10);
     const axesHelper = new THREE.AxesHelper( 5 );
     scene.add(gridHelper, axesHelper);
+    
     //When pressing G, R or S change the transform controls mode
     window.addEventListener('keydown', function (event) {
         switch (event.code) {
@@ -58,6 +74,10 @@ if(debug_mode){
     scene.add(controls);
 }
 
+if (debug_mode) {
+    Orbit();
+}
+
 //Select the model that is clicked (has a raycast hit)
 function SelectModel(){
     raycaster.setFromCamera(mouse, camera);
@@ -73,6 +93,15 @@ function SelectModel(){
     });
 }
 
+function DisplayRay(length = 10) {
+    const direction = camera.getWorldDirection(new THREE.Vector3());
+    raycaster.setFromCamera(mouse, camera)
+    const origin = raycaster.ray.origin;
+    const hex = 0xffff00;
+    const arrowHelper = new THREE.ArrowHelper( direction, origin, length, hex );
+    scene.add(arrowHelper);
+}
+
 export{
     scene,
     camera,
@@ -81,5 +110,6 @@ export{
     mouse,
     raycaster, 
     debug_mode,
-    stats
+    stats,
+    DisplayRay
 };
