@@ -1,58 +1,86 @@
 //SCRIPT TO MOVE THE PLAYER TO CLICKED LOCATION//
 import {
-    scene,
     camera,
     renderer,
     THREE,
     mouse,
-    raycaster,
-    debug_mode
-} from "../js/debug";
-import {CheckUI} from '../js/ui copy';
+    raycaster
+} from "../js/scene_setup";
+import {uiVisible} from "./ui";
 import {FirstPersonControls} from 'three/examples/jsm/controls/FirstPersonControls';
+import {modelsLoaded, modelsList} from "./loader";
+import {DisplayRay} from "./debug";
 
 
 //Var declarations
 const fpcontrols = new FirstPersonControls(camera, renderer.domElement);
 fpcontrols.movementSpeed = 0;
-fpcontrols.lookSpeed = 0;
-fpcontrols.lookVertical = true;
-fpcontrols.enableDamping = true;
+fpcontrols.lookSpeed = 0.05;
 fpcontrols.noFly = true;
 const LOOK_SPEED = 0.12;
+
 const STEP = 0.1;
 const DISTANCE_GROUND = 1.5;
-let playable = true;
-let inMotion = false;
-
-camera.position.z = 0;
+camera.position.z = -3;
 camera.position.y = DISTANCE_GROUND;
 
+//Player's mouse is in the window and there is no ui visible
+document.getElementById("sceneCanvas").addEventListener("mouseenter", function(){
+    if(!uiVisible){fpcontrols.lookSpeed = LOOK_SPEED;}
+    else{fpcontrols.lookSpeed = 0;}
+});
+//Player's mouse is not in the window
+document.getElementById("sceneCanvas").addEventListener("mouseleave", function(){
+    fpcontrols.lookSpeed = 0;
+});
 
-if(!debug_mode){
-    //On mouse click get mouse position and execute MovePlayer
-    window.addEventListener("mousedown", function(e){
-        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+while (!modelsLoaded) {
+    console.log("not loaded");
+}
 
-        //Execute playable
-        if (playable && !inMotion){
-            fpcontrols.lookSpeed = 0;
-            inMotion = true;
-            playable = false;
-            MovePlayer();
+//The models are done loading
+if(modelsLoaded){
+    //Enable looking 1 second after everything is loaded in
+    setTimeout(function(){
+        fpcontrols.lookSpeed = LOOK_SPEED;
+    }, 1000)
+
+    //Get the clicked location
+    document.addEventListener("mousedown", function(e){        
+        raycaster.setFromCamera(mouse, camera);    
+        const hitObjects = raycaster.intersectObjects(modelsList);
+        
+        //Save the first (closest) object that the player is looking at
+        if(hitObjects.length > 0){
+            let currentObject = hitObjects[0];
+
+            mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    
+            if(currentObject.object.parent.property == "ground" ){
+                if(!uiVisible){
+                    MovePlayer(currentObject);
+                }
+            }
         }
-    });
+    }, true);
+}
+
+function MovePlayer(location){
+    const a_pos = camera.position;
+    const distance = location.distance;
+    const b_pos = new THREE.Vector3(location.point.x, location.point.y + DISTANCE_GROUND, location.point.z);
+
+    AnimatePosition(a_pos, b_pos, distance, camera);
 }
 
 function AnimatePosition(a, b, distance, camera, percentage=0){
     if (percentage >= 0.2) {
         fpcontrols.lookSpeed = LOOK_SPEED;
-        inMotion = false;
-        playable = true;
         return;
     }
-    // Determine the step size (constant)
+    //Determine the amount of steps
+    fpcontrols.lookSpeed = 0;
     let steps = Math.round(distance / STEP);
     let percentage_step = 1 / steps;
 
@@ -62,32 +90,7 @@ function AnimatePosition(a, b, distance, camera, percentage=0){
     }, 30);
 }
 
-//Move the player to the location that was clicked (has a raycast hit)
-function MovePlayer(){
-    const a_pos = camera.position;
-    raycaster.setFromCamera(mouse, camera);
-    const clickLocation = raycaster.intersectObjects(scene.children, true);
-
-    //For every object intersected check the type
-    clickLocation.forEach(element => {
-        //Only if the hit object is a mesh look for the name of the object it is in
-        if(element.object.type == "Mesh"){
-        //If the object is the ground. Get the x, y, z position
-            if(element.object.parent.name == "ground"){
-                const distance = element.distance;
-                const b_pos = new THREE.Vector3(element.point.x, element.point.y + DISTANCE_GROUND, element.point.z);
-                AnimatePosition(a_pos, b_pos, distance, camera);
-            }
-            else{
-                return;
-            }
-        }
-        else{
-            return;
-        }
-    });
-}
 
 export{
-    fpcontrols
+    fpcontrols, LOOK_SPEED
 };

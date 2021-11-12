@@ -190,38 +190,51 @@ div.btn:hover > p{
     height: 100vh;
 }
 
-#dialogue{
-    width: 415px;
-    height: 290px;
-    z-index: 3;
+.ui{
+    width: 25rem;
+    height: 17rem;
     position: absolute;
-    bottom: 30px;
+    bottom: 50px;
+    cursor: auto;
+    opacity: 0;
+    transition: 600ms;
+}
+#interaction{
+    background-image: url("../images/objectUI.png");
+    background-position: center center;
+    background-size: cover;
+}
+#dialogue{
     background-image: url("../images/dialogueUI.png");
     background-position: center center;
     background-size: cover;
 }
-#dialoguePerson{
+
+.ui h1{
     font-size: 1rem;
     color: $greyish;
-    width: 120px;
-    transform: rotate(-3deg);
+    width: 10rem;
     text-align: center;
     text-transform: uppercase;
     font-family: $mainFont;
     position: relative;
-    top: 24px;
-    left: 44px;
+    top: 1.4rem;
+    left: 2rem;
 }
-#dialogueDescription{
-    max-height: 201px;
-    width: 332px;
-    left: 38px;
+#dialogue h1{
+   transform: rotate(-3deg);
+}
+
+.ui .ui_p{
+    height: 12.1rem;
+    width: 19.8rem;
+    left: 2.4rem;
     position: relative;
-    top: 45.2px;
+    top: 2.4rem;
     font-family: $secondaryFont;
-    font-size: 1.1rem;
+    font-size: 1rem;
     overflow-y: scroll;
-    padding: 8px 10px;
+    padding: 0.6rem 0.8rem;
     scrollbar-width: thin;
     scrollbar-color: $blue #14191d9c;
 }
@@ -231,4 +244,28 @@ div.btn:hover > p{
 }
 ::-webkit-scrollbar-thumb {
     background: $blue;
+}
+
+.ui .ui_btn{
+    width: 4.5rem;
+    height: 3.5rem;
+    right: 1.7rem;
+    bottom: -2rem;
+    background-image: url("../images/ok_btn.png");
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+    float: right;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ui .ui_btn .p_btn{
+    font-family: $mainFont;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    color: $greyish;
+    height: 1.2rem;
 }

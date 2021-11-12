@@ -6,7 +6,7 @@ let models = require("../local_db/model.json");
 import {
     scene,
     THREE,
-} from "./debug";
+} from "./scene_setup";
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
 import { DRACOLoader } from "three/examples/jsm/loaders/dracoloader";
 
@@ -15,6 +15,7 @@ import { DRACOLoader } from "three/examples/jsm/loaders/dracoloader";
 const loader = new GLTFLoader();
 const MAXHEIGHT = 3;
 let modelsList = [];
+let modelsLoaded = false;
 //const loader = new DRACOLoader();
 //loader.setDecoderPath("three/examples/js/libs/draco");
 //loader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
@@ -82,7 +83,10 @@ models.forEach(element => {
     });
 });
 
+modelsLoaded = true;
+
 export{
+    modelsLoaded,
     modelsList
 }
 

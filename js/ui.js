@@ -1,105 +1,120 @@
-import { Vector3 } from "three";
-import {THREE, scene, camera, raycaster, mouse} from "./debug";
-import {playable} from "./movement";
-
 //SCRIPT TO MAKE AND MUTATE ALL THE UI ELEMENTS
-//let makeVisible = false;
-window.addEventListener("mousemove", Interact);
+let information = require("../local_db/information.json");
+import {camera, raycaster, mouse} from "./scene_setup";
+import {modelsList} from "./loader";
+import {DisplayRay} from "./debug";
+import { fpcontrols, LOOK_SPEED } from "./movement";
 
-let visible = false;
-let ui = null;
+let uiVisible = false;
+//On click execute CheckUI
+window.addEventListener("click", CheckUI, true);
 
-function Interact(){
-    //If playable is true, the player is not moving at the moment, cast a ray
-    if(playable){
-        raycaster.setFromCamera(mouse, camera);    
-        const hitObjects = raycaster.intersectObjects(scene.children, false);
+function CheckUI(){
+    raycaster.setFromCamera(mouse, camera);    
+    const hitObjects = raycaster.intersectObjects(modelsList);
 
-        // Obtain the distances
-        let distances = [];
-        hitObjects.forEach(element => {
-            distances.push([element.distance, element]);
-        });
-        distances = distances.sort();
-
-        // Skip if there are no objects
-        if (distances.length < 1) {
-            if (visible) {
-                visible = false;
-                scene.remove(ui);
-            }
-            return;
-        }
-
-        // Obtain the closest element
-        let element = distances[0][1];
-
-        if(element.object.parent.name !== "ground"){
-            //Get the distance from the camera to the intersected object
-            let distance = camera.position.distanceTo(element.object.parent.getWorldPosition(new THREE.Vector3()));
-            //If the player is close enough show UI to indicate that the object has information
-            if(distance < 20){
-                //Create the position of the UI element
-                const rootPos = element.object.parent.position;
-                const objectHeight = element.object.parent.maxHeight;
-                console.log(objectHeight);
-                //console.log(distance);
-                if (!visible) {
-                    MakeIndicationUI(rootPos, objectHeight);
-                    visible = true;
-                }
-            }
-        }
-        else {
-            if (visible) {
-                visible = false;
-                scene.remove(ui);
-            }
-        }
+    //Save the current object
+	if(hitObjects.length > 0){
+        let currentObject = hitObjects[0];
+		//Check if there is an object that the player is looking at
+		if(currentObject.object.parent.property == "interactable" && !uiVisible){
+			MakeUI("interaction", currentObject.object.parent);
+			//MakeUI("dialogue", currentObject.object.parent); //This for dialogue ui
+		}
     }
 }
 
-function MakeIndicationUI(rootPos, objectHeight){
-    //Only Execute making the UI once when the function is called
-    console.log("makeVisible");
+//TODO: - Finish interaction UI. Show correct information. Disable clicking and look around when UI is visible.
+//Make the UI with the correct information
+function MakeUI(type, object){
+	//If there is no visible ui make the ui
+	if(!uiVisible){
+		fpcontrols.lookSpeed = 0;
+		uiVisible = true;
+		//Create UI div
+		let ui = document.createElement('div');
+		
+		if(type == "interaction"){
+			//Get the correct information ID and extract the information
+			let information_id = object.information_id;
+			let correctInfo;
+	
+			information.forEach(info => {
+				if(info.information_id == information_id){
+					correctInfo = info;
+				}
+			});
 
-    //Get Texture
-    const indicationImg = new THREE.TextureLoader().load("../images/object_questionmark.png");
-    //Make the spritematerial
-    const uiMaterial = new THREE.SpriteMaterial({
-        map: indicationImg
-    })
+			if(correctInfo){
+				ui.setAttribute("class", "ui");
+				ui.setAttribute("id", "interaction");
 
-    //Make the sprite and set the sprite positions
-    ui = new THREE.Sprite(uiMaterial);
-    ui.position.y = objectHeight + 0.5;
-    ui.position.x = rootPos.x;
-    ui.position.z = rootPos.z;
-    scene.add(ui);
+				//Create name element and fill with the correct information
+				let interactionName = document.createElement('h1');
+				interactionName.innerHTML = correctInfo.title;
+				//interactionName.setAttribute("id", "interactionName");
+
+				//Create interaction description element and fill with the correct information
+				let interactionDescription = document.createElement('p');
+				interactionDescription.setAttribute("class", "ui_p");
+				interactionDescription.innerHTML = correctInfo.text;
+				//interactionDescription.setAttribute("id", "interactionDescription");
+				
+				//Create ok button element
+				let interactionBtn = document.createElement('div');
+				let interactionText = document.createElement('p');
+				interactionBtn.setAttribute("class", "ui_btn");
+				//interactionBtn.setAttribute("id", "interaction_btn");
+				interactionText.setAttribute("class", "p_btn");
+				interactionText.innerHTML = "ok";
+
+				ui.appendChild(interactionName);
+				ui.appendChild(interactionDescription);
+				ui.appendChild(interactionBtn);
+				interactionBtn.appendChild(interactionText);
+			}
+			else{
+				uiVisible = false;
+				return;	
+			}
+		}	
+		else{
+			console.log("not interaction UI", uiVisible);
+		}
+		document.body.appendChild(ui);
+
+		setTimeout(function(){
+			//Show UI with fade in
+			ui.style.opacity = 1;
+		}, 100);
+
+		//Add eventlistener to the buttons so player can exit ui
+		let btns = document.getElementsByClassName("ui_btn");
+		for(let i = 0; i < btns.length; i++){
+			btns[i].addEventListener("click", function(){
+				DeleteUI(btns[i].parentElement);
+			});
+		}	
+	}
+	//ui is visible
+	else{
+		DeleteUI();
+	}
 }
 
-//Create dialogue div
-/*dialogue = document.createElement('div');
-dialogue.setAttribute("id", "dialogue");
-document.body.appendChild(dialogue);
-//Fill dialogue div with correct information
-if(document.getElementById("dialogue")){
-    let dialogue = document.getElementById("dialogue");
-    
-    //Create person name element and fill with the correct information
-    dialoguePerson = document.createElement('h1');
-    dialoguePerson.innerHTML = "Bewoner 1";
-    dialoguePerson.setAttribute("id", "dialoguePerson");
+function DeleteUI(div){
+	if(!div){document.querySelector("#sceneCanvas").remove();}
 
-    //Create dialogue description element and fill with the correct information
-    dialogueDescription = document.createElement('p');
-    dialogueDescription.innerHTML = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel ex luctus, tincidunt mi non, tincidunt mi. Aenean porttitor nisl vulputate eros viverra, aliquam scelerisque augue vestibulum. Phasellus velit dolor, cursus quis tincidunt in, venenatis quis justo. Proin gravida orci est, sit amet suscipit est gravida eget. Curabitur consequat semper mattis. Morbi pellentesque dolor sit amet nibh dapibus, et accumsan ipsum ornare. Cras tristique, turpis a efficitur congue, velit arcu pellentesque diam, vitae aliquet lectus tellus sit amet augue. ";
-    dialogueDescription.setAttribute("id", "dialogueDescription");
-    
-    dialogue.appendChild(dialoguePerson);
-    dialogue.appendChild(dialogueDescription);
-}*/
+	uiVisible = false;
+	div.style.opacity = 0;
+	setTimeout(function(){
+		//Delete UI from the DOM
+		div.parentNode.removeChild(div);
+	}, 1000);
+	fpcontrols.lookSpeed = LOOK_SPEED;
+}
+
 
 export{
-    Interact
-};
+	uiVisible
+}

@@ -1,6 +1,18 @@
 [
     {
         "information_id": 1,
+        "title": "Boar",
+        "text": "I am information about a boar",
+        "imagesequence": ["src1", "src2"]
+    },
+    {
+        "information_id": 2,
+        "title": "Tree with AO",
+        "text": "I am information about a tree",
+        "imagesequence": ["src1", "src2"]
+    },
+    {
+        "information_id": 3,
         "title": "Tree with AO",
         "text": "I am information about a tree",
         "imagesequence": ["src1", "src2"]

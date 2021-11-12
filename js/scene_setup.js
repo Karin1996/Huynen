@@ -24,6 +24,13 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.1; 
 renderer.outputEncoding = THREE.sRGBEncoding;
 
+//Ray and mouse
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+//Set the length of the raycaster ray
+raycaster.near = 0;
+raycaster.far = 30;
+
 /*
 Update aspect ratio
 Set renderer size to new window size
@@ -81,5 +88,7 @@ export{
     camera,
     renderer,
     Render,
-    THREE
+    THREE, 
+    raycaster, 
+    mouse
 };

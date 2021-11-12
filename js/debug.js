@@ -4,7 +4,9 @@ import {
     camera,
     renderer,
     THREE,
-    Render
+    Render,
+    raycaster, 
+    mouse
 } from "../js/scene_setup";
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 import {TransformControls} from 'three/examples/jsm/controls/TransformControls';
@@ -13,18 +15,15 @@ import Stats from 'three/examples/jsm/libs/stats.module';
 
 //Var declarations
 const controls = new TransformControls(camera, renderer.domElement);
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
 const stats = Stats();
 let selectedObject;
 let debug_mode = false;
-//Set the length of the raycaster ray
-raycaster.near = 0;
-raycaster.far = 15;
+
 
 window.addEventListener('keydown', function(e) {
     if (e.key == "Enter") {
         Orbit();
+        DisplayRay(raycaster.far);
         debug_mode = !debug_mode;
 	}
 });
@@ -103,12 +102,6 @@ function DisplayRay(length = 10) {
 }
 
 export{
-    scene,
-    camera,
-    renderer,
-    THREE, 
-    mouse,
-    raycaster, 
     debug_mode,
     stats,
     DisplayRay
