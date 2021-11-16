@@ -1,10 +1,19 @@
 [
     {
-        "npc_id": 0,
-        "name": "namehere",
-        "model_id": 0,
-        "dialoguesequence": [{"text": "text"}],
-        "questdialogue": [{"text": "text"}],
-        "defaultdialogue": "doei"
+        "npc_id": 1,
+        "name": "Linne",
+        "src": "../models/Linne.gltf",
+        "dialogue_id": 1,
+        "x_pos": 0,
+        "y_pos": 0,
+        "z_pos": -20,
+        "x_rot": 0,
+        "y_rot": 0,
+        "z_rot": 0,
+        "x_scale": 1,
+        "y_scale": 1,
+        "z_scale": 1,
+        "keyframes": 0,
+        "clips": []
     }
 ]

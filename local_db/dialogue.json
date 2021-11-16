@@ -1,0 +1,23 @@
+[
+    {
+        "dialogue_id": 1,
+        "name": "Linne",
+        "dialogue": "I am Linne, who are you?",
+        "isQuest": "no",
+        "status": "status"
+    },
+    {
+        "dialogue_id": 2,
+        "name": "Rolfe",
+        "dialogue": "What do you want?",
+        "isQuest": "no",
+        "status": "status"
+    },
+    {
+        "dialogue_id": 3,
+        "name": "Lejo",
+        "dialogue": "Have a nice day",
+        "isQuest": "no",
+        "status": "status"
+    }
+]

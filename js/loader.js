@@ -13,7 +13,7 @@ import { DRACOLoader } from "three/examples/jsm/loaders/dracoloader";
 
 //Var declarations
 const loader = new GLTFLoader();
-const MAXHEIGHT = 3;
+//const MAXHEIGHT = 3;
 let modelsList = [];
 let modelsLoaded = false;
 //const loader = new DRACOLoader();
@@ -24,7 +24,6 @@ let modelsLoaded = false;
 //Loop over the model json file and get all the static models
 models.forEach(element => {
     //If the object is static add it to the scene
-    //if(element.static === true){
     loader.load(element.src, function (gltf){
         const model = gltf.scene;
         model.position.set(element.x_pos, element.y_pos, element.z_pos);
@@ -32,11 +31,14 @@ models.forEach(element => {
         model.scale.set(element.x_scale, element.y_scale, element.z_scale);
         model.name = element.name;
         model.model_id = element.model_id;
-        model.maxHeight = MAXHEIGHT;
+        //model.maxHeight = MAXHEIGHT;
         model.property = element.property;
         //If the model has a information id > 0 it means the object has information. Save the id for later uses in
         if(element.information_id > 0){
             model.information_id = element.information_id;
+        }
+        if(element.dialogue_id > 0){
+            model.dialogue_id = element.dialogue_id;
         } 
         //Get the mesh from the object
         model.traverse((o) => {
@@ -64,7 +66,7 @@ models.forEach(element => {
                             const helper = new THREE.Box3Helper(box, 0x0000ff); 
 
                             //Make a property in the model that contains the maxheight of the object
-                            model.maxHeight = box.max.y;
+                            //model.maxHeight = box.max.y;
                             scene.add(helper);
                         }
                         else{
@@ -84,6 +86,7 @@ models.forEach(element => {
 });
 
 modelsLoaded = true;
+console.log("modelslist", modelsList);
 
 export{
     modelsLoaded,

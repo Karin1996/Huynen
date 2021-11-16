@@ -1,9 +1,10 @@
 //SCRIPT TO MAKE AND MUTATE ALL THE UI ELEMENTS
 let information = require("../local_db/information.json");
+let dialogue = require("../local_db/dialogue.json");
 import {camera, raycaster, mouse} from "./scene_setup";
 import {modelsList} from "./loader";
 import {DisplayRay} from "./debug";
-import { fpcontrols, LOOK_SPEED } from "./movement";
+import {fpcontrols, LOOK_SPEED} from "./movement";
 
 let uiVisible = false;
 //On click execute CheckUI
@@ -19,14 +20,17 @@ function CheckUI(){
 		//Check if there is an object that the player is looking at
 		if(currentObject.object.parent.property == "interactable" && !uiVisible){
 			MakeUI("interaction", currentObject.object.parent);
-			//MakeUI("dialogue", currentObject.object.parent); //This for dialogue ui
+		}
+		else if(currentObject.object.parent.parent.property == "npc" && !uiVisible){
+			console.log("checkUI", "npc", currentObject.object.parent.parent);
+			MakeUI("dialogue", currentObject.object.parent.parent); 
 		}
     }
 }
 
-//TODO: - Finish interaction UI. Show correct information. Disable clicking and look around when UI is visible.
 //Make the UI with the correct information
 function MakeUI(type, object){
+	console.log("type", type, "should be dialogue", ".........", "object", object);
 	//If there is no visible ui make the ui
 	if(!uiVisible){
 		fpcontrols.lookSpeed = 0;
@@ -72,6 +76,49 @@ function MakeUI(type, object){
 				ui.appendChild(interactionDescription);
 				ui.appendChild(interactionBtn);
 				interactionBtn.appendChild(interactionText);
+			}
+			else{
+				uiVisible = false;
+				return;	
+			}
+		}	
+		else if(type == "dialogue"){
+			//Get the correct dialogue ID and extract the name and dialogue
+			let dialogue_id = object.dialogue_id;
+			let correctDialogue;
+	
+			dialogue.forEach(log => {
+				if(log.dialogue_id == dialogue_id){
+					correctDialogue = log;
+				}
+			});
+
+			if(correctDialogue){
+				ui.setAttribute("class", "ui");
+				ui.setAttribute("id", "dialogue");
+
+				//Create name element and fill with the correct information
+				let npcName = document.createElement('h1');
+				npcName.innerHTML = correctDialogue.name;
+				//interactionName.setAttribute("id", "interactionName");
+
+				//Create dialogue element and fill with the correct information
+				let npcDialogue = document.createElement('p');
+				npcDialogue.setAttribute("class", "ui_p");
+				npcDialogue.innerHTML = correctDialogue.dialogue;
+				
+				//Create ok button element
+				let npcBtn = document.createElement('div');
+				let npcText = document.createElement('p');
+				npcBtn.setAttribute("class", "ui_btn");
+				//interactionBtn.setAttribute("id", "interaction_btn");
+				npcText.setAttribute("class", "p_btn");
+				npcText.innerHTML = "ok";
+
+				ui.appendChild(npcName);
+				ui.appendChild(npcDialogue);
+				ui.appendChild(npcBtn);
+				npcBtn.appendChild(npcText);
 			}
 			else{
 				uiVisible = false;

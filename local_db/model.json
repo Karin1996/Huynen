@@ -1,6 +1,63 @@
 [
     {
         "model_id": 0,
+        "npc_id": 1,
+        "name": "Linne",
+        "src": "../models/Linne.gltf",
+        "dialogue_id": 1,
+        "x_pos": 0,
+        "y_pos": 0,
+        "z_pos": -5,
+        "x_rot": 0,
+        "y_rot": 0,
+        "z_rot": 0,
+        "x_scale": 1,
+        "y_scale": 1,
+        "z_scale": 1,
+        "property": "npc",
+        "keyframes": 0,
+        "clips": []
+    },
+    {
+        "model_id": 0,
+        "npc_id": 1,
+        "name": "Rolfe",
+        "src": "../models/Rolfe.gltf",
+        "dialogue_id": 2,
+        "x_pos": 3,
+        "y_pos": 0,
+        "z_pos": -5,
+        "x_rot": 0,
+        "y_rot": 0,
+        "z_rot": 0,
+        "x_scale": 1,
+        "y_scale": 1,
+        "z_scale": 1,
+        "property": "npc",
+        "keyframes": 0,
+        "clips": []
+    },
+    {
+        "model_id": 0,
+        "npc_id": 1,
+        "name": "Lejo",
+        "src": "../models/Lejo.gltf",
+        "dialogue_id": 3,
+        "x_pos": -3,
+        "y_pos": 0,
+        "z_pos": -5,
+        "x_rot": 0,
+        "y_rot": 0,
+        "z_rot": 0,
+        "x_scale": 1,
+        "y_scale": 1,
+        "z_scale": 1,
+        "property": "npc",
+        "keyframes": 0,
+        "clips": []
+    },
+    {
+        "model_id": 0,
         "name": "ground",
         "src": "../models/ground.gltf",
         "x_pos": 0,
@@ -13,8 +70,6 @@
         "y_scale": 1,
         "z_scale": 1,
         "property": "ground",
-        "keyframes": 0,
-        "clips": [],
         "information_id": 0
     },
     {
@@ -31,8 +86,6 @@
         "y_scale": 1,
         "z_scale": 1,
         "property": "static",
-        "keyframes": 0,
-        "clips": [],
         "information_id": 1
     },
     {
@@ -49,8 +102,6 @@
         "y_scale": 1,
         "z_scale": 1,
         "property": "static",
-        "keyframes": 0,
-        "clips": [],
         "information_id": 0
     },
     {
@@ -67,8 +118,6 @@
         "y_scale": 1,
         "z_scale": 1,
         "property": "interactable",
-        "keyframes": 0,
-        "clips": [],
         "information_id": 0
     },
     {
@@ -85,8 +134,6 @@
         "y_scale": 1,
         "z_scale": 1,
         "property": "interactable",
-        "keyframes": 0,
-        "clips": [],
         "information_id": 1
     }
          

@@ -30,11 +30,16 @@ function CursorChanger(){
 
 	//Save the first (closest) object that the player is looking at
 	let currentObject = hitObjects[0];
+
+	//Check the type of the object that the player is looking at
 	if(currentObject){
-		//Check if there is an object that the player is looking at
 		if(currentObject.object.parent.property == "interactable"){
 			scene_setup.raycaster.far = 10;
 			document.body.style.cursor = "url('../images/cursor_questionmark.png'), auto";
+		}
+		else if(currentObject.object.parent.parent.property == "npc"){
+			scene_setup.raycaster.far = 10;
+			document.body.style.cursor = "url('../images/cursor_talk.png'), auto";
 		}
 		else if(currentObject.object.parent.property == "ground"){
 			scene_setup.raycaster.far = 50;
