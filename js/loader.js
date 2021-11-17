@@ -62,9 +62,13 @@ models.forEach(element => {
                     case "interactable":
                         if(o.name == "Outline"){
                             o.material = new THREE.MeshBasicMaterial({color: 0xff0000});
+                            o.receiveShadow = false;
+                            o.castShadow = false;
                         }
                         if(o.name == "Box"){
                             o.material = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe: true});
+                            o.receiveShadow = false;
+                            o.castShadow = false;
                         }
                         // else{
                         //     o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide});
@@ -73,13 +77,16 @@ models.forEach(element => {
                     case "npc":
                         if(o.name == "Box"){
                             o.material = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe: true});
+                            o.receiveShadow = false;
+                            o.castShadow = false;
                         }
                     break;
                     case "static":
-                        //Make a bounding box for the collision detection around the object. Will later generate matrix
-                        //o.geometry.computeBoundingBox();
-                        //const box = new THREE.BoxHelper(model, 0xffff00 );
-                        //scene.add(box);
+                        if(o.name == "Cube"){ //Needs to become skybox
+                            o.material = new THREE.MeshBasicMaterial({map: o.material.map});
+                            o.receiveShadow = false;
+                            o.castShadow = false;
+                        }
                 }
             }
         });

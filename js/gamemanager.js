@@ -11,7 +11,7 @@ const clock = new THREE.Clock();
 let canMutate = true;
 const modelsList = loader.modelsList;
 
-
+console.log(modelsList);
 setInterval(function(){
 	canMutate = true;
 }, 30);
@@ -56,6 +56,7 @@ function CursorChanger(){
 	}
 	//Currentobject is undefined 
 	else{
+		document.body.style.cursor = "url('../images/cursor_disabled.png'), auto";
 		return;
 	}
 }
