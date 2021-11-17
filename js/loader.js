@@ -44,8 +44,6 @@ models.forEach(element => {
         //Get the mesh from the object
         model.traverse((o) => {
             if(o.isMesh){
-                modelsList.push(model);
-
                 o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide});
                 o.receiveShadow = true;
                 o.castShadow = true;
@@ -90,6 +88,7 @@ models.forEach(element => {
                 }
             }
         });
+        modelsList.push(model);
         scene.add(model);
     });
 });
