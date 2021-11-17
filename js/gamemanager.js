@@ -14,14 +14,14 @@ const modelsList = loader.modelsList;
 
 setInterval(function(){
 	canMutate = true;
-}, 50);
+}, 30);
 
 //When mouse moves execute CursorChanger
 window.addEventListener("mousemove", function(){
 	// Prevent going ham
 	if (!canMutate){return};
 	CursorChanger();
-}, true)
+})
 
 //Cursor style depending on what object is being hovered over
 function CursorChanger(){
@@ -29,29 +29,34 @@ function CursorChanger(){
 	const hitObjects = scene_setup.raycaster.intersectObjects(modelsList);
 
 	//Save the first (closest) object that the player is looking at
-	let currentObject = hitObjects[0];
+	const currentObject = hitObjects[0];
 
-	//Check the type of the object that the player is looking at
+	//Currentobject is not undefined
 	if(currentObject){
-		if(currentObject.object.parent.property == "interactable"){
-			scene_setup.raycaster.far = 10;
-			document.body.style.cursor = "url('../images/cursor_questionmark.png'), auto";
-		}
-		else if(currentObject.object.parent.parent.property == "npc"){
-			scene_setup.raycaster.far = 10;
-			document.body.style.cursor = "url('../images/cursor_talk.png'), auto";
-		}
-		else if(currentObject.object.parent.property == "ground"){
-			scene_setup.raycaster.far = 50;
-			document.body.style.cursor = "url('../images/cursor_move.png'), auto";
-		}
-		else{
-			scene_setup.raycaster.far = 10;
-			document.body.style.cursor = "url('../images/cursor_disabled.png'), auto";
-		}
+		//Find the object group
+		currentObject.object.traverseAncestors(function (child) {
+			console.log(child)
+			if(child.type == "Group"){
+				switch(child.property){
+					case "interactable":
+                        document.body.style.cursor = "url('../images/cursor_questionmark.png'), auto";
+                        break;
+					case "npc":
+						document.body.style.cursor = "url('../images/cursor_talk.png'), auto";
+						break;
+					case "ground":
+						document.body.style.cursor = "url('../images/cursor_move.png'), auto";
+						break;
+					default:
+						document.body.style.cursor = "url('../images/cursor_disabled.png'), auto";
+				}
+			}
+			return;
+		});
 	}
+	//Currentobject is undefined 
 	else{
-		document.body.style.cursor = "url('../images/cursor_disabled.png'), auto";
+		return;
 	}
 }
 

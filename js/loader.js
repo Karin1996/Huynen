@@ -31,6 +31,7 @@ models.forEach(element => {
         model.scale.set(element.x_scale, element.y_scale, element.z_scale);
         model.name = element.name;
         model.model_id = element.model_id;
+        model.originalRotation = model.rotation.clone();
         //model.maxHeight = MAXHEIGHT;
         model.property = element.property;
         //If the model has a information id > 0 it means the object has information. Save the id for later uses in
@@ -61,18 +62,19 @@ models.forEach(element => {
                     case "interactable":
                         if(o.name == "Outline"){
                             o.material = new THREE.MeshBasicMaterial({color: 0xff0000});
-                            //Make a box to get the height of the object for the UI elements
-                            const box = new THREE.Box3().setFromObject(model);
-                            const helper = new THREE.Box3Helper(box, 0x0000ff); 
-
-                            //Make a property in the model that contains the maxheight of the object
-                            //model.maxHeight = box.max.y;
-                            scene.add(helper);
                         }
-                        else{
-                            o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide});
+                        if(o.name == "Box"){
+                            o.material = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe: true});
                         }
+                        // else{
+                        //     o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide});
+                        // }
                         break;
+                    case "npc":
+                        if(o.name == "Box"){
+                            o.material = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe: true});
+                        }
+                    break;
                     case "static":
                         //Make a bounding box for the collision detection around the object. Will later generate matrix
                         //o.geometry.computeBoundingBox();

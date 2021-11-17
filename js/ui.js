@@ -11,26 +11,56 @@ let uiVisible = false;
 window.addEventListener("click", CheckUI, true);
 
 function CheckUI(){
-    raycaster.setFromCamera(mouse, camera);    
-    const hitObjects = raycaster.intersectObjects(modelsList);
+    // raycaster.setFromCamera(mouse, camera);    
+    // const hitObjects = raycaster.intersectObjects(modelsList);
 
-    //Save the current object
-	if(hitObjects.length > 0){
-        let currentObject = hitObjects[0];
-		//Check if there is an object that the player is looking at
-		if(currentObject.object.parent.property == "interactable" && !uiVisible){
-			MakeUI("interaction", currentObject.object.parent);
-		}
-		else if(currentObject.object.parent.parent.property == "npc" && !uiVisible){
-			console.log("checkUI", "npc", currentObject.object.parent.parent);
-			MakeUI("dialogue", currentObject.object.parent.parent); 
-		}
-    }
+    // //Save the current object
+	// if(hitObjects.length > 0){
+    //     let currentObject = hitObjects[0];
+	// 	//Check if there is an object that the player is looking at
+	// 	if(currentObject.object.parent.property == "interactable" && !uiVisible){
+	// 		MakeUI("interaction", currentObject.object.parent);
+	// 	}
+	// 	else if(currentObject.object.parent.parent.property == "npc" && !uiVisible){
+	// 		MakeUI("dialogue", currentObject.object.parent.parent); 
+	// 	}
+    // }
+
+	raycaster.setFromCamera(mouse, camera);    
+	const hitObjects = raycaster.intersectObjects(modelsList);
+
+	//Save the first (closest) object that the player is looking at
+	const currentObject = hitObjects[0];
+
+	//Currentobject is not undefined
+	if(currentObject){
+		//Find the object group
+		currentObject.object.traverseAncestors(function (child) {
+			if(child.type === "Group"){
+				console.log(child);
+				if(child.property == "interactable" && !uiVisible){
+					MakeUI("interaction", child);
+				}
+				else if(child.property == "npc" && !uiVisible){
+					MakeUI("dialogue", child); 
+				}
+			}
+			else{
+				return;
+			}
+		});
+	}
+	//Currentobject is undefined 
+	else{
+		return;
+	}
 }
 
+
+
+
 //Make the UI with the correct information
-function MakeUI(type, object){
-	console.log("type", type, "should be dialogue", ".........", "object", object);
+function MakeUI(type, object){	
 	//If there is no visible ui make the ui
 	if(!uiVisible){
 		fpcontrols.lookSpeed = 0;
@@ -83,6 +113,7 @@ function MakeUI(type, object){
 			}
 		}	
 		else if(type == "dialogue"){
+			RotateNPC(object);
 			//Get the correct dialogue ID and extract the name and dialogue
 			let dialogue_id = object.dialogue_id;
 			let correctDialogue;
@@ -140,16 +171,18 @@ function MakeUI(type, object){
 		for(let i = 0; i < btns.length; i++){
 			btns[i].addEventListener("click", function(){
 				DeleteUI(btns[i].parentElement);
+				ResetRotationNPC(object);
 			});
 		}	
 	}
 	//ui is visible
 	else{
 		DeleteUI();
+		ResetRotationNPC(object);
 	}
 }
 
-function DeleteUI(div){
+function DeleteUI(div, npc){
 	if(!div){document.querySelector("#sceneCanvas").remove();}
 
 	uiVisible = false;
@@ -161,6 +194,33 @@ function DeleteUI(div){
 	fpcontrols.lookSpeed = LOOK_SPEED;
 }
 
+function RotateNPC(object){
+	console.log("rotate npc");
+	console.log("object", object);
+
+	// Simulate the rotation
+	let clone = object.clone();
+	clone.lookAt(camera.position);
+
+	console.log(camera.position);
+
+	// Change the y coordinate only
+	// object.rotation.y = clone.rotation.y;
+	object.rotation.set(object.rotation.x, clone.rotation.y, object.rotation.z);
+			
+	//console.log(object.position);
+	//object.lookAt(camera.position);
+	//console.log("after lookat", object);
+
+}
+function ResetRotationNPC(object){
+	console.log("reset npc");
+	console.log("object after lookat", object);
+
+	const element = modelsList.find(element => element.name == object.name);
+	object.rotation.set(element.originalRotation.x*(Math.PI/180), element.originalRotation.y*(Math.PI/180), element.originalRotation.z*(Math.PI/180));
+	console.log(object.rotation);
+}
 
 export{
 	uiVisible

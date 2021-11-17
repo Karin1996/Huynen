@@ -2,21 +2,21 @@
     {
         "dialogue_id": 1,
         "name": "Linne",
-        "dialogue": "I am Linne, who are you?",
+        "dialogue": "Hoi ik ben Linne",
         "isQuest": "no",
         "status": "status"
     },
     {
         "dialogue_id": 2,
         "name": "Rolfe",
-        "dialogue": "What do you want?",
+        "dialogue": "Wat moet je?",
         "isQuest": "no",
         "status": "status"
     },
     {
         "dialogue_id": 3,
         "name": "Lejo",
-        "dialogue": "Have a nice day",
+        "dialogue": "Ik heb het druk, fijne dag verder",
         "isQuest": "no",
         "status": "status"
     }
