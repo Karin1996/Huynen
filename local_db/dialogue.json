@@ -10,7 +10,8 @@
         "dialogue_id": 2,
         "name": "Rolfe",
         "dialogue": "Wat moet je?",
-        "isQuest": "no",
+        "isQuest": "yes",
+        "quest": "Ik ben bezig met een mooie hamerbijl maken, kan jij voor mij wat hars oogsten van de berkenboom bij het hunebed?",
         "status": "status"
     },
     {

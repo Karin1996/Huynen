@@ -192,20 +192,20 @@ div.btn:hover > p{
 
 .ui{
     width: 25rem;
-    height: 17rem;
+    height: 17.5rem;
     position: absolute;
-    bottom: 50px;
+    bottom: 60px;
     cursor: auto;
     opacity: 0;
     transition: 600ms;
 }
 #interaction{
-    background-image: url("../images/objectUI.png");
+    background-image: url("../images/itemUI.png");
     background-position: center center;
     background-size: cover;
 }
 #dialogue{
-    background-image: url("../images/dialogueUI.png");
+    background-image: url("../images/npcUI.png");
     background-position: center center;
     background-size: cover;
 }
@@ -213,31 +213,32 @@ div.btn:hover > p{
 .ui h1{
     font-size: 1rem;
     color: $greyish;
-    width: 10rem;
+    width: 8rem;
     text-align: center;
     text-transform: uppercase;
     font-family: $mainFont;
     position: relative;
-    top: 1.4rem;
-    left: 2rem;
+    top: 1.45rem;
+    left: 2.25rem;
+    transform: rotate(-1deg);
 }
 #dialogue h1{
    transform: rotate(-3deg);
-   top: 1.22rem;
-   width: 8rem;
+   top: 0.85rem;
+   width: 8.1rem;
    left: 2.2rem;
 }
 
 .ui .ui_p{
-    height: 12.1rem;
-    width: 19.8rem;
+    height: 12.8rem;
+    width: 20.3rem;
     left: 2.4rem;
     position: relative;
-    top: 2.4rem;
+    top: 2.25rem;
     font-family: $secondaryFont;
     font-size: 1rem;
     overflow-y: scroll;
-    padding: 0.6rem 0.8rem;
+    padding: 0.55rem 0.7rem;
     scrollbar-width: thin;
     scrollbar-color: $blue #14191d9c;
 }
@@ -253,8 +254,8 @@ div.btn:hover > p{
     width: 4.5rem;
     height: 3.5rem;
     right: 1.7rem;
-    bottom: -2rem;
-    background-image: url("../images/ok_btn.png");
+    bottom: -2.8rem;
+    background-image: url("../images/btn.png");
     background-position: center center;
     background-size: cover;
     position: relative;
