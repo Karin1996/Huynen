@@ -8,7 +8,8 @@ import {
 } from "../js/scene_setup";
 import {uiVisible} from "./ui";
 import {FirstPersonControls} from 'three/examples/jsm/controls/FirstPersonControls';
-import {modelsLoaded, modelsList} from "./loader";
+import {modelsList} from "./loader";
+//import {sceneLoaded} from "./gamemanager";
 import {DisplayRay} from "./debug";
 
 
@@ -21,7 +22,8 @@ const LOOK_SPEED = 0.12;
 
 const STEP = 0.1;
 const DISTANCE_GROUND = 1.5;
-camera.position.z = -3;
+camera.position.x = -25;
+camera.position.z = 30;
 camera.position.y = DISTANCE_GROUND;
 
 //Player's mouse is in the window and there is no ui visible
@@ -34,37 +36,31 @@ document.getElementById("sceneCanvas").addEventListener("mouseleave", function()
     fpcontrols.lookSpeed = 0;
 });
 
-while (!modelsLoaded) {
-    console.log("not loaded");
-}
+//Enable looking 1 second after everything is loaded in
+setTimeout(function(){
+    fpcontrols.lookSpeed = LOOK_SPEED;
+}, 1000)
 
-//The models are done loading
-if(modelsLoaded){
-    //Enable looking 1 second after everything is loaded in
-    setTimeout(function(){
-        fpcontrols.lookSpeed = LOOK_SPEED;
-    }, 1000)
-
-    //Get the clicked location
-    document.addEventListener("mousedown", function(e){        
-        raycaster.setFromCamera(mouse, camera);    
-        const hitObjects = raycaster.intersectObjects(modelsList);
-        
-        //Save the first (closest) object that the player is looking at
-        if(hitObjects.length > 0){
-            let currentObject = hitObjects[0];
-
-            mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+//Get the clicked location
+document.addEventListener("mousedown", function(e){        
+    raycaster.setFromCamera(mouse, camera);    
+    const hitObjects = raycaster.intersectObjects(modelsList);
     
-            if(currentObject.object.parent.property == "ground" ){
-                if(!uiVisible){
-                    MovePlayer(currentObject);
-                }
+    //Save the first (closest) object that the player is looking at
+    if(hitObjects.length > 0){
+        let currentObject = hitObjects[0];
+
+        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+        if(currentObject.object.parent.property == "ground" ){
+            if(!uiVisible){
+                MovePlayer(currentObject);
             }
         }
-    }, true);
-}
+    }
+}, true);
+
 
 function MovePlayer(location){
     const a_pos = camera.position;

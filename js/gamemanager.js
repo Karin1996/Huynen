@@ -11,7 +11,17 @@ const clock = new THREE.Clock();
 let canMutate = true;
 const modelsList = loader.modelsList;
 
-console.log(modelsList);
+//FIX LOADING TO PROMISE
+//Show loading page until everything has been loaded in in the background
+window.addEventListener('load', function(){
+	document.querySelector("#loading").style.opacity = 0;
+	setTimeout(function(){
+		console.log("loaded");
+		RenderLoop();
+		document.querySelector("#loading").remove();
+	}, 500);
+}, true);
+
 setInterval(function(){
 	canMutate = true;
 }, 30);
@@ -19,7 +29,7 @@ setInterval(function(){
 //When mouse moves execute CursorChanger
 window.addEventListener("mousemove", function(){
 	// Prevent going ham
-	if (!canMutate){return};
+	if (!canMutate || debug.debug_mode){return};
 	CursorChanger();
 })
 
@@ -35,7 +45,7 @@ function CursorChanger(){
 	if(currentObject){
 		//Find the object group
 		currentObject.object.traverseAncestors(function (child) {
-			console.log(child)
+			//console.log(child)
 			if(child.type == "Group"){
 				switch(child.property){
 					case "interactable":
@@ -70,4 +80,4 @@ function RenderLoop() {
 	scene_setup.Render();
 	movement.fpcontrols.handleResize();
 }
-RenderLoop();
+

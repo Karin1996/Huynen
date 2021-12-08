@@ -11,21 +11,6 @@ let uiVisible = false;
 window.addEventListener("click", CheckUI, true);
 
 function CheckUI(){
-    // raycaster.setFromCamera(mouse, camera);    
-    // const hitObjects = raycaster.intersectObjects(modelsList);
-
-    // //Save the current object
-	// if(hitObjects.length > 0){
-    //     let currentObject = hitObjects[0];
-	// 	//Check if there is an object that the player is looking at
-	// 	if(currentObject.object.parent.property == "interactable" && !uiVisible){
-	// 		MakeUI("interaction", currentObject.object.parent);
-	// 	}
-	// 	else if(currentObject.object.parent.parent.property == "npc" && !uiVisible){
-	// 		MakeUI("dialogue", currentObject.object.parent.parent); 
-	// 	}
-    // }
-
 	raycaster.setFromCamera(mouse, camera);    
 	const hitObjects = raycaster.intersectObjects(modelsList);
 
@@ -55,8 +40,6 @@ function CheckUI(){
 		return;
 	}
 }
-
-
 
 
 //Make the UI with the correct information
@@ -113,7 +96,8 @@ function MakeUI(type, object){
 			}
 		}	
 		else if(type == "dialogue"){
-			RotateNPC(object);
+			//FIX NPC ROTATION
+			//RotateNPC(object);
 			//Get the correct dialogue ID and extract the name and dialogue
 			let dialogue_id = object.dialogue_id;
 			let correctDialogue;

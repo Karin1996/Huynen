@@ -2,7 +2,6 @@
 //Get json files
 let models = require("../local_db/model.json");
 //let shaders = require("../js/shaders.js");
-
 import {
     scene,
     THREE,
@@ -15,7 +14,6 @@ import { DRACOLoader } from "three/examples/jsm/loaders/dracoloader";
 const loader = new GLTFLoader();
 //const MAXHEIGHT = 3;
 let modelsList = [];
-let modelsLoaded = false;
 //const loader = new DRACOLoader();
 //loader.setDecoderPath("three/examples/js/libs/draco");
 //loader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
@@ -58,13 +56,13 @@ models.forEach(element => {
                         o.material.opacity = 0.2;
                         break;
                     case "interactable":
-                        if(o.name == "Outline"){
+                        if(o.name.toLowerCase() == "outline"){
                             o.material = new THREE.MeshBasicMaterial({color: 0xff0000});
                             o.receiveShadow = false;
                             o.castShadow = false;
                         }
-                        if(o.name == "Box"){
-                            o.material = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe: true});
+                        if(o.name.toLowerCase() == "box"){
+                            o.material = new THREE.MeshBasicMaterial({color: 0xff0000, transparent: true, opacity:0});
                             o.receiveShadow = false;
                             o.castShadow = false;
                         }
@@ -73,8 +71,8 @@ models.forEach(element => {
                         // }
                         break;
                     case "npc":
-                        if(o.name == "Box"){
-                            o.material = new THREE.MeshBasicMaterial({color: 0xff0000, wireframe: true});
+                        if(o.name.toLowerCase() == "box"){
+                            o.material = new THREE.MeshBasicMaterial({color: 0xff0000, transparent: true, opacity:0});
                             o.receiveShadow = false;
                             o.castShadow = false;
                         }
@@ -85,19 +83,20 @@ models.forEach(element => {
                             o.receiveShadow = false;
                             o.castShadow = false;
                         }
+                        //Change Grass and Reed shadow properties
+                        if(o.name.toLowerCase().includes("grass") || o.name.toLowerCase().includes("reed")){ 
+                            o.receiveShadow = false;
+                            o.castShadow = false;
+                        }
                 }
             }
         });
         modelsList.push(model);
         scene.add(model);
     });
-});
-
-modelsLoaded = true;
-console.log("modelslist", modelsList);
+}); 
 
 export{
-    modelsLoaded,
     modelsList
 }
 

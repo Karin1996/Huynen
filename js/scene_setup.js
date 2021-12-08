@@ -4,10 +4,10 @@ import * as THREE from 'three';
 //Scene
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xa6c8ff);
-scene.fog = new THREE.Fog(0xc1dcf7, 1, 100);
+scene.fog = new THREE.Fog(0xc1dcf7, 4, 80);
 
 //Camera
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.2, 300);
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.2, 100);
 camera.position.set(0,0,0);
 
 //Renderer
@@ -21,7 +21,7 @@ renderer.shadowMapSoft = true;
 renderer.physicallyCorrectLights = true;
 renderer.physicallyBasedShading = true;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.1; 
+renderer.toneMappingExposure = 1.2; 
 renderer.outputEncoding = THREE.sRGBEncoding;
 
 //Ray and mouse
@@ -76,7 +76,7 @@ dirLight.shadow.camera.left = -30;
 dirLight.shadow.camera.right = 30;
 dirLight.shadow.camera.top = 30;
 dirLight.shadow.camera.bottom = -30;
-dirLight.shadow.camera.near = 20;
+dirLight.shadow.camera.near = 0.5;
 dirLight.shadow.camera.far = 250;
 dirLight.shadow.bias = 0.15;
 

@@ -2,23 +2,40 @@
     {
         "dialogue_id": 1,
         "name": "Linne",
-        "dialogue": "Hoi ik ben Linne",
-        "isQuest": "no",
-        "status": "status"
+        "dialogue": "Ik zie het allemaal niet meer zo goed. Gelukkig is mijn dochter Ida een goede hulp.",
+        "isQuest": "no"
     },
     {
         "dialogue_id": 2,
-        "name": "Rolfe",
-        "dialogue": "Wat moet je?",
-        "isQuest": "yes",
-        "quest": "Ik ben bezig met een mooie hamerbijl maken, kan jij voor mij wat hars oogsten van de berkenboom bij het hunebed?",
-        "status": "status"
+        "name": "Ida",
+        "dialogue": "Kan ik je ergens mee helpen?",
+        "isQuest": "no"
     },
     {
         "dialogue_id": 3,
         "name": "Lejo",
-        "dialogue": "Ik heb het druk, fijne dag verder",
-        "isQuest": "no",
+        "dialogue": "De vissen willen nog niet echt bijten. Ik heb ook wat fuiken in het water, ik hoop dat die meer geluk hebben.",
+        "isQuest": "no"
+    },
+    {
+        "dialogue_id": 4,
+        "name": "Rolfe",
+        "dialogue": "Ik heb wat berkenhars nodig.",
+        "isQuest": "no"
+    },
+    {
+        "dialogue_id": 5,
+        "name": "Alfwin",
+        "dialogue": "Vanavond is het offerfeest.",
+        "isQuest": "no"
+    },
+   
+    {
+        "dialogue_id": 100,
+        "name": "Ida",
+        "dialogue": "Kan ik je ergens mee helpen?",
+        "isQuest": "yes",
+        "quest": "Ik ben bezig met een mooie hamerbijl maken, kan jij voor mij wat hars oogsten van de berkenboom bij het hunebed?",
         "status": "status"
     }
 ]

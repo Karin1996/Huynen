@@ -24,6 +24,7 @@ window.addEventListener('keydown', function(e) {
     if (e.key == "Enter") {
         Orbit();
         DisplayRay(raycaster.far);
+        document.body.style.cursor = "auto";
         debug_mode = !debug_mode;
 	}
 });
