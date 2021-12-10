@@ -4,10 +4,11 @@ import * as THREE from 'three';
 //Scene
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xa6c8ff);
-scene.fog = new THREE.Fog(0xc1dcf7, 4, 80);
+scene.fog = new THREE.Fog(0xc1dcf7, 30, 80);
+//scene.fog = new THREE.FogExp2(0xc1dcf7, 0.01);
 
 //Camera
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.2, 100);
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.2, 180);
 camera.position.set(0,0,0);
 
 //Renderer
@@ -60,22 +61,24 @@ let dirHelper = new THREE.DirectionalLightHelper(dirLight, 5);
 scene.add(dirHelper);
 
 //Light settings
-dirLight.position.set(0, 2, 0);
+dirLight.position.set(2, 20, 0);
 
 //Shadows are to dark, currently this is the lightest method to reduce shadow intensity
 let dirLight2 = dirLight.clone();
+
 dirLight.castShadow = true;
 dirLight2.castShadow = false;
-dirLight.intensity = 0.5;
-dirLight2.intensity = 0.9;
+dirLight.intensity = 0.6;
+dirLight2.intensity = 0.8;
 
 dirLight.shadow.mapSize.width = 512;
 dirLight.shadow.mapSize.height = 512;
 
-dirLight.shadow.camera.left = -30;
-dirLight.shadow.camera.right = 30;
-dirLight.shadow.camera.top = 30;
-dirLight.shadow.camera.bottom = -30;
+let shadowPlanes = 60;
+dirLight.shadow.camera.left = -shadowPlanes;
+dirLight.shadow.camera.right = shadowPlanes;
+dirLight.shadow.camera.top = shadowPlanes;
+dirLight.shadow.camera.bottom = -shadowPlanes;
 dirLight.shadow.camera.near = 0.5;
 dirLight.shadow.camera.far = 250;
 dirLight.shadow.bias = 0.15;

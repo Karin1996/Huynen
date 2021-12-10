@@ -14,6 +14,7 @@ import { DRACOLoader } from "three/examples/jsm/loaders/dracoloader";
 const loader = new GLTFLoader();
 //const MAXHEIGHT = 3;
 let modelsList = [];
+let skyboxes = [];
 //const loader = new DRACOLoader();
 //loader.setDecoderPath("three/examples/js/libs/draco");
 //loader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
@@ -51,10 +52,26 @@ models.forEach(element => {
                         o.material.side = THREE.FrontSide;
                         o.castShadow = false;
                         break;
+
+                    case "skybox":
+                        o.material = new THREE.MeshBasicMaterial({map: o.material.map});
+                        o.receiveShadow = false;
+                        o.castShadow = false;
+                        o.material.transparent = true;
+                        if(model.name.toLowerCase() == "skybox1"){
+                            o.material.opacity = 1;
+                        }
+                        else if(model.name.toLowerCase() == "skybox2"){
+                            o.material.opacity = 0;
+                        }
+                        skyboxes.push(o);
+                    break;
+
                     case "transparent":
                         o.material.transparent = true;
                         o.material.opacity = 0.2;
                         break;
+
                     case "interactable":
                         if(o.name.toLowerCase() == "outline"){
                             o.material = new THREE.MeshBasicMaterial({color: 0xff0000});
@@ -62,27 +79,26 @@ models.forEach(element => {
                             o.castShadow = false;
                         }
                         if(o.name.toLowerCase() == "box"){
-                            o.material = new THREE.MeshBasicMaterial({color: 0xff0000, transparent: true, opacity:0});
+                            console.log("o", o);
+                            o.material = new THREE.MeshBasicMaterial();
+                            o.fog = false;
+                            o.visible = false;
                             o.receiveShadow = false;
                             o.castShadow = false;
                         }
-                        // else{
-                        //     o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide});
-                        // }
                         break;
+
                     case "npc":
                         if(o.name.toLowerCase() == "box"){
-                            o.material = new THREE.MeshBasicMaterial({color: 0xff0000, transparent: true, opacity:0});
+                            o.material = new THREE.MeshBasicMaterial();
+                            o.fog = false;
+                            o.visible = false;
                             o.receiveShadow = false;
                             o.castShadow = false;
                         }
                     break;
+
                     case "static":
-                        if(o.name == "Cube"){ //Needs to become skybox
-                            o.material = new THREE.MeshBasicMaterial({map: o.material.map});
-                            o.receiveShadow = false;
-                            o.castShadow = false;
-                        }
                         //Change Grass and Reed shadow properties
                         if(o.name.toLowerCase().includes("grass") || o.name.toLowerCase().includes("reed")){ 
                             o.receiveShadow = false;
@@ -97,6 +113,7 @@ models.forEach(element => {
 }); 
 
 export{
+    skyboxes,
     modelsList
 }
 

@@ -1774,5 +1774,35 @@
         "y_scale": 1,
         "z_scale": 1,
         "property": "static"
+    },
+    {
+        "model_id": 117,
+        "name": "Skybox1",
+        "src": "../models/Skybox1.gltf",
+        "x_pos": 0,
+        "y_pos": 0,
+        "z_pos": 0,
+        "x_rot": 0,
+        "y_rot": 0,
+        "z_rot": 0,
+        "x_scale": 1,
+        "y_scale": 1,
+        "z_scale": 1,
+        "property": "skybox"
+    },
+    {
+        "model_id": 118,
+        "name": "Skybox2",
+        "src": "../models/Skybox2.gltf",
+        "x_pos": 0,
+        "y_pos": 0,
+        "z_pos": 0,
+        "x_rot": 0,
+        "y_rot": 0,
+        "z_rot": 0,
+        "x_scale": 1,
+        "y_scale": 1,
+        "z_scale": 1,
+        "property": "skybox"
     }
 ]
