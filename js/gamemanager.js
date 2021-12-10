@@ -4,6 +4,7 @@ import * as debug from "../js/debug.js";
 import * as ui from "../js/ui.js";
 import * as loader from "../js/loader.js";
 import * as movement from "../js/movement.js";
+import * as cycle from "../js/cycle.js";
 
 //Var declarations
 let THREE = scene_setup.THREE;
@@ -11,14 +12,16 @@ const clock = new THREE.Clock();
 let canMutate = true;
 const modelsList = loader.modelsList;
 
+document.body.appendChild(debug.stats.dom);
+
 //FIX LOADING TO PROMISE
 //Show loading page until everything has been loaded in in the background
 window.addEventListener('load', function(){
 	document.querySelector("#loading").style.opacity = 0;
-	setTimeout(function(){
-		console.log("loaded");
+	setTimeout(function(){;
 		RenderLoop();
 		document.querySelector("#loading").remove();
+		cycle.Cycle();	
 	}, 500);
 }, true);
 
@@ -80,4 +83,3 @@ function RenderLoop() {
 	scene_setup.Render();
 	movement.fpcontrols.handleResize();
 }
-

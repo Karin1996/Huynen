@@ -283,5 +283,32 @@ div.btn:hover > p{
     background-repeat: no-repeat;
     background-size: 8rem;
     transition: 600ms;
-    cursor: default, auto;
+    z-index: 1;
 }
+
+#dn_slider{
+    height: 50px;
+    width: 500px;
+    margin-top: 0;
+    opacity: 0;
+    transition: 600ms;
+}
+img{
+    width: 500px;
+    height: 50px;
+    position: absolute;
+    margin-top: 20px; 
+}
+img#dn_slider{
+    width: 500px;
+}
+img#fill{ 
+    width: 0px; /*Change this with js*/
+}
+img#bar{ 
+    width: 10px;
+    height: 40px;
+    margin-top: 25px;
+    margin-left: 0px; /*Change this with js, same as fill width*/
+}
+

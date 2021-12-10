@@ -22,8 +22,9 @@ const LOOK_SPEED = 0.12;
 
 const STEP = 0.1;
 const DISTANCE_GROUND = 1.5;
-camera.position.x = -25;
-camera.position.z = 30;
+//camera.position.x = -25;
+//camera.position.z = 30;
+camera.position.z = 10;
 camera.position.y = DISTANCE_GROUND;
 
 //Player's mouse is in the window and there is no ui visible

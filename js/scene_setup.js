@@ -56,11 +56,11 @@ sceneCanvas.appendChild(renderer.domElement);
 //Lights
 let ambientLight = new THREE.AmbientLight(0xcce0ff, 0.4);
 let dirLight = new THREE.DirectionalLight(0xfff5c7);
-//let dirHelper = new THREE.DirectionalLightHelper(dirLight, 5);
-//scene.add(dirHelper);
+let dirHelper = new THREE.DirectionalLightHelper(dirLight, 5);
+scene.add(dirHelper);
 
 //Light settings
-dirLight.position.set(100, 40, 40);
+dirLight.position.set(0, 2, 0);
 
 //Shadows are to dark, currently this is the lightest method to reduce shadow intensity
 let dirLight2 = dirLight.clone();
@@ -90,5 +90,7 @@ export{
     Render,
     THREE, 
     raycaster, 
-    mouse
+    mouse,
+    dirLight, 
+    dirLight2
 };
