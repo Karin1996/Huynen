@@ -43,7 +43,7 @@ function Cycle(){
         //Change slider
         widthAndMargin += increase * granularity;
         fill.style.width = widthAndMargin + "px";
-        bar.style.marginLeft = widthAndMargin + "px";
+        bar.style.marginLeft = widthAndMargin - 5 + "px";
         
         //Change skybox, fog and lights
         if(skyboxes[0].parent.name.toLowerCase() == "skybox1"){

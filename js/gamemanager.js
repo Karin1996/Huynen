@@ -12,7 +12,7 @@ const clock = new THREE.Clock();
 let canMutate = true;
 const modelsList = loader.modelsList;
 
-document.body.appendChild(debug.stats.dom);
+//document.body.appendChild(debug.stats.dom);
 
 //FIX LOADING TO PROMISE
 //Show loading page until everything has been loaded in in the background
@@ -48,7 +48,6 @@ function CursorChanger(){
 	if(currentObject){
 		//Find the object group
 		currentObject.object.traverseAncestors(function (child) {
-			//console.log(child)
 			if(child.type == "Group"){
 				switch(child.property){
 					case "interactable":

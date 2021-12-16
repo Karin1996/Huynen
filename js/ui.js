@@ -41,7 +41,6 @@ function CheckUI(){
 	}
 }
 
-
 //Make the UI with the correct information
 function MakeUI(type, object){	
 	//If there is no visible ui make the ui

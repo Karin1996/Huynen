@@ -58,7 +58,7 @@ sceneCanvas.appendChild(renderer.domElement);
 let ambientLight = new THREE.AmbientLight(0xcce0ff, 0.4);
 let dirLight = new THREE.DirectionalLight(0xfff5c7);
 let dirHelper = new THREE.DirectionalLightHelper(dirLight, 5);
-scene.add(dirHelper);
+//scene.add(dirHelper);
 
 //Light settings
 dirLight.position.set(2, 20, 0);
