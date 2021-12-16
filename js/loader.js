@@ -79,7 +79,6 @@ models.forEach(element => {
                             o.castShadow = false;
                         }
                         if(o.name.toLowerCase() == "box"){
-                            console.log("o", o);
                             o.material = new THREE.MeshBasicMaterial();
                             o.fog = false;
                             o.visible = false;

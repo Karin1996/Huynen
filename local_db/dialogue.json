@@ -29,6 +29,12 @@
         "dialogue": "Vanavond is het offerfeest.",
         "isQuest": "no"
     },
+    {
+        "dialogue_id": 6,
+        "name": "Test",
+        "dialogue": "I do testy.",
+        "isQuest": "no"
+    },
    
     {
         "dialogue_id": 100,

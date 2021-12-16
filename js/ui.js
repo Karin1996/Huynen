@@ -5,6 +5,7 @@ import {camera, raycaster, mouse} from "./scene_setup";
 import {modelsList} from "./loader";
 import {DisplayRay} from "./debug";
 import {fpcontrols, LOOK_SPEED} from "./movement";
+import {RotateNPC, ResetRotationNPC} from "./npc"
 
 let uiVisible = false;
 //On click execute CheckUI
@@ -22,7 +23,6 @@ function CheckUI(){
 		//Find the object group
 		currentObject.object.traverseAncestors(function (child) {
 			if(child.type === "Group"){
-				console.log(child);
 				if(child.property == "interactable" && !uiVisible){
 					MakeUI("interaction", child);
 				}
@@ -95,8 +95,8 @@ function MakeUI(type, object){
 			}
 		}	
 		else if(type == "dialogue"){
-			//FIX NPC ROTATION
-			//RotateNPC(object);
+			//Execute rotate NPC. Function in npc.js
+			RotateNPC(object);
 			//Get the correct dialogue ID and extract the name and dialogue
 			let dialogue_id = object.dialogue_id;
 			let correctDialogue;
@@ -147,25 +147,26 @@ function MakeUI(type, object){
 		setTimeout(function(){
 			//Show UI with fade in
 			ui.style.opacity = 1;
-		}, 100);
 
-		//Add eventlistener to the buttons so player can exit ui
-		let btns = document.getElementsByClassName("ui_btn");
-		for(let i = 0; i < btns.length; i++){
-			btns[i].addEventListener("click", function(){
-				DeleteUI(btns[i].parentElement);
-				ResetRotationNPC(object);
-			});
-		}	
+			//Add eventlistener to the buttons so player can exit ui
+			let btns = document.getElementsByClassName("ui_btn");
+			for(let i = 0; i < btns.length; i++){
+				btns[i].addEventListener("click", function(){
+					DeleteUI(btns[i].parentElement);
+					ResetRotationNPC();
+				});
+			}	
+
+		}, 100);
 	}
 	//ui is visible
 	else{
 		DeleteUI();
-		ResetRotationNPC(object);
+		ResetRotationNPC();
 	}
 }
 
-function DeleteUI(div, npc){
+function DeleteUI(div){
 	if(!div){document.querySelector("#sceneCanvas").remove();}
 
 	uiVisible = false;
@@ -175,34 +176,6 @@ function DeleteUI(div, npc){
 		div.parentNode.removeChild(div);
 	}, 1000);
 	fpcontrols.lookSpeed = LOOK_SPEED;
-}
-
-function RotateNPC(object){
-	console.log("rotate npc");
-	console.log("object", object);
-
-	// Simulate the rotation
-	let clone = object.clone();
-	clone.lookAt(camera.position);
-
-	console.log(camera.position);
-
-	// Change the y coordinate only
-	// object.rotation.y = clone.rotation.y;
-	object.rotation.set(object.rotation.x, clone.rotation.y, object.rotation.z);
-			
-	//console.log(object.position);
-	//object.lookAt(camera.position);
-	//console.log("after lookat", object);
-
-}
-function ResetRotationNPC(object){
-	console.log("reset npc");
-	console.log("object after lookat", object);
-
-	const element = modelsList.find(element => element.name == object.name);
-	object.rotation.set(element.originalRotation.x*(Math.PI/180), element.originalRotation.y*(Math.PI/180), element.originalRotation.z*(Math.PI/180));
-	console.log(object.rotation);
 }
 
 export{

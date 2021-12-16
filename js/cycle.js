@@ -54,6 +54,8 @@ function Cycle(){
             skybox1 = skyboxes[1]
             skybox2 = skyboxes[0]
         }
+        //TODO: if skybox undefined, reload page
+
         
         //Change lights, intensity
         dirLight.intensity -= dirLight_step;
