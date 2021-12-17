@@ -12,17 +12,36 @@ const clock = new THREE.Clock();
 let canMutate = true;
 const modelsList = loader.modelsList;
 
-//document.body.appendChild(debug.stats.dom);
+document.body.appendChild(debug.stats.dom);
 
-//FIX LOADING TO PROMISE
-//Show loading page until everything has been loaded in in the background
 window.addEventListener('load', function(){
-	document.querySelector("#loading").style.opacity = 0;
-	setTimeout(function(){;
-		RenderLoop();
-		document.querySelector("#loading").remove();
-		cycle.Cycle();	
-	}, 500);
+	//Render the scene
+	RenderLoop();
+	
+	//Zoom out the camera. When the camera is back at the ground the player doesn't have the initial look around lag
+	movement.camera.position.y = 120;
+	movement.camera.lookAt(0,0,0);
+
+	//Check if loader is true
+	let interval = setInterval(function(){
+		//Loader is true
+		if (loader.loaded) {
+			//Clear the interval
+			clearInterval(interval);
+			//Zoom the camera back in
+			movement.camera.position.y = movement.DISTANCE_GROUND;
+			//Enable btn
+			document.getElementById("btn").style.opacity = 1;
+			document.getElementById("loading").style.opacity = 0;
+			document.getElementById("btn").addEventListener("click", function(){
+				//Delete div, Start wink animation, start DayNight cycle on click of the btn
+				document.getElementById("front_page").remove();
+				
+				cycle.Cycle();
+			});
+		}
+	}, 50);
+	
 }, true);
 
 setInterval(function(){
@@ -32,8 +51,12 @@ setInterval(function(){
 //When mouse moves execute CursorChanger
 window.addEventListener("mousemove", function(){
 	// Prevent going ham
-	if (!canMutate || debug.debug_mode){return};
-	CursorChanger();
+	if (!canMutate || debug.debug_mode || !loader.loaded){
+		return;
+	}
+	else{
+		CursorChanger();
+	}
 })
 
 //Cursor style depending on what object is being hovered over
@@ -74,7 +97,7 @@ function CursorChanger(){
 }
 
 function RenderLoop() {
-    if(!debug.debug_mode){
+    if(!debug.debug_mode && loader.loaded){
 		movement.fpcontrols.update(clock.getDelta()); //To be able to look around
 	} 
 	debug.stats.update();

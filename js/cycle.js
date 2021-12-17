@@ -14,7 +14,7 @@ let slider = document.getElementById("slider");
 let fill = document.getElementById("fill");
 let bar = document.getElementById("bar");
 
-let timer = 3000; //time in milliseconds
+let timer = 30000; //time in milliseconds
 let increase = slider.width / timer; //the stepsize that needs to be taken to get to the endposition in x time
 let widthAndMargin = 0; //save the width and margin that the elements need to have in this var (css doesnt read small int values)
 let granularity = 30; //Smoothness of slider movement / delay
@@ -54,8 +54,7 @@ function Cycle(){
             skybox1 = skyboxes[1]
             skybox2 = skyboxes[0]
         }
-        //TODO: if skybox undefined, reload page
-
+        //TODO: IF SKYBOX UNDEFINED, RELOAD PAGE
         
         //Change lights, intensity
         dirLight.intensity -= dirLight_step;
@@ -89,7 +88,7 @@ function Cycle(){
         }
     }, granularity);
 
-    //WHEN CYCLE END START SACRIFICIAL FESTIVAL
+    //TODO: WHEN CYCLE END START SACRIFICIAL FESTIVAL
 }
 
 export{

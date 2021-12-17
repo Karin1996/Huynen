@@ -8,8 +8,7 @@ import {
 } from "../js/scene_setup";
 import {uiVisible} from "./ui";
 import {FirstPersonControls} from 'three/examples/jsm/controls/FirstPersonControls';
-import {modelsList} from "./loader";
-//import {sceneLoaded} from "./gamemanager";
+import {modelsList, loaded} from "./loader";
 import {DisplayRay} from "./debug";
 
 
@@ -24,8 +23,8 @@ const STEP = 0.1;
 const DISTANCE_GROUND = 1.5;
 camera.position.x = -25;
 camera.position.z = 30;
-camera.position.z = 10;
-camera.position.y = DISTANCE_GROUND;
+//camera.position.y = DISTANCE_GROUND;
+
 
 //Player's mouse is in the window and there is no ui visible
 document.getElementById("sceneCanvas").addEventListener("mouseenter", function(){
@@ -37,10 +36,10 @@ document.getElementById("sceneCanvas").addEventListener("mouseleave", function()
     fpcontrols.lookSpeed = 0;
 });
 
-//Enable looking 1 second after everything is loaded in
-setTimeout(function(){
+//Enable looking after everything is loaded in
+if(loaded){
     fpcontrols.lookSpeed = LOOK_SPEED;
-}, 1000)
+}
 
 //Get the clicked location
 document.addEventListener("mousedown", function(e){        
@@ -87,7 +86,6 @@ function AnimatePosition(a, b, distance, camera, percentage=0){
     }, 30);
 }
 
-
 export{
-    fpcontrols, LOOK_SPEED
+    fpcontrols, LOOK_SPEED, DISTANCE_GROUND, camera
 };

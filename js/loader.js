@@ -7,7 +7,7 @@ import {
     THREE,
 } from "./scene_setup";
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
-import { DRACOLoader } from "three/examples/jsm/loaders/dracoloader";
+import {DRACOLoader} from "three/examples/jsm/loaders/dracoloader";
 
 
 //Var declarations
@@ -15,6 +15,7 @@ const loader = new GLTFLoader();
 //const MAXHEIGHT = 3;
 let modelsList = [];
 let skyboxes = [];
+let loaded = false;
 //const loader = new DRACOLoader();
 //loader.setDecoderPath("three/examples/js/libs/draco");
 //loader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
@@ -108,12 +109,18 @@ models.forEach(element => {
         });
         modelsList.push(model);
         scene.add(model);
+        if(modelsList.length >= models.length - 10 ){
+            loaded = true;
+            console.log("loader", loaded);
+        }
     });
 }); 
 
+
 export{
     skyboxes,
-    modelsList
+    modelsList,
+    loaded
 }
 
 

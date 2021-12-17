@@ -37,151 +37,164 @@ body{
     height: 100vh;
     width: 100%;
     overflow: hidden;
+    // background-color: $dark;
+    // color: #fff;
+}
+
+#front_page{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    //justify-content: center;
+    flex-direction: column; 
     background-color: $dark;
     color: #fff;
+    cursor: default;
+}
+
+h1#title{
+    font-size: 4rem;
+    text-align: center;
+    margin-top: 3rem;
+}
+
+#title::before{
+    content: "";
+    position: absolute;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-left: -2rem;
+    margin-top: -1.8rem;
+    background-image: url('../images/twoLeafs.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    filter: invert(100%);
+    transform: scaleX(-1);
+}
+#title::after{
+    content: "";
+    position: absolute;
+    width: 1.8rem;
+    height: 1.8rem;
+    margin-top: 2.3rem;
+    background-image: url('../images/oneLeaf.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    filter: invert(100%);
+    rotate: 15deg;
+}
+
+h3#subtitle{
+    color: $lightBlue;
+    font-size: 1.1rem;
+    font-family: $secondaryFont;
+    text-align: center;
+}
+
+p.story{
+    width: 55rem;
+    text-align: center;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+p.info{
+    width: 55rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+#grid{
+    width: 50rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+.explanation{
+    max-width: 12rem;
+    min-height: 10rem;
+    flex: 1 1 auto;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    padding: 1rem;
+    border: 2px;
+    border-color: rgba(255,255,255,0.7);
+    border-style: dashed;
+}
+.explanation img{
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: 1rem;
+}
+.explanation p {
+    font-family: $secondaryFont;
+    font-size: 1.2rem;
+    color: $lightBlue;
 }
 
-h1#title{
-    font-size: 7rem;
+#btn{
+    width: 14rem;
+    padding: 1.6rem 1rem;
     text-align: center;
-    position: relative;
-}
-h1#title::before{
-    content: "";
-    position: absolute;
-    width: 3.75rem;
-    height: 3.75rem;
-    top: -2.4rem;
-    left: -2.8rem;
-    background-image: url(../images/twoLeafs.png);
-    background-size: 100%;
-    background-repeat: no-repeat;
-    filter: invert(100%);
-    transform: scaleX(-1);
-}
-h1#title::after{
-    content: "";
-    position: absolute;
-    width: 2.1rem;
-    height: 2.1rem;
-    bottom: 0.7rem;
-    right: -2rem;
-    background-image: url(../images/oneLeaf.png);
-    background-size: 100%;
-    background-repeat: no-repeat;
-    transform: rotate(20deg);
-    filter: invert(100%);
-}
-h3#subtitle{
-    color: $lightBlue;
-    font-size: 1.75rem;
-    font-family: $secondaryFont;
-    text-align: center;
-    margin-bottom: 2rem;
-}
-.logo{
-    width: 50rem;
-    fill: #fff;
-}
-div.btn{
-    display: flex;
-    justify-items: center;
-    align-items: center;
-    margin-top: 2rem;
-    position: relative;
-    cursor: pointer;
-}
-div.explanation{
-    width: 70%;
-    //background: red;
-    display: flex;
-    justify-items: center;
-    align-items: center;
-    flex-direction: row;
-    margin-top: 1rem;
-    border: 2px dashed $greyish;
-    padding: 1rem;
-}
-div.explanation img{
-    width: 100px;
-    float: left;
-}
-div.explanation p{
-    position: relative;
-    float: left;
-    font-size: 1.25rem;
-    //background: green;
-    width: auto;
-    text-align: left;
-    text-transform: None;
-    font-family: $secondaryFont;
-    cursor: default;
-    margin-left: 1rem;
-}
-div.btn a{
-    position: relative;
-    width: 12rem;
-    height: 12rem;
-    border-radius: 50%;
-    border: 6px;
+    border: 2px;
     border-color: rgba(255,255,255,0.7);
-    border-style: double dashed;
-    background-color: transparent;
+    border-style: dashed;
+    margin-top: 4rem;
     cursor: pointer;
-    transition: all linear 300ms;
-}
-div.btn::before{
-    content: " ";
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 50%;
-    border: 6px;
-    border-color: #fff;
-    border-style: solid;
-    width: 12rem;
-    height: 12rem;
+    transition: 200ms;
     opacity: 0;
-    cursor: pointer;
-    transition: all linear 300ms;
 }
-div.btn p{
+#btn p {
     text-align: center;
-    position: absolute;
-    width: 100%;
-    font-size: 1.75rem;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
-    font-family: $mainFont;
-    cursor: pointer;
-    transition: all linear 200ms;
+    width: auto;
+    transition: 200ms;
 }
-p.story{
-    font-size: 1rem;
-    width: 80%;
-    position: relative;
-    text-transform: none;
-    cursor: default;
-    margin-bottom: 2rem;
-    text-transform: none;
+#btn p::after{
+    content: "";
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    margin-top: -0.5rem;
+    margin-left: 0.3rem;
+    background-image: url('../images/go_arrow.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    visibility: hidden;
+    transition: 100ms;
 }
-div.btn:hover::before{
-    opacity: 1;
-    transition: all linear 300ms;
-}
-div.btn:hover > a{ 
+#btn:hover{
+    border: 2px;
     border-color: rgba(255,255,255,1);
-    transform: rotate(180deg);
-    transition: all linear 300ms;
+    border-style: solid;
+    color: $dark;
+    box-shadow: inset 14rem 0 0 0 #e0e0e0;
+    transition: 200ms;
 }
-div.btn:hover > p{
-    color: rgba(255,255,255,1);
-    font-size: 1.9rem;
-    transition: all linear 200ms;
+#btn:hover p{
+    width: 9.8rem;
+    transition: 200ms;
+}
+#btn:hover p::after{
+    visibility: visible;
+    transition: 400ms;
+}
+
+#loading{
+    margin-top: -3rem;
+}
+#loading img{
+    width: 20px;
+    margin-right: 1rem;
+    float: left;
+}
+#loading p{
+    float: left;
 }
 
 //App
@@ -274,17 +287,6 @@ div.btn:hover > p{
     height: 1.2rem;
 }
 
-#loading{
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    background: url("../images/loading.gif"), $dark;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: 8rem;
-    transition: 600ms;
-    z-index: 1;
-}
 
 #dn_slider{
     width: 300px;
@@ -293,13 +295,13 @@ div.btn:hover > p{
     opacity: 0;
     transition: 600ms;
 }
-img{
+#dn_slider img{
     width: 300px;
     height: 20px;
     position: absolute;
     margin-top: 20px; 
 }
-img#dn_slider{
+img#slider{
     width: 300px;
 }
 img#fill{ 
