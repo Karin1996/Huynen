@@ -5,6 +5,7 @@ import * as ui from "../js/ui.js";
 import * as loader from "../js/loader.js";
 import * as movement from "../js/movement.js";
 import * as cycle from "../js/cycle.js";
+import * as functions from "../js/functions.js";
 
 //Var declarations
 let THREE = scene_setup.THREE;
@@ -34,10 +35,13 @@ window.addEventListener('load', function(){
 			document.getElementById("btn").style.opacity = 1;
 			document.getElementById("loading").style.opacity = 0;
 			document.getElementById("btn").addEventListener("click", function(){
-				//Delete div, Start wink animation, start DayNight cycle on click of the btn
+				//Delete div, Start blink animation, start DayNight cycle on click of the btn
 				document.getElementById("front_page").remove();
-				
-				cycle.Cycle();
+				//Start the app by making it look like the player blinks
+				functions.Blinking("start");
+				setTimeout(function() {
+					cycle.Cycle();
+				}, 3000);
 			});
 		}
 	}, 50);
