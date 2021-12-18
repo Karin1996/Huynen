@@ -20,7 +20,7 @@ window.addEventListener('load', function(){
 	RenderLoop();
 	
 	//Zoom out the camera. When the camera is back at the ground the player doesn't have the initial look around lag
-	movement.camera.position.y = 150;
+	movement.camera.position.y = 160;
 	movement.camera.lookAt(0,0,0);
 
 	//Check if loader is true
@@ -55,7 +55,7 @@ setInterval(function(){
 //When mouse moves execute CursorChanger
 window.addEventListener("mousemove", function(){
 	// Prevent going ham
-	if (!canMutate || debug.debug_mode || !loader.loaded){
+	if (!canMutate || debug.debug_mode){
 		return;
 	}
 	else{
@@ -101,7 +101,7 @@ function CursorChanger(){
 }
 
 function RenderLoop() {
-    if(!debug.debug_mode && loader.loaded){
+    if(!debug.debug_mode){
 		movement.fpcontrols.update(clock.getDelta()); //To be able to look around
 	} 
 	debug.stats.update();
