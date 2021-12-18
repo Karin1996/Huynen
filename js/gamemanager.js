@@ -20,7 +20,7 @@ window.addEventListener('load', function(){
 	RenderLoop();
 	
 	//Zoom out the camera. When the camera is back at the ground the player doesn't have the initial look around lag
-	movement.camera.position.y = 120;
+	movement.camera.position.y = 150;
 	movement.camera.lookAt(0,0,0);
 
 	//Check if loader is true
@@ -44,7 +44,7 @@ window.addEventListener('load', function(){
 				}, 3000);
 			});
 		}
-	}, 50);
+	}, 30);
 	
 }, true);
 
