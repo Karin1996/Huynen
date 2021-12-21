@@ -1807,10 +1807,9 @@
     },
     {
         "model_id": 119,
-        "npc_id": 6,
-        "name": "Testy",
-        "src": "../models/testNPC.gltf",
-        "dialogue_id": 6,
+        "name": "QuestItem",
+        "src": "../models/quest_test.gltf",
+        "quest_id": 1,
         "x_pos": 0,
         "y_pos": 0,
         "z_pos": 0,
@@ -1820,7 +1819,7 @@
         "x_scale": 1,
         "y_scale": 1,
         "z_scale": 1,
-        "property": "npc",
+        "property": "static",
         "keyframes": 0,
         "clips": []
     }

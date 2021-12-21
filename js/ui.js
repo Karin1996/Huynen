@@ -99,49 +99,118 @@ function MakeUI(type, object){
 			RotateNPC(object);
 			//Get the correct dialogue ID and extract the name and dialogue
 			let dialogue_id = object.dialogue_id;
-			let correctDialogue;
+			let is_quest;
+			let quest_id;
+			let correctObject;
+			//let correctDialogue;
 	
+			//Find the correct object in the JSON file
 			dialogue.forEach(log => {
 				if(log.dialogue_id == dialogue_id){
-					correctDialogue = log;
+					correctObject = log;
+					if(log.quest_id){
+						is_quest = true;
+						quest_id = log.quest_id;
+					}
+					else{
+						is_quest = false;
+					}
 				}
 			});
 
-			if(correctDialogue){
+			//If the object exists
+			if(correctObject){
 				ui.setAttribute("class", "ui");
 				ui.setAttribute("id", "dialogue");
 
 				//Create name element and fill with the correct information
 				let npcName = document.createElement('h1');
-				npcName.innerHTML = correctDialogue.name;
-				//interactionName.setAttribute("id", "interactionName");
+				npcName.innerHTML = correctObject.name;
 
-				//Create dialogue element and fill with the correct information
+				//Create dialogue element and fill with the correct information depending on if it is a quest or nor
 				let npcDialogue = document.createElement('p');
 				npcDialogue.setAttribute("class", "ui_p");
-				npcDialogue.innerHTML = correctDialogue.dialogue;
-				
+
+				//Create no button element, only add to ui div when necessarily
+				let npcBtn2 = document.createElement('div');
+				let npcText2 = document.createElement('p');
+				npcBtn2.setAttribute("class", "ui_btn");
+				npcText2.setAttribute("class", "p_btn");
+
 				//Create ok button element
 				let npcBtn = document.createElement('div');
 				let npcText = document.createElement('p');
 				npcBtn.setAttribute("class", "ui_btn");
-				//interactionBtn.setAttribute("id", "interaction_btn");
 				npcText.setAttribute("class", "p_btn");
-				npcText.innerHTML = "ok";
+				
+
+				//If it is a NPC with a quest
+				if(is_quest){
+					console.log("isquest");
+					//TODO: Quest UI add the left side of the screen
+					//TODO: add quest property to correct model when quest is accepted
+					//TODO: Show animation when add quest item
+					//TODO: Hand in quest
+					let status = correctObject.status;
+					switch(status){
+						//Quest hasn't been shown yet
+						case "inactive":
+							npcDialogue.innerHTML = correctObject.questStartDialogue;
+							npcText2.innerHTML = "nee";
+							npcText.innerHTML = "ok";
+
+							npcBtn2.style.visibility = "visible";
+							console.log("unaccepted quest dialogue");
+							break;
+						//Player accepted quest
+						case "active":
+							npcDialogue.innerHTML = correctObject.questDuringDialogue;
+							npcText.innerHTML = "ok";
+							npcBtn2.style.visibility = "hidden";
+							console.log("during quest dialogue");
+							break;
+						//Player has handed in the quest at the NPC
+						case "done":
+							npcDialogue.innerHTML = correctObject.dialogue;
+							npcText.innerHTML = "ok";
+							npcBtn2.style.visibility = "hidden";
+							console.log("normal Dialogue, done or denied");
+							break;
+						//Player denied the quest request
+						case "denied":
+							npcDialogue.innerHTML = correctObject.dialogue;
+							npcText.innerHTML = "ok";
+							npcBtn2.style.visibility = "hidden";
+							console.log("normal Dialogue, done or denied");
+							break;
+					}
+				}
+				else{
+					npcDialogue.innerHTML = correctObject.dialogue;
+					npcText.innerHTML = "ok";
+					npcBtn2.style.visibility = "hidden";
+					console.log("not is quest");
+				}
 
 				ui.appendChild(npcName);
 				ui.appendChild(npcDialogue);
 				ui.appendChild(npcBtn);
+				ui.appendChild(npcBtn2);
+				npcBtn2.appendChild(npcText2);
 				npcBtn.appendChild(npcText);
 			}
 			else{
 				uiVisible = false;
 				return;	
 			}
+
 		}	
 		else{
 			console.log("not interaction UI", uiVisible);
+			uiVisible = false;
+			return;
 		}
+
 		document.body.appendChild(ui);
 
 		setTimeout(function(){
@@ -153,6 +222,7 @@ function MakeUI(type, object){
 			for(let i = 0; i < btns.length; i++){
 				btns[i].addEventListener("click", function(){
 					DeleteUI(btns[i].parentElement);
+					UpdateQuest(object, btns[i]);
 					ResetRotationNPC();
 				});
 			}	
@@ -176,6 +246,44 @@ function DeleteUI(div){
 		div.parentNode.removeChild(div);
 	}, 1000);
 	fpcontrols.lookSpeed = LOOK_SPEED;
+}
+
+function UpdateQuest(object, btn){
+	let correctObject;
+	let is_quest;
+	let quest_id;
+	console.log("object and button", object, btn);
+	console.log("updating quest ui");
+
+	//Find the correct object in the JSON file
+	dialogue.forEach(log => {
+		if(log.dialogue_id == dialogue_id){
+			correctObject = log;
+			if(log.quest_id){
+				is_quest = true;
+				quest_id = log.quest_id;
+			}
+			else{
+				is_quest = false;
+			}
+		}
+	});
+
+
+	/*
+	<div id="quest_ui">
+        <h1>Quest Title</h1>
+        <p>Quest description. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi tempora deserunt facilis.</p>
+
+        <h1>Quest Title</h1>
+        <p>Quest description. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi tempora deserunt facilis.</p>
+
+        <h1>Quest Title</h1>
+        <p>Quest description. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi tempora deserunt facilis.</p>
+    </div>
+	*/
+
+
 }
 
 export{

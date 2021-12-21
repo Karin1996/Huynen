@@ -20,7 +20,7 @@ window.addEventListener('load', function(){
 	RenderLoop();
 	
 	//Zoom out the camera. When the camera is back at the ground the player doesn't have the initial look around lag
-	movement.camera.position.y = 160;
+	movement.camera.position.y = 120;
 	movement.camera.lookAt(0,0,0);
 
 	//Check if loader is true
@@ -80,6 +80,9 @@ function CursorChanger(){
 					case "interactable":
                         document.body.style.cursor = "url('../images/cursor_questionmark.png'), auto";
                         break;
+					case "quest":
+						document.body.style.cursor = "url('../images/cursor_questionmark.png'), auto";
+						break;
 					case "npc":
 						document.body.style.cursor = "url('../images/cursor_talk.png'), auto";
 						break;

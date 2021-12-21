@@ -75,10 +75,19 @@ models.forEach(element => {
 
                     case "interactable":
                         if(o.name.toLowerCase() == "outline"){
-                            o.material = new THREE.MeshBasicMaterial({color: 0xff0000});
+                            o.material = new THREE.MeshBasicMaterial({color: 0xff0000, visible:false});
                             o.receiveShadow = false;
                             o.castShadow = false;
                         }
+                        if(o.name.toLowerCase() == "box"){
+                            o.material = new THREE.MeshBasicMaterial();
+                            o.fog = false;
+                            o.visible = false;
+                            o.receiveShadow = false;
+                            o.castShadow = false;
+                        }
+                        break;
+                    case "quest":
                         if(o.name.toLowerCase() == "box"){
                             o.material = new THREE.MeshBasicMaterial();
                             o.fog = false;
