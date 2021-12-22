@@ -27,12 +27,12 @@ camera.position.z = 30;
 
 
 //Player's mouse is in the window and there is no ui visible
-document.getElementById("sceneCanvas").addEventListener("mouseenter", function(){
+document.body.addEventListener("mouseenter", function(){
     if(!uiVisible){fpcontrols.lookSpeed = LOOK_SPEED;}
     else{fpcontrols.lookSpeed = 0;}
 });
 //Player's mouse is not in the window
-document.getElementById("sceneCanvas").addEventListener("mouseleave", function(){
+document.body.addEventListener("mouseleave", function(){
     fpcontrols.lookSpeed = 0;
 });
 

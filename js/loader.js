@@ -41,6 +41,9 @@ models.forEach(element => {
         if(element.dialogue_id > 0){
             model.dialogue_id = element.dialogue_id;
         } 
+        if(element.quest_id > 0){
+            model.quest_id = element.quest_id;
+        } 
         //Get the mesh from the object
         model.traverse((o) => {
             if(o.isMesh){
@@ -87,16 +90,6 @@ models.forEach(element => {
                             o.castShadow = false;
                         }
                         break;
-                    case "quest":
-                        if(o.name.toLowerCase() == "box"){
-                            o.material = new THREE.MeshBasicMaterial();
-                            o.fog = false;
-                            o.visible = false;
-                            o.receiveShadow = false;
-                            o.castShadow = false;
-                        }
-                        break;
-
                     case "npc":
                         if(o.name.toLowerCase() == "box"){
                             o.material = new THREE.MeshBasicMaterial();
@@ -110,6 +103,13 @@ models.forEach(element => {
                     case "static":
                         //Change Grass and Reed shadow properties
                         if(o.name.toLowerCase().includes("grass") || o.name.toLowerCase().includes("reed")){ 
+                            o.receiveShadow = false;
+                            o.castShadow = false;
+                        }
+                        else if(o.name.toLowerCase() == "box"){
+                            o.material = new THREE.MeshBasicMaterial();
+                            o.fog = false;
+                            o.visible = false;
                             o.receiveShadow = false;
                             o.castShadow = false;
                         }

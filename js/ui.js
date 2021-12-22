@@ -1,7 +1,8 @@
 //SCRIPT TO MAKE AND MUTATE ALL THE UI ELEMENTS
 let information = require("../local_db/information.json");
 let dialogue = require("../local_db/dialogue.json");
-import {camera, raycaster, mouse} from "./scene_setup";
+let festivalList = require("../local_db/festivalList.json");
+import {camera, raycaster, mouse, scene, THREE} from "./scene_setup";
 import {modelsList} from "./loader";
 import {DisplayRay} from "./debug";
 import {fpcontrols, LOOK_SPEED} from "./movement";
@@ -10,6 +11,8 @@ import {RotateNPC, ResetRotationNPC} from "./npc"
 let uiVisible = false;
 //On click execute CheckUI
 window.addEventListener("click", CheckUI, true);
+let quests = [];
+
 
 function CheckUI(){
 	raycaster.setFromCamera(mouse, camera);    
@@ -28,6 +31,9 @@ function CheckUI(){
 				}
 				else if(child.property == "npc" && !uiVisible){
 					MakeUI("dialogue", child); 
+				}
+				else if(child.property == "quest"){
+					console.log("play animation, change quest description text, change quest status, change model property")
 				}
 			}
 			else{
@@ -158,30 +164,25 @@ function MakeUI(type, object){
 							npcDialogue.innerHTML = correctObject.questStartDialogue;
 							npcText2.innerHTML = "nee";
 							npcText.innerHTML = "ok";
-
 							npcBtn2.style.visibility = "visible";
-							console.log("unaccepted quest dialogue");
 							break;
 						//Player accepted quest
 						case "active":
 							npcDialogue.innerHTML = correctObject.questDuringDialogue;
 							npcText.innerHTML = "ok";
 							npcBtn2.style.visibility = "hidden";
-							console.log("during quest dialogue");
 							break;
 						//Player has handed in the quest at the NPC
 						case "done":
-							npcDialogue.innerHTML = correctObject.dialogue;
+							npcDialogue.innerHTML = correctObject.questFinishedDialogue;
 							npcText.innerHTML = "ok";
 							npcBtn2.style.visibility = "hidden";
-							console.log("normal Dialogue, done or denied");
 							break;
 						//Player denied the quest request
 						case "denied":
 							npcDialogue.innerHTML = correctObject.dialogue;
 							npcText.innerHTML = "ok";
 							npcBtn2.style.visibility = "hidden";
-							console.log("normal Dialogue, done or denied");
 							break;
 					}
 				}
@@ -189,7 +190,6 @@ function MakeUI(type, object){
 					npcDialogue.innerHTML = correctObject.dialogue;
 					npcText.innerHTML = "ok";
 					npcBtn2.style.visibility = "hidden";
-					console.log("not is quest");
 				}
 
 				ui.appendChild(npcName);
@@ -250,41 +250,102 @@ function DeleteUI(div){
 
 function UpdateQuest(object, btn){
 	let correctObject;
-	let is_quest;
-	let quest_id;
-	console.log("object and button", object, btn);
-	console.log("updating quest ui");
 
 	//Find the correct object in the JSON file
-	dialogue.forEach(log => {
-		if(log.dialogue_id == dialogue_id){
-			correctObject = log;
-			if(log.quest_id){
-				is_quest = true;
-				quest_id = log.quest_id;
+	dialogue.forEach(obj => {
+		if(obj.dialogue_id == object.dialogue_id){
+			if(obj.quest_id){
+				correctObject = obj;
 			}
 			else{
-				is_quest = false;
+				return;
 			}
+		}
+		else{
+			return;
 		}
 	});
 
-
-	/*
-	<div id="quest_ui">
-        <h1>Quest Title</h1>
-        <p>Quest description. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi tempora deserunt facilis.</p>
-
-        <h1>Quest Title</h1>
-        <p>Quest description. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi tempora deserunt facilis.</p>
-
-        <h1>Quest Title</h1>
-        <p>Quest description. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi tempora deserunt facilis.</p>
-    </div>
-	*/
-
+	//What button has been pressed, and what does this do for the quest status
+	switch(btn.innerText.toLowerCase()){
+		case "ok":
+			if(correctObject.status == "inactive"){
+				//Player acccepted the quest, add to quest UI and change status
+				correctObject.status = "active";
+				quests.push(correctObject);
+				UpdateQuestUI();
+				
+				//Change correct model property to quest
+				modelsList.forEach(model => {
+					if(model.quest_id == correctObject.quest_id){
+						model.property = "quest"
+						scene.remove(model);
+					
+						model.traverse((o) => {
+							if(o.isMesh){
+								//Change this to outline stuff instead of making the box visible
+								if(o.name.toLowerCase() == "box"){
+									o.visible = true;
+								}
+							}
+						});
+						scene.add(model);
+					}
+				});
+			}
+			if(correctObject.status == "done"){
+				//Delete the quest from the quest UI and change the property to show the model at the festival
+				quests.pop(correctObject);
+				UpdateQuestUI();
+				festivalList.forEach(item => {
+					if(item.quest_id = correctObject.quest_id){
+						item.property = "show";
+					}
+					else{
+						return;
+					}
+				})
+			}
+			break;
+		case "nee":
+			if(correctObject.status == "inactive"){
+				correctObject.status = "denied"
+			}
+			break;
+	}
 
 }
+
+function UpdateQuestUI(){
+	let questUI = document.getElementById("quest_ui");
+	questUI.innerHTML = '';
+	
+	if(quests.length > 0){	
+		questUI.style.visibility = "visible";
+
+		setTimeout(function(){
+			questUI.style.opacity = 1;
+			quests.forEach(quest => {
+				//Create element and fill with the correct information
+				let title = document.createElement('h1');
+				title.innerHTML = quest.questTitle;
+	
+				let description = document.createElement('p');
+				description.innerHTML = quest.questDescription;
+	
+				questUI.appendChild(title);
+				questUI.appendChild(description);
+			});
+		}, 500);
+	}
+	else{
+		questUI.style.visibility = "hidden";
+		setTimeout(function(){
+			questUI.style.opacity = 0;
+		}, 1000);
+	}
+}
+
 
 export{
 	uiVisible

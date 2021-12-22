@@ -6,6 +6,7 @@
         "quest_id": 1,
         "questStartDialogue": "Ik ben bezig met een mooie hamerbijl maken, kan jij voor mij wat hars oogsten van de berkenboom bij het hunebed?",
         "questDuringDialogue": "Heb je al berkenhars?",
+        "questFinishedDialogue": "Dankjewel, dit wordt een mooie bijl",
         "status": "inactive",
         "questTitle": "Berkenhars halen",
         "questDescription": "Haal wat berkenhars van de witte berkenboom bij het hunebed voor Linne."
@@ -13,7 +14,14 @@
     {
         "dialogue_id": 2,
         "name": "Ida",
-        "dialogue": "Kan ik je ergens mee helpen?"
+        "dialogue": "Kan ik je ergens mee helpen?",
+        "quest_id": 2,
+        "questStartDialogue": "Ik ben bezig met een mooie hamerbijl maken, kan jij voor mij wat hars oogsten van de berkenboom bij het hunebed?",
+        "questDuringDialogue": "Heb je al berkenhars?",
+        "questFinishedDialogue": "Dankjewel, dit wordt een mooie bijl",
+        "status": "inactive",
+        "questTitle": "Berkenhars halen Id",
+        "questDescription": "Haal wat berkenhars van de witte berkenboom bij het hunebed voor Ida."
     },
     {
         "dialogue_id": 3,
