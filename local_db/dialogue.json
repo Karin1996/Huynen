@@ -16,17 +16,24 @@
         "name": "Ida",
         "dialogue": "Kan ik je ergens mee helpen?",
         "quest_id": 2,
-        "questStartDialogue": "Ik ben bezig met een mooie hamerbijl maken, kan jij voor mij wat hars oogsten van de berkenboom bij het hunebed?",
-        "questDuringDialogue": "Heb je al berkenhars?",
-        "questFinishedDialogue": "Dankjewel, dit wordt een mooie bijl",
+        "questStartDialogue": "Ik ben ida",
+        "questDuringDialogue": "ida berkenhasr",
+        "questFinishedDialogue": "ok bye",
         "status": "inactive",
-        "questTitle": "Berkenhars halen Id",
-        "questDescription": "Haal wat berkenhars van de witte berkenboom bij het hunebed voor Ida."
+        "questTitle": "Ida quest",
+        "questDescription": "ida wil dingen."
     },
     {
         "dialogue_id": 3,
         "name": "Lejo",
-        "dialogue": "De vissen willen nog niet echt bijten. Ik heb ook wat fuiken in het water, ik hoop dat die meer geluk hebben."
+        "dialogue": "De vissen willen nog niet echt bijten. Ik heb ook wat fuiken in het water, ik hoop dat die meer geluk hebben.",
+        "quest_id": 3,
+        "questStartDialogue": "Ik ben Lejo",
+        "questDuringDialogue": "Waar is mn stuff",
+        "questFinishedDialogue": "Kallum an",
+        "status": "inactive",
+        "questTitle": "Lejo quest",
+        "questDescription": "lejo wil ook graag dingen."
     },
     {
         "dialogue_id": 4,

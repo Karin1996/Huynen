@@ -1,5 +1,4 @@
 function Blinking(phase){
-    console.log("blinking");
     let animationTime = 3000;
 
     document.getElementById("blink").style.display = "flex";

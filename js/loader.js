@@ -98,7 +98,21 @@ models.forEach(element => {
                             o.receiveShadow = false;
                             o.castShadow = false;
                         }
-                    break;
+                        break;
+                    case "questInactive":
+                        if(o.name.toLowerCase() == "outline"){
+                            o.material = new THREE.MeshBasicMaterial({color: 0xff0000, visible:false});
+                            o.receiveShadow = false;
+                            o.castShadow = false;
+                        }
+                        if(o.name.toLowerCase() == "box"){
+                            o.material = new THREE.MeshBasicMaterial();
+                            o.fog = false;
+                            o.visible = false;
+                            o.receiveShadow = false;
+                            o.castShadow = false;
+                        }
+                        break;
 
                     case "static":
                         //Change Grass and Reed shadow properties
@@ -106,13 +120,7 @@ models.forEach(element => {
                             o.receiveShadow = false;
                             o.castShadow = false;
                         }
-                        else if(o.name.toLowerCase() == "box"){
-                            o.material = new THREE.MeshBasicMaterial();
-                            o.fog = false;
-                            o.visible = false;
-                            o.receiveShadow = false;
-                            o.castShadow = false;
-                        }
+                        break;
                 }
             }
         });
@@ -120,7 +128,6 @@ models.forEach(element => {
         scene.add(model);
         if(modelsList.length >= models.length - 10 ){
             loaded = true;
-            console.log("loader", loaded);
         }
     });
 }); 

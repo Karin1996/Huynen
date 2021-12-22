@@ -26,6 +26,7 @@ function CheckUI(){
 		//Find the object group
 		currentObject.object.traverseAncestors(function (child) {
 			if(child.type === "Group"){
+				//console.log(festivalList);
 				if(child.property == "interactable" && !uiVisible){
 					MakeUI("interaction", child);
 				}
@@ -34,6 +35,7 @@ function CheckUI(){
 				}
 				else if(child.property == "quest"){
 					console.log("play animation, change quest description text, change quest status, change model property")
+					FinishQuest(child);
 				}
 			}
 			else{
@@ -152,11 +154,6 @@ function MakeUI(type, object){
 
 				//If it is a NPC with a quest
 				if(is_quest){
-					console.log("isquest");
-					//TODO: Quest UI add the left side of the screen
-					//TODO: add quest property to correct model when quest is accepted
-					//TODO: Show animation when add quest item
-					//TODO: Hand in quest
 					let status = correctObject.status;
 					switch(status){
 						//Quest hasn't been shown yet
@@ -206,7 +203,6 @@ function MakeUI(type, object){
 
 		}	
 		else{
-			console.log("not interaction UI", uiVisible);
 			uiVisible = false;
 			return;
 		}
@@ -219,15 +215,23 @@ function MakeUI(type, object){
 
 			//Add eventlistener to the buttons so player can exit ui
 			let btns = document.getElementsByClassName("ui_btn");
-			for(let i = 0; i < btns.length; i++){
-				btns[i].addEventListener("click", function(){
-					DeleteUI(btns[i].parentElement);
-					UpdateQuest(object, btns[i]);
-					ResetRotationNPC();
-				});
-			}	
+			if(btns.length > 0){
+				for(let i = 0; i < btns.length; i++){
+					btns[i].addEventListener("click", function(){
+						//DeleteUI(btns[i].parentElement);
+						DeleteUI();
+						UpdateQuest(object, btns[i]);
+						ResetRotationNPC();
+					});
+				}
+			}
+			else{
+				DeleteUI();
+			}
+					
 
 		}, 100);
+
 	}
 	//ui is visible
 	else{
@@ -236,19 +240,20 @@ function MakeUI(type, object){
 	}
 }
 
-function DeleteUI(div){
-	if(!div){document.querySelector("#sceneCanvas").remove();}
-
+function DeleteUI(){	
+	for(let i = 0; i < document.getElementsByClassName("ui").length; i++){
+		document.getElementsByClassName("ui")[i].style.opacity = 0;
+		setTimeout(function(){
+			//Delete UI from the DOM
+			document.getElementsByClassName("ui")[i].remove();
+		}, 1000);
+	}
 	uiVisible = false;
-	div.style.opacity = 0;
-	setTimeout(function(){
-		//Delete UI from the DOM
-		div.parentNode.removeChild(div);
-	}, 1000);
 	fpcontrols.lookSpeed = LOOK_SPEED;
 }
 
 function UpdateQuest(object, btn){
+	if(!btn){return;}
 	let correctObject;
 
 	//Find the correct object in the JSON file
@@ -256,6 +261,56 @@ function UpdateQuest(object, btn){
 		if(obj.dialogue_id == object.dialogue_id){
 			if(obj.quest_id){
 				correctObject = obj;
+
+				//What button has been pressed, and what does this do for the quest status
+				switch(btn.innerText.toLowerCase()){
+					case "ok":
+						if(correctObject.status == "inactive"){
+							//Player acccepted the quest, add to quest UI and change status
+							correctObject.status = "active";
+							quests.push(correctObject);
+							UpdateQuestUI();
+							
+							//Change correct model property to quest
+							modelsList.forEach(model => {
+								if(model.quest_id == correctObject.quest_id){
+									model.property = "quest"
+									scene.remove(model);
+								
+									model.traverse((o) => {
+										if(o.isMesh){
+											//Change this to outline stuff instead of making the box visible
+											if(o.name.toLowerCase() == "outline"){
+												o.material.visible = true;
+											}
+										}
+									});
+									scene.add(model);
+								}
+							});
+						}
+						if(correctObject.status == "done"){
+							var remove = quests.map(quest => quest.quest_id).indexOf(correctObject.quest_id);
+							~remove && quests.splice(remove, 1)
+							
+							UpdateQuestUI();
+							festivalList.forEach(item => {
+								if(item.quest_id == correctObject.quest_id){
+									item.property = "show";
+								}
+								else{
+									return;
+								}
+							})
+							correctObject.questFinishedDialogue = correctObject.dialogue;
+						}
+						break;
+					case "nee":
+						if(correctObject.status == "inactive"){
+							correctObject.status = "denied"
+						}
+						break;
+				}
 			}
 			else{
 				return;
@@ -266,54 +321,6 @@ function UpdateQuest(object, btn){
 		}
 	});
 
-	//What button has been pressed, and what does this do for the quest status
-	switch(btn.innerText.toLowerCase()){
-		case "ok":
-			if(correctObject.status == "inactive"){
-				//Player acccepted the quest, add to quest UI and change status
-				correctObject.status = "active";
-				quests.push(correctObject);
-				UpdateQuestUI();
-				
-				//Change correct model property to quest
-				modelsList.forEach(model => {
-					if(model.quest_id == correctObject.quest_id){
-						model.property = "quest"
-						scene.remove(model);
-					
-						model.traverse((o) => {
-							if(o.isMesh){
-								//Change this to outline stuff instead of making the box visible
-								if(o.name.toLowerCase() == "box"){
-									o.visible = true;
-								}
-							}
-						});
-						scene.add(model);
-					}
-				});
-			}
-			if(correctObject.status == "done"){
-				//Delete the quest from the quest UI and change the property to show the model at the festival
-				quests.pop(correctObject);
-				UpdateQuestUI();
-				festivalList.forEach(item => {
-					if(item.quest_id = correctObject.quest_id){
-						item.property = "show";
-					}
-					else{
-						return;
-					}
-				})
-			}
-			break;
-		case "nee":
-			if(correctObject.status == "inactive"){
-				correctObject.status = "denied"
-			}
-			break;
-	}
-
 }
 
 function UpdateQuestUI(){
@@ -322,30 +329,65 @@ function UpdateQuestUI(){
 	
 	if(quests.length > 0){	
 		questUI.style.visibility = "visible";
+		quests.forEach(quest => {
+			//Create element and fill with the correct information
+			let title = document.createElement('h1');
+			title.innerHTML = quest.questTitle;
 
-		setTimeout(function(){
-			questUI.style.opacity = 1;
-			quests.forEach(quest => {
-				//Create element and fill with the correct information
-				let title = document.createElement('h1');
-				title.innerHTML = quest.questTitle;
-	
-				let description = document.createElement('p');
-				description.innerHTML = quest.questDescription;
-	
-				questUI.appendChild(title);
-				questUI.appendChild(description);
-			});
-		}, 500);
+			let description = document.createElement('p');
+			description.innerHTML = quest.questDescription;
+			description.setAttribute("data", quest.quest_id);
+
+			questUI.appendChild(title);
+			questUI.appendChild(description);
+		});
 	}
 	else{
 		questUI.style.visibility = "hidden";
-		setTimeout(function(){
-			questUI.style.opacity = 0;
-		}, 1000);
 	}
 }
 
+function FinishQuest(object){
+	quests.forEach(quest => {
+		if(quest.quest_id == object.quest_id){
+			quest.questDescription = "Ga naar "+ quest.name;
+
+			for(let i = 0; i < document.getElementById("quest_ui").getElementsByTagName("p").length; i++){
+				if(document.getElementById("quest_ui").getElementsByTagName("p")[i].getAttribute('data') == quest.quest_id){
+					document.getElementById("quest_ui").getElementsByTagName("p")[i].innerHTML = quest.questDescription;
+				}
+			}
+		
+			quest.status = "done";
+
+			//Change correct model property to quest
+			modelsList.forEach(model => {
+				if(model.quest_id == quest.quest_id){
+					model.property = "static"
+					scene.remove(model);
+				
+					model.traverse((o) => {
+						if(o.isMesh){
+							//Change this to outline stuff instead of making the box visible
+							if(o.name.toLowerCase() == "outline"){
+								o.material.visible = false;
+							}
+						}
+					});
+					scene.add(model);
+				}
+			});
+			
+		}
+	});
+	
+	//Replace with animation
+	setTimeout(function(){
+		//While animation is playing slow down look around speed
+		//fpcontrols.lookSpeed = 0.01;
+	}, 5000);
+
+}
 
 export{
 	uiVisible
