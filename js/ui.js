@@ -7,7 +7,7 @@ import {modelsList} from "./loader";
 import {DisplayRay} from "./debug";
 import {fpcontrols, LOOK_SPEED} from "./movement";
 import {RotateNPC, ResetRotationNPC} from "./npc"
-import {AnimationController, animationDone} from "./functions";
+import {AnimationController, animationDone, AudioController} from "./functions";
 
 let uiVisible = false;
 //On click execute CheckUI
@@ -355,6 +355,10 @@ function FinishQuest(object){
 
 	if(object.action){
 		AnimationController(object, "Moving", false);
+	}
+
+	if(object.audio){
+		AudioController(object, true, false);
 	}
 
 	//Check if the animation is done

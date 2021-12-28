@@ -1,5 +1,5 @@
 import {THREE, camera, scene } from "./scene_setup";
-import {AnimationController} from "./functions";
+import {AnimationController, AudioController} from "./functions";
 
 let objectToMutate;
 let originalX;
@@ -21,6 +21,10 @@ function RotateNPC(object){
 	if(object.action){
 		AnimationController(object, "Talking");
 	}
+
+	if(object.audio){
+		AudioController(object, true);
+	}
 	
 }
 
@@ -29,6 +33,10 @@ function ResetRotationNPC(object){
 
 	if(object.action){
 		AnimationController(object, "Idle");
+	}
+
+	if(object.audio){
+		AudioController(object, false);
 	}
 
 }

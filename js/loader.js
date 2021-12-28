@@ -96,6 +96,8 @@ models.forEach(element => {
                         model.clip = THREE.AnimationClip.findByName(model.clips, "Idle");
                         model.action = model.mixer.clipAction(model.clip);     
 
+                        model.audio = new Audio(element.audio);
+
                         if(o.name.toLowerCase() == "box"){
                             o.material = new THREE.MeshBasicMaterial();
                             o.fog = false;
@@ -110,6 +112,8 @@ models.forEach(element => {
                         model.clip = THREE.AnimationClip.findByName(model.clips, "Idle");
                         model.action = model.mixer.clipAction(model.clip);     
 
+                        model.audio = new Audio(element.audio);
+                        
                         if(o.name.toLowerCase().includes("outline")){
                             console.log("o", o);
                             o.material = new THREE.MeshBasicMaterial({color: 0xff0000, visible:false});

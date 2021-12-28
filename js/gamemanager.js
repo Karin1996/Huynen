@@ -12,6 +12,7 @@ let THREE = scene_setup.THREE;
 const clock = new THREE.Clock();
 let canMutate = true;
 const modelsList = loader.modelsList;
+let bgAudio;
 
 document.body.appendChild(debug.stats.dom);
 
@@ -39,6 +40,10 @@ window.addEventListener('load', function(){
 				document.getElementById("front_page").remove();
 				//Start the app by making it look like the player blinks
 				functions.Blinking("start");
+				//Start the bg audio
+				bgAudio = new Audio("../audio/bg.mp3");
+				bgAudio.loop = true;
+				bgAudio.play();
 
 				//Get the NPC animations, if they have one, and start playing them
 				modelsList.forEach(modelInList =>{

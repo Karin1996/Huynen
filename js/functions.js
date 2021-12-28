@@ -59,8 +59,27 @@ function AnimationController(object, to, loop=true){
     }
 }
 
+
+function AudioController(object, playAudio, loop=true){
+    if(loop){
+        object.audio.loop = true;
+    }
+    else{
+        object.audio.loop = false;
+    }
+
+    if(playAudio){
+        object.audio.play();
+    }
+    else{
+        object.audio.pause();
+        object.audio.currentTime = 0;
+    }
+}
+
 export{
     Blinking,
     AnimationController, 
-    animationDone
+    animationDone,
+    AudioController
 }
