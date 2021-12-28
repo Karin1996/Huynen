@@ -1,5 +1,5 @@
 import {THREE, Render,} from "./scene_setup";
-
+let animationDone = false;
 
 function Blinking(phase){
     let animationTime = 3000;
@@ -41,7 +41,7 @@ function Blinking(phase){
 
 
 function AnimationController(object, to, loop=true){
-    console.log(loop);
+    animationDone = false;
     object.action.stop();
    
     object.clip = THREE.AnimationClip.findByName(object.clips, to);
@@ -51,10 +51,16 @@ function AnimationController(object, to, loop=true){
 
     if(loop == false){
         //Only do the animation once. then return done or whatever.
+        object.action.setLoop(THREE.LoopOnce);
+        object.action.clampWhenFinished = true;
+        object.mixer.addEventListener('finished', function( e ) {
+            animationDone = true;
+        });
     }
 }
 
 export{
     Blinking,
-    AnimationController
+    AnimationController, 
+    animationDone
 }

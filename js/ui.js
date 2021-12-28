@@ -7,7 +7,7 @@ import {modelsList} from "./loader";
 import {DisplayRay} from "./debug";
 import {fpcontrols, LOOK_SPEED} from "./movement";
 import {RotateNPC, ResetRotationNPC} from "./npc"
-import { AnimationController } from "./functions";
+import {AnimationController, animationDone} from "./functions";
 
 let uiVisible = false;
 //On click execute CheckUI
@@ -280,7 +280,7 @@ function UpdateQuest(object, btn){
 								
 									model.traverse((o) => {
 										if(o.isMesh){
-											//Change this to outline stuff instead of making the box visible
+											//Show the outlines
 											if(o.name.toLowerCase().includes("outline")){
 												o.material.visible = true;
 											}
@@ -349,48 +349,60 @@ function UpdateQuestUI(){
 }
 
 function FinishQuest(object){
-	quests.forEach(quest => {
-		if(quest.quest_id == object.quest_id){
-			quest.questDescription = "Ga naar "+ quest.name;
+	//If the animation is playing, lower the lookaround speed
+	fpcontrols.lookSpeed = 0.02;
+	//Play the animation
 
-			for(let i = 0; i < document.getElementById("quest_ui").getElementsByTagName("p").length; i++){
-				if(document.getElementById("quest_ui").getElementsByTagName("p")[i].getAttribute('data') == quest.quest_id){
-					document.getElementById("quest_ui").getElementsByTagName("p")[i].innerHTML = quest.questDescription;
-				}
-			}
+	if(object.action){
+		AnimationController(object, "Moving", false);
+	}
+
+	//Check if the animation is done
+	let interval = setInterval(function(){
+
+		//When the animation is done
+		if (animationDone || !object.action) {
+			fpcontrols.lookSpeed = LOOK_SPEED;
+
+			//Update the quest data
+			quests.forEach(quest => {
+				if(quest.quest_id == object.quest_id){
+					quest.questDescription = "Ga naar "+ quest.name;
 		
-			quest.status = "done";
-
-			//Change correct model property to quest
-			modelsList.forEach(model => {
-				if(model.quest_id == quest.quest_id){
-					model.property = "static"
-					scene.remove(model);
+					for(let i = 0; i < document.getElementById("quest_ui").getElementsByTagName("p").length; i++){
+						if(document.getElementById("quest_ui").getElementsByTagName("p")[i].getAttribute('data') == quest.quest_id){
+							document.getElementById("quest_ui").getElementsByTagName("p")[i].innerHTML = quest.questDescription;
+						}
+					}
 				
-					model.traverse((o) => {
-						if(o.isMesh){
-							//Change this to outline stuff instead of making the box visible
-							if(o.name.toLowerCase().includes("outline")){
-								o.material.visible = false;
-							}
+					quest.status = "done";
+		
+					//Change correct model property to static
+					modelsList.forEach(model => {
+						if(model.quest_id == quest.quest_id){
+							model.property = "static"
+							scene.remove(model);
+						
+							model.traverse((o) => {
+								if(o.isMesh){
+									setInterval(function(){
+										//Disable the outline
+										if(o.name.toLowerCase().includes("outline")){
+											o.material.visible = false;
+										}
+									})	
+								}
+							});
+							scene.add(model);
 						}
 					});
-					scene.add(model);
+					
 				}
 			});
-			
-		}
-	});
-	
-	//Replace with animation
-	//setTimeout(function(){
-		//AnimationController(object, "Moving");
-		//fpcontrols.lookSpeed = 0.01;
-	//}, 5000);
+            clearInterval(interval);
+        }
 
-	fpcontrols.lookSpeed = 0.01;
-	AnimationController(object, "Moving", false);
-
+	}, 50)
 }
 
 export{
