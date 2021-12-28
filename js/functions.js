@@ -1,3 +1,6 @@
+import {THREE, Render,} from "./scene_setup";
+
+
 function Blinking(phase){
     let animationTime = 3000;
 
@@ -36,6 +39,22 @@ function Blinking(phase){
 
 }
 
+
+function AnimationController(object, to, loop=true){
+    console.log(loop);
+    object.action.stop();
+   
+    object.clip = THREE.AnimationClip.findByName(object.clips, to);
+    object.action = object.mixer.clipAction(object.clip);
+
+    object.action.play();
+
+    if(loop == false){
+        //Only do the animation once. then return done or whatever.
+    }
+}
+
 export{
-    Blinking
+    Blinking,
+    AnimationController
 }

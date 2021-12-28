@@ -39,6 +39,14 @@ window.addEventListener('load', function(){
 				document.getElementById("front_page").remove();
 				//Start the app by making it look like the player blinks
 				functions.Blinking("start");
+
+				//Get the NPC animations, if they have one, and start playing them
+				modelsList.forEach(modelInList =>{
+					if(modelInList.clip){
+						modelInList.action.play();
+					}
+				})
+
 				setTimeout(function() {
 					cycle.Cycle();
 				}, 3000);
@@ -102,11 +110,16 @@ function CursorChanger(){
 		return;
 	}
 }
-
 function RenderLoop() {
+	const delta = 0.75 * clock.getDelta();
     if(!debug.debug_mode){
-		movement.fpcontrols.update(clock.getDelta()); //To be able to look around
+		movement.fpcontrols.update(delta); //To be able to look around
 	} 
+	modelsList.forEach(modelInList =>{
+		if(modelInList.mixer){
+			modelInList.mixer.update(delta);
+		}
+	})
 	debug.stats.update();
 	requestAnimationFrame(RenderLoop);
 	scene_setup.Render();

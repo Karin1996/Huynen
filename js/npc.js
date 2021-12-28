@@ -1,4 +1,5 @@
-import { camera, scene } from "./scene_setup";
+import {THREE, camera, scene } from "./scene_setup";
+import {AnimationController} from "./functions";
 
 let objectToMutate;
 let originalX;
@@ -16,11 +17,23 @@ function RotateNPC(object){
 		}
 	});
 	objectToMutate.lookAt(camera.position.x, objectToMutate.position.y, camera.position.z);
+
+	if(object.action){
+		AnimationController(object, "Talking");
+	}
+	
 }
 
-function ResetRotationNPC(){
+function ResetRotationNPC(object){
 	objectToMutate.rotation.set(originalX, originalY, originalZ);
+
+	if(object.action){
+		AnimationController(object, "Idle");
+	}
+
 }
+
+
 
 export{
 	RotateNPC,

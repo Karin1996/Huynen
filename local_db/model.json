@@ -14,9 +14,7 @@
         "x_scale": 1,
         "y_scale": 1,
         "z_scale": 1,
-        "property": "npc",
-        "keyframes": 0,
-        "clips": []
+        "property": "npc"
     },
     {
         "model_id": 1,
@@ -33,9 +31,7 @@
         "x_scale": 1,
         "y_scale": 1,
         "z_scale": 1,
-        "property": "npc",
-        "keyframes": 0,
-        "clips": []
+        "property": "npc"
     },
     {
         "model_id": 2,
@@ -52,9 +48,7 @@
         "x_scale": 1,
         "y_scale": 1,
         "z_scale": 1,
-        "property": "npc",
-        "keyframes": 0,
-        "clips": []
+        "property": "npc"
     },
     {
         "model_id": 3,
@@ -71,9 +65,7 @@
         "x_scale": 1,
         "y_scale": 1,
         "z_scale": 1,
-        "property": "npc",
-        "keyframes": 0,
-        "clips": []
+        "property": "npc"
     },
     {
         "model_id": 4,
@@ -90,9 +82,7 @@
         "x_scale": 1,
         "y_scale": 1,
         "z_scale": 1,
-        "property": "npc",
-        "keyframes": 0,
-        "clips": []
+        "property": "npc"
     },
     {
         "model_id": 5,
@@ -1819,14 +1809,12 @@
         "x_scale": 1,
         "y_scale": 1,
         "z_scale": 1,
-        "property": "questInactive",
-        "keyframes": 0,
-        "clips": []
+        "property": "questInactive"
     },
     {
         "model_id": 119,
-        "name": "QuestItem",
-        "src": "../models/quest_test.gltf",
+        "name": "Test quest anim",
+        "src": "../models/Quest_animTest.gltf",
         "quest_id": 2,
         "x_pos": 2,
         "y_pos": 0,
@@ -1837,26 +1825,23 @@
         "x_scale": 1,
         "y_scale": 1,
         "z_scale": 1,
-        "property": "questInactive",
-        "keyframes": 0,
-        "clips": []
+        "property": "questInactive"
     },
     {
-        "model_id": 119,
-        "name": "QuestItem",
-        "src": "../models/quest_test.gltf",
-        "quest_id": 3,
-        "x_pos": -2,
-        "y_pos": 0,
+        "model_id": 120,
+        "npc_id": 6,
+        "name": "Test NPC",
+        "src": "../models/NPC_animTest2.gltf",
+        "dialogue_id": 6,
+        "x_pos": -4,
+        "y_pos": 2,
         "z_pos": 0,
         "x_rot": 0,
         "y_rot": 0,
         "z_rot": 0,
-        "x_scale": 1,
-        "y_scale": 1,
-        "z_scale": 1,
-        "property": "questInactive",
-        "keyframes": 0,
-        "clips": []
+        "x_scale": 0.5,
+        "y_scale": 0.5,
+        "z_scale": 0.5,
+        "property": "npc"
     }
 ]

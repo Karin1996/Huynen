@@ -7,6 +7,7 @@ import {modelsList} from "./loader";
 import {DisplayRay} from "./debug";
 import {fpcontrols, LOOK_SPEED} from "./movement";
 import {RotateNPC, ResetRotationNPC} from "./npc"
+import { AnimationController } from "./functions";
 
 let uiVisible = false;
 //On click execute CheckUI
@@ -221,7 +222,7 @@ function MakeUI(type, object){
 						//DeleteUI(btns[i].parentElement);
 						DeleteUI();
 						UpdateQuest(object, btns[i]);
-						ResetRotationNPC();
+						ResetRotationNPC(object);
 					});
 				}
 			}
@@ -236,7 +237,7 @@ function MakeUI(type, object){
 	//ui is visible
 	else{
 		DeleteUI();
-		ResetRotationNPC();
+		ResetRotationNPC(object);
 	}
 }
 
@@ -280,7 +281,7 @@ function UpdateQuest(object, btn){
 									model.traverse((o) => {
 										if(o.isMesh){
 											//Change this to outline stuff instead of making the box visible
-											if(o.name.toLowerCase() == "outline"){
+											if(o.name.toLowerCase().includes("outline")){
 												o.material.visible = true;
 											}
 										}
@@ -369,7 +370,7 @@ function FinishQuest(object){
 					model.traverse((o) => {
 						if(o.isMesh){
 							//Change this to outline stuff instead of making the box visible
-							if(o.name.toLowerCase() == "outline"){
+							if(o.name.toLowerCase().includes("outline")){
 								o.material.visible = false;
 							}
 						}
@@ -382,10 +383,13 @@ function FinishQuest(object){
 	});
 	
 	//Replace with animation
-	setTimeout(function(){
-		//While animation is playing slow down look around speed
+	//setTimeout(function(){
+		//AnimationController(object, "Moving");
 		//fpcontrols.lookSpeed = 0.01;
-	}, 5000);
+	//}, 5000);
+
+	fpcontrols.lookSpeed = 0.01;
+	AnimationController(object, "Moving", false);
 
 }
 

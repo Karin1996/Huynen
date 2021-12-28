@@ -47,7 +47,7 @@ models.forEach(element => {
         //Get the mesh from the object
         model.traverse((o) => {
             if(o.isMesh){
-                o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide});
+                o.material = new THREE.MeshToonMaterial({map: o.material.map, side: THREE.DoubleSide, morphTargets: true});
                 o.receiveShadow = true;
                 o.castShadow = true;
                 //Check the extra properties for certain values that determine how it will be displayed
@@ -91,6 +91,11 @@ models.forEach(element => {
                         }
                         break;
                     case "npc":
+                        model.mixer = new THREE.AnimationMixer(model);
+                        model.clips = gltf.animations;
+                        model.clip = THREE.AnimationClip.findByName(model.clips, "Idle");
+                        model.action = model.mixer.clipAction(model.clip);     
+
                         if(o.name.toLowerCase() == "box"){
                             o.material = new THREE.MeshBasicMaterial();
                             o.fog = false;
@@ -100,7 +105,13 @@ models.forEach(element => {
                         }
                         break;
                     case "questInactive":
-                        if(o.name.toLowerCase() == "outline"){
+                        model.mixer = new THREE.AnimationMixer(model);
+                        model.clips = gltf.animations;
+                        model.clip = THREE.AnimationClip.findByName(model.clips, "Idle");
+                        model.action = model.mixer.clipAction(model.clip);     
+
+                        if(o.name.toLowerCase().includes("outline")){
+                            console.log("o", o);
                             o.material = new THREE.MeshBasicMaterial({color: 0xff0000, visible:false});
                             o.receiveShadow = false;
                             o.castShadow = false;
@@ -126,6 +137,7 @@ models.forEach(element => {
         });
         modelsList.push(model);
         scene.add(model);
+       
         if(modelsList.length >= models.length - 10 ){
             loaded = true;
         }
