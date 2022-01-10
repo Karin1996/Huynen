@@ -8,6 +8,7 @@ import {DisplayRay} from "./debug";
 import {fpcontrols, LOOK_SPEED} from "./movement";
 import {RotateNPC, ResetRotationNPC} from "./npc"
 import {AnimationController, animationDone, AudioController} from "./functions";
+import { cloneUniforms } from "three";
 
 let uiVisible = false;
 //On click execute CheckUI
@@ -220,9 +221,11 @@ function MakeUI(type, object){
 				for(let i = 0; i < btns.length; i++){
 					btns[i].addEventListener("click", function(){
 						//DeleteUI(btns[i].parentElement);
+						if(type == "dialogue"){
+							UpdateQuest(object, btns[i]);
+							ResetRotationNPC(object);
+						}
 						DeleteUI();
-						UpdateQuest(object, btns[i]);
-						ResetRotationNPC(object);
 					});
 				}
 			}
@@ -242,15 +245,20 @@ function MakeUI(type, object){
 }
 
 function DeleteUI(){	
-	for(let i = 0; i < document.getElementsByClassName("ui").length; i++){
-		document.getElementsByClassName("ui")[i].style.opacity = 0;
-		setTimeout(function(){
-			//Delete UI from the DOM
-			document.getElementsByClassName("ui")[i].remove();
-		}, 1000);
+	if(typeof(document.getElementsByClassName("ui") != "undefined")){
+		for(let i = 0; i < document.getElementsByClassName("ui").length; i++){
+			document.getElementsByClassName("ui")[i].style.opacity = 0;
+			setTimeout(function(){
+				//Delete UI from the DOM
+				document.getElementsByClassName("ui")[i].remove();
+			}, 1000);
+		}
+		uiVisible = false;
+		fpcontrols.lookSpeed = LOOK_SPEED;
 	}
-	uiVisible = false;
-	fpcontrols.lookSpeed = LOOK_SPEED;
+	else{
+		return;
+	}
 }
 
 function UpdateQuest(object, btn){

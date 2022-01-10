@@ -10,11 +10,17 @@ import * as functions from "../js/functions.js";
 //Var declarations
 let THREE = scene_setup.THREE;
 const clock = new THREE.Clock();
-let canMutate = true;
+//let canMutate = true;
 const modelsList = loader.modelsList;
 let bgAudio;
 
 document.body.appendChild(debug.stats.dom);
+
+document.getElementById("help").addEventListener("click", function(){
+	movement.camera.position.x = 0;
+    movement.camera.position.z = 0;
+});
+
 
 window.addEventListener('load', function(){
 	//Render the scene
@@ -53,6 +59,7 @@ window.addEventListener('load', function(){
 				})
 
 				setTimeout(function() {
+					document.getElementById("help").style.opacity = 1;
 					cycle.Cycle();
 				}, 3000);
 			});
@@ -61,20 +68,21 @@ window.addEventListener('load', function(){
 	
 }, true);
 
+//Every second trigger CursorChanger
 setInterval(function(){
-	canMutate = true;
-}, 30);
+	//canMutate = true;
+	CursorChanger();
+}, 1000);
 
 //When mouse moves execute CursorChanger
 window.addEventListener("mousemove", function(){
-	// Prevent going ham
-	if (!canMutate || debug.debug_mode){
+	if (debug.debug_mode){
 		return;
 	}
 	else{
 		CursorChanger();
 	}
-})
+}, false)
 
 //Cursor style depending on what object is being hovered over
 function CursorChanger(){
@@ -115,6 +123,7 @@ function CursorChanger(){
 		return;
 	}
 }
+
 function RenderLoop() {
 	const delta = 0.75 * clock.getDelta();
     if(!debug.debug_mode){

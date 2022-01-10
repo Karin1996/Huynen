@@ -21,8 +21,8 @@ const LOOK_SPEED = 0.12;
 
 const STEP = 0.1;
 const DISTANCE_GROUND = 1.5;
-camera.position.x = -25;
-camera.position.z = 30;
+camera.position.x = 0;
+camera.position.z = 0;
 //camera.position.y = DISTANCE_GROUND;
 
 
@@ -35,6 +35,15 @@ document.body.addEventListener("mouseenter", function(){
 document.body.addEventListener("mouseleave", function(){
     fpcontrols.lookSpeed = 0;
 });
+
+//Player's mouse is on the help btn
+document.getElementById("help").addEventListener("mouseenter", function(){
+    fpcontrols.lookSpeed = 0;
+});
+document.getElementById("help").addEventListener("mouseleave", function(){
+    fpcontrols.lookSpeed = LOOK_SPEED;
+});
+
 
 //Enable looking after everything is loaded in
 if(loaded){

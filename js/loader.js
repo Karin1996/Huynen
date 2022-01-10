@@ -77,12 +77,12 @@ models.forEach(element => {
                         break;
 
                     case "interactable":
-                        if(o.name.toLowerCase() == "outline"){
+                        if(o.name.toLowerCase().includes("outline")){
                             o.material = new THREE.MeshBasicMaterial({color: 0xff0000, visible:false});
                             o.receiveShadow = false;
                             o.castShadow = false;
                         }
-                        if(o.name.toLowerCase() == "box"){
+                        if(o.name.toLowerCase().includes("box")){
                             o.material = new THREE.MeshBasicMaterial();
                             o.fog = false;
                             o.visible = false;
@@ -98,7 +98,7 @@ models.forEach(element => {
 
                         model.audio = new Audio(element.audio);
 
-                        if(o.name.toLowerCase() == "box"){
+                        if(o.name.toLowerCase().includes("box")){
                             o.material = new THREE.MeshBasicMaterial();
                             o.fog = false;
                             o.visible = false;
@@ -120,7 +120,7 @@ models.forEach(element => {
                             o.receiveShadow = false;
                             o.castShadow = false;
                         }
-                        if(o.name.toLowerCase() == "box"){
+                        if(o.name.toLowerCase().includes("box")){
                             o.material = new THREE.MeshBasicMaterial();
                             o.fog = false;
                             o.visible = false;
@@ -132,6 +132,13 @@ models.forEach(element => {
                     case "static":
                         //Change Grass and Reed shadow properties
                         if(o.name.toLowerCase().includes("grass") || o.name.toLowerCase().includes("reed")){ 
+                            o.receiveShadow = false;
+                            o.castShadow = false;
+                        }
+                        if(o.name.toLowerCase().includes("box")){
+                            o.material = new THREE.MeshBasicMaterial();
+                            o.fog = false;
+                            o.visible = false;
                             o.receiveShadow = false;
                             o.castShadow = false;
                         }

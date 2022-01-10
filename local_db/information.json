@@ -2,7 +2,26 @@
     {
         "information_id": 1,
         "title": "Hunebed",
-        "text": "Hunebedden zijn grote grafkamers. De doden krijgen grafgiften, zoals bijlen en sieraden mee. Maar hunebedden zijn ook belangrijke regionale punten. Er worden verschillende ceremonieen en rituelen bij hunebedden uitgevoerd. Een hunebed bestaat uit draag- en dekstenen, de tussenruimtes worden opgevuld met stopstenen. Soms is er een stenenkrans rondom de dekheuvel aanwezig.",
-        "imagesequence": ["src1", "src2"]
+        "text": "Hunebedden zijn grote grafkamers. De doden krijgen grafgiften, zoals bijlen en sieraden mee. Maar hunebedden zijn ook belangrijke regionale punten. Er worden verschillende ceremonieen en rituelen bij hunebedden uitgevoerd. Een hunebed bestaat uit draag- en dekstenen, de tussenruimtes worden opgevuld met stopstenen. Soms is er een stenenkrans rondom de dekheuvel aanwezig."
+    },
+    {
+        "information_id": 2,
+        "title": "Potten",
+        "text": "Deze potten worden gebruikt om spullen en eten in te bewaren, maar worden ook meegegeven aan de doden. De potten worden versierd met patronen en ingekleurd met oker, as vermengd met olie of botpasta. Sommige potten hebben de vorm van een trechterbeker, hunebedbouwers worden hierdoor ook het trechterbekervolk genoemd."
+    },
+    {
+        "information_id": 3,
+        "title": "Eergetouw",
+        "text": "Een eergetouw wordt gebruikt om de akkers te ploegen en wordt getrokken door de oerossen of door mensen."
+    },
+    {
+        "information_id": 4,
+        "title": "Akker",
+        "text": "De voornamelijkste gewassen zijn gerst, eenkoorn, emmertarwe, linzen, maanzaad, lijnzaad, vlas, maretak en papaver. Deze gewassen zorgen voor zowel eten als olie. De oogst wordt opgeslagen in huis en voorraadkuilen."
+    },
+    {
+        "information_id": 5,
+        "title": "Veestapel",
+        "text": "De veestapel bestaat uit oerossen, zwijnen, geiten en schapen. Deze dieren leveren grondstoffen, zoals hoorn leer en melk op, maar ook vlees. Oerossen worden ook gebruikt voor het ploegen van de akker."
     }
 ]
