@@ -43,17 +43,18 @@ function Blinking(phase){
 function AnimationController(object, to, loop=true){
     animationDone = false;
     object.action.stop();
-   
+
+    const previousClip = object.clip;
     object.clip = THREE.AnimationClip.findByName(object.clips, to);
     object.action = object.mixer.clipAction(object.clip);
 
     object.action.play();
 
     if(loop == false){
-        //Only do the animation once. then return done or whatever.
+        //Only do the animation once and leave it on the last keyframe
         object.action.setLoop(THREE.LoopOnce);
         object.action.clampWhenFinished = true;
-        object.mixer.addEventListener('finished', function( e ) {
+        object.mixer.addEventListener('finished', function(e) {
             animationDone = true;
         });
     }

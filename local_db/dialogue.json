@@ -2,14 +2,7 @@
     {
         "dialogue_id": 1,
         "name": "Linne",
-        "dialogue": "Ik zie het allemaal niet meer zo goed. Gelukkig is mijn dochter Ida een goede hulp.",
-        "quest_id": 1,
-        "questStartDialogue": "Ik ben bezig met een mooie hamerbijl maken, kan jij voor mij wat hars oogsten van de berkenboom bij het hunebed?",
-        "questDuringDialogue": "Heb je al berkenhars?",
-        "questFinishedDialogue": "Dankjewel, dit wordt een mooie bijl",
-        "status": "inactive",
-        "questTitle": "Berkenhars halen",
-        "questDescription": "Haal wat berkenhars van de witte berkenboom bij het hunebed voor Linne."
+        "dialogue": "Ik zie het allemaal niet meer zo goed. Gelukkig is mijn dochter Ida een goede hulp."
     },
     {
         "dialogue_id": 2,
