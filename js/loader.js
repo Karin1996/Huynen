@@ -115,7 +115,6 @@ models.forEach(element => {
                         model.audio = new Audio(element.audio);
                         
                         if(o.name.toLowerCase().includes("outline")){
-                            console.log("o", o);
                             o.material = new THREE.MeshBasicMaterial({color: 0xff0000, visible:false});
                             o.receiveShadow = false;
                             o.castShadow = false;
@@ -128,6 +127,19 @@ models.forEach(element => {
                             o.castShadow = false;
                         }
                         break;
+                    
+                    case "fire":
+                            model.mixer = new THREE.AnimationMixer(model);
+                            model.clips = gltf.animations;
+                            model.clip = THREE.AnimationClip.findByName(model.clips, "Idle");
+                            model.action = model.mixer.clipAction(model.clip);   
+                            
+                            o.receiveShadow = false;
+                            o.castShadow = false;
+                            o.material.transparent = true;
+                            o.material.opacity = 0.5;
+                            
+                            break;
 
                     case "static":
                         //Change Grass and Reed shadow properties

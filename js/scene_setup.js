@@ -1,5 +1,6 @@
 //Imports
 import * as THREE from 'three';
+import { Light } from 'three';
 
 //Scene
 const scene = new THREE.Scene();
@@ -58,6 +59,10 @@ sceneCanvas.appendChild(renderer.domElement);
 let ambientLight = new THREE.AmbientLight(0xcce0ff, 0.4);
 let dirLight = new THREE.DirectionalLight(0xfff5c7);
 let dirHelper = new THREE.DirectionalLightHelper(dirLight, 5);
+const pointLightFire1 =  new THREE.PointLight(0xff3c00, 2, 12);
+pointLightFire1.position.set(11.8, 0, -13.5);
+const pointLightFire2 =  new THREE.PointLight(0xff3c00, 3, 12);
+pointLightFire2.position.set(-35, 1, 14.3);
 //scene.add(dirHelper);
 
 //Light settings
@@ -83,7 +88,7 @@ dirLight.shadow.camera.near = 0.5;
 dirLight.shadow.camera.far = 250;
 dirLight.shadow.bias = 0.15;
 
-scene.add(ambientLight, dirLight, dirLight2);
+scene.add(ambientLight, dirLight, dirLight2, pointLightFire1, pointLightFire2);
 
 
 export{
