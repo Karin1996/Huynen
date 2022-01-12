@@ -140,6 +140,17 @@ models.forEach(element => {
                             o.material.opacity = 0.5;
                             
                             break;
+                    case "animal":
+                        model.mixer = new THREE.AnimationMixer(model);
+                        model.clips = gltf.animations;
+
+                        //Get a random clip to play
+                        for(let i=0; i < model.clips.length; i++){
+                            let clipToPlay = model.clips[Math.floor(Math.random() * model.clips.length)]
+                            model.clip = THREE.AnimationClip.findByName(model.clips, clipToPlay.name);
+                        }
+                        model.action = model.mixer.clipAction(model.clip);     
+                        break;
 
                     case "static":
                         //Change Grass and Reed shadow properties

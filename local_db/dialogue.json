@@ -7,17 +7,15 @@
     {
         "dialogue_id": 2,
         "name": "Ida",
-        "dialogue": "Kan ik je ergens mee helpen?",
-        "quest_id": 2,
-        "questStartDialogue": "Ik ben ida",
-        "questDuringDialogue": "ida berkenhasr",
-        "questFinishedDialogue": "ok bye",
-        "status": "inactive",
-        "questTitle": "Ida quest",
-        "questDescription": "ida wil dingen."
+        "dialogue": "Kan ik je ergens mee helpen?"
     },
     {
         "dialogue_id": 3,
+        "name": "Rolfe",
+        "dialogue": "Bijl maken"
+    },
+    {
+        "dialogue_id":5,
         "name": "Rolfe",
         "dialogue": "Bijl maken",
         "quest_id": 3,
@@ -27,11 +25,6 @@
         "status": "inactive",
         "questTitle": "Lejo quest",
         "questDescription": "lejo wil ook graag dingen."
-    },
-    {
-        "dialogue_id": 4,
-        "name": "Lejo",
-        "dialogue": "Ik heb wat berkenhars nodig."
     },
     {
         "dialogue_id": 5,

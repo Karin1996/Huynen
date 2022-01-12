@@ -398,9 +398,84 @@
     "z_scale": 1,
     "property": "interactable"
 },
-
 {
     "model_id": 27,
+    "name": "Taurus1",
+    "src": "../models/Taurus_male.gltf",
+    "x_pos": 20,
+    "y_pos": 0,
+    "z_pos": -13,
+    "x_rot": 0,
+    "y_rot": 0,
+    "z_rot": 0,
+    "x_scale": 0.8,
+    "y_scale": 0.8,
+    "z_scale": 0.8,
+    "property": "animal"
+},
+{
+    "model_id": 28,
+    "name": "Taurus2",
+    "src": "../models/Taurus_female.gltf",
+    "x_pos": 25.5,
+    "y_pos": 0,
+    "z_pos": -15,
+    "x_rot": 0,
+    "y_rot": 100,
+    "z_rot": 0,
+    "x_scale": 0.7,
+    "y_scale": 0.7,
+    "z_scale": 0.7,
+    "property": "animal"
+},
+{
+    "model_id": 29,
+    "name": "Boar1",
+    "src": "../models/Boar.gltf",
+    "x_pos": 22,
+    "y_pos": 0,
+    "z_pos": -14,
+    "x_rot": 0,
+    "y_rot": -30,
+    "z_rot": 0,
+    "x_scale": 0.5,
+    "y_scale": 0.5,
+    "z_scale": 0.5,
+    "property": "animal"
+},
+{
+    "model_id": 30,
+    "name": "Boar2",
+    "src": "../models/Boar.gltf",
+    "x_pos": 25,
+    "y_pos": 0,
+    "z_pos": -17,
+    "x_rot": 0,
+    "y_rot": 60,
+    "z_rot": 0,
+    "x_scale": 0.4,
+    "y_scale": 0.4,
+    "z_scale": 0.4,
+    "property": "animal"
+},
+{
+    "model_id": 31,
+    "name": "Boar3",
+    "src": "../models/Boar.gltf",
+    "x_pos": 17,
+    "y_pos": 0,
+    "z_pos": -11,
+    "x_rot": 0,
+    "y_rot": -120,
+    "z_rot": 0,
+    "x_scale": 0.5,
+    "y_scale": 0.5,
+    "z_scale": 0.5,
+    "property": "animal"
+},
+
+{
+    "model_id": 32,
     "npc_id": 1,
     "name": "Linne",
     "src": "../models/Linne1.gltf",
@@ -418,7 +493,7 @@
     "property": "npc"
 },
 {
-    "model_id": 28,
+    "model_id": 33,
     "npc_id": 1,
     "name": "Ida",
     "src": "../models/Ida1.gltf",
@@ -436,12 +511,12 @@
     "property": "npc"
 },
 {
-    "model_id": 29,
+    "model_id": 34,
     "npc_id": 1,
     "name": "Rolfe",
     "src": "../models/Rolfe1.gltf",
     "audio": "../audio/talking1.m4a",
-    "dialogue_id": 1,
+    "dialogue_id": 3,
     "x_pos": -15.32,
     "y_pos": 0,
     "z_pos": -14.5,
@@ -453,6 +528,4 @@
     "z_scale": 1,
     "property": "npc"
 }
-
-
 ]
