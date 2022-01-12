@@ -18,10 +18,10 @@
     },
     {
         "dialogue_id": 3,
-        "name": "Lejo",
-        "dialogue": "De vissen willen nog niet echt bijten. Ik heb ook wat fuiken in het water, ik hoop dat die meer geluk hebben.",
+        "name": "Rolfe",
+        "dialogue": "Bijl maken",
         "quest_id": 3,
-        "questStartDialogue": "Ik ben Lejo",
+        "questStartDialogue": "Ik ben Rolfe",
         "questDuringDialogue": "Waar is mn stuff",
         "questFinishedDialogue": "Kallum an",
         "status": "inactive",
@@ -30,7 +30,7 @@
     },
     {
         "dialogue_id": 4,
-        "name": "Rolfe",
+        "name": "Lejo",
         "dialogue": "Ik heb wat berkenhars nodig."
     },
     {

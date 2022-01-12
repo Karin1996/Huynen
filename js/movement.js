@@ -21,8 +21,8 @@ const LOOK_SPEED = 0.12;
 
 const STEP = 0.1;
 const DISTANCE_GROUND = 1.5;
-camera.position.x = 0;
-camera.position.z = 0;
+camera.position.x = -15;
+camera.position.z = -10;
 //camera.position.y = DISTANCE_GROUND;
 
 
@@ -82,6 +82,7 @@ function MovePlayer(location){
 function AnimatePosition(a, b, distance, camera, percentage=0){
     if (percentage >= 0.2) {
         fpcontrols.lookSpeed = LOOK_SPEED;
+        console.log(camera.position);
         return;
     }
     //Determine the amount of steps
