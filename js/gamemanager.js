@@ -18,6 +18,7 @@ document.body.appendChild(debug.stats.dom);
 
 document.getElementById("help").addEventListener("click", function(){
 	movement.camera.position.x = 0;
+	movement.camera.position.y = movement.DISTANCE_GROUND;
     movement.camera.position.z = 0;
 });
 
@@ -129,6 +130,7 @@ function RenderLoop() {
     if(!debug.debug_mode){
 		movement.fpcontrols.update(delta); //To be able to look around
 	} 
+	//Update the animations
 	modelsList.forEach(modelInList =>{
 		if(modelInList.mixer){
 			modelInList.mixer.update(delta);

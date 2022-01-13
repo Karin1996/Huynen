@@ -7,42 +7,25 @@
     {
         "dialogue_id": 2,
         "name": "Ida",
-        "dialogue": "Kan ik je ergens mee helpen?"
+        "dialogue": "De pot moet nog even wat langer bakken",
+        "quest_id": 1,
+        "questStartDialogue": "Mijn moeder heeft mij al als klein kind geleerd hoe ik het mooist de potten kan versieren. Deze pot is voor het offerfeest, ik heb alleen geen witte kleurpasta meer. Zou jij voor mij wat botpasta kunnen maken?",
+        "questDuringDialogue": "Is het gelukt? De werktafel staat vlakbij het vee.",
+        "questFinishedDialogue": "Dankjewel, nu kan ik de pot straks gaan inkleuren.",
+        "status": "inactive",
+        "questTitle": "Botten vermalen",
+        "questDescription": "Maak botpasta bij de werktafel zodat Ida de pot kan versieren."
     },
     {
         "dialogue_id": 3,
         "name": "Rolfe",
-        "dialogue": "Bijl maken"
-    },
-    {
-        "dialogue_id":5,
-        "name": "Rolfe",
-        "dialogue": "Bijl maken",
-        "quest_id": 3,
-        "questStartDialogue": "Ik ben Rolfe",
-        "questDuringDialogue": "Waar is mn stuff",
-        "questFinishedDialogue": "Kallum an",
+        "dialogue": "Sorry, ik moet verder met de bijl.",
+        "quest_id": 2,
+        "questStartDialogue": "De bijl is bijna af voor het offerfeest, maar ik heb nog wat berkenhars nodig om het goed te verzegelen. Naast het hunebed staat een berkenboom, zou jij voor mij wat sap eruit kunnen oogsten?",
+        "questDuringDialogue": "Het is de wittige boom bij het hunebed zonder kransstenen.",
+        "questFinishedDialogue": "Dit moet genoeg zijn, tot vanavond.",
         "status": "inactive",
-        "questTitle": "Lejo quest",
-        "questDescription": "lejo wil ook graag dingen."
-    },
-    {
-        "dialogue_id": 5,
-        "name": "Alfwin",
-        "dialogue": "Vanavond is het offerfeest."
-    },
-    {
-        "dialogue_id": 6,
-        "name": "Test",
-        "dialogue": "I do testy."
-    },
-   
-    {
-        "dialogue_id": 100,
-        "name": "Ida",
-        "dialogue": "Kan ik je ergens mee helpen?",
-        "isQuest": "yes",
-        "quest": "Ik ben bezig met een mooie hamerbijl maken, kan jij voor mij wat hars oogsten van de berkenboom bij het hunebed?",
-        "status": "status"
+        "questTitle": "Berkensap oogsten",
+        "questDescription": "Haal wat sap uit de berkenboom zodat rolfe hier straks hars van kan maken."
     }
 ]

@@ -527,5 +527,38 @@
     "y_scale": 1,
     "z_scale": 1,
     "property": "npc"
+},
+
+{
+    "model_id": 35,
+    "name": "Ida Quest",
+    "src": "../models/BoneTable_quest.gltf",
+    "quest_id": 1,
+    "x_pos": 14,
+    "y_pos": 0,
+    "z_pos": -7.2,
+    "x_rot": 0,
+    "y_rot": 160,
+    "z_rot": 0,
+    "x_scale": 1,
+    "y_scale": 1,
+    "z_scale": 1,
+    "property": "questInactive"
+},
+{
+    "model_id": 36,
+    "name": "Rolfe Quest",
+    "src": "../models/BirchSap_quest.gltf",
+    "quest_id": 2,
+    "x_pos": -23,
+    "y_pos": 0,
+    "z_pos": 14,
+    "x_rot": 0,
+    "y_rot": 0,
+    "z_rot": 0,
+    "x_scale": 1,
+    "y_scale": 1,
+    "z_scale": 1,
+    "property": "questInactive"
 }
 ]

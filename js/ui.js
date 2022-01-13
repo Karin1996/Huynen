@@ -36,7 +36,6 @@ function CheckUI(){
 					MakeUI("dialogue", child); 
 				}
 				else if(child.property == "quest"){
-					console.log("play animation, change quest description text, change quest status, change model property")
 					FinishQuest(child);
 				}
 			}
@@ -369,6 +368,26 @@ function FinishQuest(object){
 		AudioController(object, true, false);
 	}
 
+	//Change correct model property to static
+	modelsList.forEach(model => {
+		if(model.quest_id == object.quest_id){
+			model.property = "static"
+			scene.remove(model);
+		
+			model.traverse((o) => {
+				if(o.isMesh){
+					setInterval(function(){
+						//Disable the outline
+						if(o.name.toLowerCase().includes("outline")){
+							o.material.visible = false;
+						}
+					})	
+				}
+			});
+			scene.add(model);
+		}
+	});
+
 	//Check if the animation is done
 	let interval = setInterval(function(){
 
@@ -387,28 +406,7 @@ function FinishQuest(object){
 						}
 					}
 				
-					quest.status = "done";
-		
-					//Change correct model property to static
-					modelsList.forEach(model => {
-						if(model.quest_id == quest.quest_id){
-							model.property = "static"
-							scene.remove(model);
-						
-							model.traverse((o) => {
-								if(o.isMesh){
-									setInterval(function(){
-										//Disable the outline
-										if(o.name.toLowerCase().includes("outline")){
-											o.material.visible = false;
-										}
-									})	
-								}
-							});
-							scene.add(model);
-						}
-					});
-					
+					quest.status = "done";					
 				}
 			});
             clearInterval(interval);

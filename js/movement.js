@@ -20,10 +20,10 @@ fpcontrols.noFly = true;
 const LOOK_SPEED = 0.12;
 
 const STEP = 0.1;
-const DISTANCE_GROUND = 1.5;
-camera.position.x = 23;
-camera.position.z = -10;
-//camera.position.y = DISTANCE_GROUND;
+const DISTANCE_GROUND = 1.52;
+camera.position.x = 0;
+camera.position.z = 0;
+camera.position.y = DISTANCE_GROUND;
 
 
 //Player's mouse is in the window and there is no ui visible

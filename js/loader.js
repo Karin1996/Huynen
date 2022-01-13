@@ -78,7 +78,7 @@ models.forEach(element => {
 
                     case "interactable":
                         if(o.name.toLowerCase().includes("outline")){
-                            o.material = new THREE.MeshBasicMaterial({color: 0xff0000, visible:false});
+                            o.material = new THREE.MeshBasicMaterial({color: 0xe32d00, visible:false});
                             o.receiveShadow = false;
                             o.castShadow = false;
                         }
@@ -115,7 +115,7 @@ models.forEach(element => {
                         model.audio = new Audio(element.audio);
                         
                         if(o.name.toLowerCase().includes("outline")){
-                            o.material = new THREE.MeshBasicMaterial({color: 0xff0000, visible:false});
+                            o.material = new THREE.MeshBasicMaterial({color: 0xe32d00, visible:false});
                             o.receiveShadow = false;
                             o.castShadow = false;
                         }
