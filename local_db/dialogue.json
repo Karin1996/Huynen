@@ -27,5 +27,15 @@
         "status": "inactive",
         "questTitle": "Berkensap oogsten",
         "questDescription": "Haal wat sap uit de berkenboom zodat rolfe hier straks hars van kan maken."
+    },
+    {
+        "dialogue_id": 4,
+        "name": "Lejo",
+        "dialogue": "De vissen willen nog niet echt bijten. Ik heb ook wat fuiken in het water, ik hoop dat die meer geluk hebben."
+    },
+    {
+        "dialogue_id": 5,
+        "name": "Kalie",
+        "dialogue": "Vannacht was er een beer in het dorp, ik weet het zeker! Ik heb pootafdrukken gezien bij het bos!"
     }
 ]

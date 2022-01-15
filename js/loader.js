@@ -73,7 +73,9 @@ models.forEach(element => {
 
                     case "transparent":
                         o.material.transparent = true;
-                        o.material.opacity = 0.2;
+                        o.material.opacity = 0.8;
+                        o.receiveShadow = false;
+                        o.castShadow = false;
                         break;
 
                     case "interactable":
