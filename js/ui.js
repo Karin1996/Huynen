@@ -302,6 +302,7 @@ function UpdateQuest(object, btn){
 							~remove && quests.splice(remove, 1)
 							
 							UpdateQuestUI();
+							console.log("festival JSON", festivalList)
 							festivalList.forEach(item => {
 								if(item.quest_id == correctObject.quest_id){
 									item.property = "show";

@@ -10,6 +10,7 @@ import {uiVisible} from "./ui";
 import {FirstPersonControls} from 'three/examples/jsm/controls/FirstPersonControls';
 import {modelsList, loaded} from "./loader";
 import {DisplayRay} from "./debug";
+import {festival} from "./functions";
 
 
 //Var declarations
@@ -50,26 +51,30 @@ if(loaded){
     fpcontrols.lookSpeed = LOOK_SPEED;
 }
 
-//Get the clicked location
+//Get the clicked location (if festival has not started)
 document.addEventListener("mousedown", function(e){        
-    raycaster.setFromCamera(mouse, camera);    
-    const hitObjects = raycaster.intersectObjects(modelsList);
-    
-    //Save the first (closest) object that the player is looking at
-    if(hitObjects.length > 0){
-        let currentObject = hitObjects[0];
+    if(!festival){
+        raycaster.setFromCamera(mouse, camera);    
+        const hitObjects = raycaster.intersectObjects(modelsList);
+        
+        //Save the first (closest) object that the player is looking at
+        if(hitObjects.length > 0){
+            let currentObject = hitObjects[0];
 
-        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+            mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
-        if(currentObject.object.parent.property == "ground" ){
-            if(!uiVisible){
-                MovePlayer(currentObject);
+            if(currentObject.object.parent.property == "ground" ){
+                if(!uiVisible){
+                    MovePlayer(currentObject);
+                }
             }
         }
     }
+    else{
+        return;
+    }
 }, true);
-
 
 function MovePlayer(location){
     const a_pos = camera.position;
@@ -82,7 +87,7 @@ function MovePlayer(location){
 function AnimatePosition(a, b, distance, camera, percentage=0){
     if (percentage >= 0.2) {
         fpcontrols.lookSpeed = LOOK_SPEED;
-        console.log(camera.position);
+        //console.log(camera.position);
         return;
     }
     //Determine the amount of steps

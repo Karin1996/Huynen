@@ -180,7 +180,22 @@ p.info{
     visibility: visible;
     transition: 400ms;
 }
-
+.end{
+    opacity: 1 !important;
+}
+.items{
+    width: 25rem !important;
+}
+.explanation span{
+    font-size: 1rem;
+    color: $greyish;
+}
+.not_sacrified{
+    border: 2px solid red;
+}
+.sacrified{
+    border: 2px solid green;
+}
 
 #loading{
     margin-top: -3rem;
@@ -217,12 +232,12 @@ p.info{
     animation-direction: var(--direction);
     opacity: var(--opacity);
     height: var(--height);
+    transition: 100ms;
   }
   
   #blink{
     height: 100%;
     width: 100vw;
-    //display: flex;
     flex-direction: column;
     justify-content: space-between;
     position: absolute;

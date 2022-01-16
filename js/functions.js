@@ -1,14 +1,22 @@
-import {THREE, Render,} from "./scene_setup";
+import {THREE, scene,} from "./scene_setup";
+import {camera, fpcontrols, DISTANCE_GROUND} from "./movement";
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
+import {bgAudio} from "./gamemanager";
+let festivalModels = require("../local_db/festivalList.json");
 let animationDone = false;
+let festival = false;
+let blinkingDone = false;
+let festivalList = [];
+
+const animationTime = 3000;
+const festivalTime = 10000;
 
 function Blinking(phase){
-    let animationTime = 3000;
-
     document.getElementById("blink").style.display = "flex";
     document.documentElement.style.setProperty('--duration', animationTime/1000+"s");
-
     document.getElementById("blink").children[0].classList.add("blink");
     document.getElementById("blink").children[1].classList.add("blink");
+    document.documentElement.style.setProperty('--opacity', "1");
 
     if(phase == "end"){
         document.documentElement.style.setProperty('--direction', "reverse");
@@ -16,26 +24,19 @@ function Blinking(phase){
     else{
         document.documentElement.style.setProperty('--direction', "normal");
     }
-        
-      
-    setTimeout(function() {
+
+    setTimeout(function() {        
         if(phase == "end"){
             document.documentElement.style.setProperty('--opacity', "1");
-            document.documentElement.style.setProperty('--height', "50%")
+            blinkingDone = true;
         }
         else{
-        document.documentElement.style.setProperty('--opacity', "0");
-        document.documentElement.style.setProperty('--height', "0%")
+            document.documentElement.style.setProperty('--opacity', "0");
+            setTimeout(function(){
+                document.getElementById("blink").style.display = "none";
+            }, 100)
         }
-            setTimeout(function() {
-                if(phase == "end"){
-                    document.getElementById("blink").style.display = "flex";
-                }
-                else{
-                    document.getElementById("blink").style.display = "none";
-                }
-            }, animationTime - 100);
-    }, animationTime - 100);
+    }, animationTime - 50);
 
 }
 
@@ -78,9 +79,100 @@ function AudioController(object, playAudio, loop=true){
     }
 }
 
+function StartFestival(){
+    //Blinking
+    Blinking("end");
+
+    //Hide UI elements
+    document.getElementById("quest_ui").style.opacity = 0;
+    document.getElementById("dn_slider").style.opacity = 0;
+    document.getElementById("help").style.opacity = 0;
+
+    //Check every s seconds if Blinking() is done
+    let interval = setInterval(function(){
+        if(blinkingDone){
+            clearInterval(interval);
+            
+            //Disables being able to click in movement js
+            festival = true;
+
+            //Change camera position and rotation
+            camera.position.set(-23,DISTANCE_GROUND,23);
+            fpcontrols.lookAt(-26, 0, 20);
+
+            //Remove all npc 1 from scene
+            let tempList = [];
+            scene.traverse(function(child){
+                if(child.type == "Group"){
+                    if(child.property == "npc"){
+                        tempList.push(child);
+                    }
+                }
+            });
+            tempList.forEach(element => {
+                scene.remove(element);
+            });
+
+            //Add festival items from json list (also npc 2)
+            const loader = new GLTFLoader();
+            //Loop over the model json file
+            festivalModels.forEach(element => {
+            //If the object has property show, add it to the scene
+                loader.load(element.src, function (gltf){
+                    const model = gltf.scene;
+                    model.position.set(element.x_pos, element.y_pos, element.z_pos);
+                    model.rotation.set(element.x_rot*(Math.PI/180), element.y_rot*(Math.PI/180), element.z_rot*(Math.PI/180));
+                    model.scale.set(element.x_scale, element.y_scale, element.z_scale);
+                    model.name = element.name;
+                    model.model_id = element.model_id;
+        
+                    model.property = element.property;
+                    model.npc = element.npc;
+                    if(model.property == "show"){
+                        if(model.npc == "true"){
+                            model.mixer = new THREE.AnimationMixer(model);
+                            model.clips = gltf.animations;
+                            model.clip = THREE.AnimationClip.findByName(model.clips, "Idle");
+                            model.action = model.mixer.clipAction(model.clip);
+                            model.mixer.timeScale = 1.2;
+                            model.action.play();
+                        }
+                        festivalList.push(model);
+                        scene.add(model);
+                    }
+                });
+            }); 
+            
+            //Change audio
+            bgAudio.src = "../audio/questsound.mp3";
+            bgAudio.play();
+
+            //Disable black screen
+            document.documentElement.style.setProperty('--opacity', "0");
+            document.getElementById("blink").style.display = "none";
+
+            //After x seconds end application
+            setTimeout(function(){
+                EndApplication();
+            }, festivalTime)
+        }           
+    }, 1000); //50 seconds
+}
+
+function EndApplication(){
+    console.log("applicatie eindigen");
+    localStorage.setItem("festival", JSON.stringify(festivalModels));
+    window.location.href = "end.html";
+}
+
+window.EndApplication = EndApplication;
+
 export{
     Blinking,
     AnimationController, 
     animationDone,
-    AudioController
+    AudioController,
+    StartFestival, 
+    festival,
+    festivalList,
 }

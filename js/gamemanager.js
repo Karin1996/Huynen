@@ -81,12 +81,19 @@ window.addEventListener("mousemove", function(){
 		return;
 	}
 	else{
-		CursorChanger();
+		if(!functions.festival){
+			CursorChanger();
+		}
+		else{
+			document.body.style.cursor = "default";
+			return;
+		}
 	}
-}, false)
+})
 
 //Cursor style depending on what object is being hovered over
 function CursorChanger(){
+	//console.log("camera rot", movement.camera.rotation);
 	scene_setup.raycaster.setFromCamera(scene_setup.mouse, scene_setup.camera);    
 	const hitObjects = scene_setup.raycaster.intersectObjects(modelsList);
 
@@ -100,19 +107,19 @@ function CursorChanger(){
 			if(child.type == "Group"){
 				switch(child.property){
 					case "interactable":
-                        document.body.style.cursor = "url('../images/cursor_questionmark.png'), auto";
+                        document.body.style.cursor = "url('../images/cursor_questionmark_small.png'), auto";
                         break;
 					case "quest":
-						document.body.style.cursor = "url('../images/cursor_questionmark.png'), auto";
+						document.body.style.cursor = "url('../images/cursor_questionmark_small.png'), auto";
 						break;
 					case "npc":
-						document.body.style.cursor = "url('../images/cursor_talk.png'), auto";
+						document.body.style.cursor = "url('../images/cursor_talk_small.png'), auto";
 						break;
 					case "ground":
-						document.body.style.cursor = "url('../images/cursor_move.png'), auto";
+						document.body.style.cursor = "url('../images/cursor_move_small.png'), auto";
 						break;
 					default:
-						document.body.style.cursor = "url('../images/cursor_disabled.png'), auto";
+						document.body.style.cursor = "url('../images/cursor_disabled_small.png'), auto";
 				}
 			}
 			return;
@@ -120,14 +127,14 @@ function CursorChanger(){
 	}
 	//Currentobject is undefined 
 	else{
-		document.body.style.cursor = "url('../images/cursor_disabled.png'), auto";
+		document.body.style.cursor = "url('../images/cursor_disabled_small.png'), auto";
 		return;
 	}
 }
 
 function RenderLoop() {
 	const delta = 0.75 * clock.getDelta();
-    if(!debug.debug_mode){
+    if(!debug.debug_mode || !functions.festival){
 		movement.fpcontrols.update(delta); //To be able to look around
 	} 
 	//Update the animations
@@ -136,8 +143,19 @@ function RenderLoop() {
 			modelInList.mixer.update(delta);
 		}
 	})
+
+	//Update the animations
+	functions.festivalList.forEach(modelInList =>{
+		if(modelInList.mixer){
+			modelInList.mixer.update(delta);
+		}
+	})
 	debug.stats.update();
 	requestAnimationFrame(RenderLoop);
 	scene_setup.Render();
 	movement.fpcontrols.handleResize();
+}
+
+export{
+	bgAudio
 }

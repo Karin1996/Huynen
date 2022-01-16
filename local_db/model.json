@@ -76,6 +76,21 @@
 },
 {
     "model_id": 6,
+    "name": "Foliage6",
+    "src": "../models/Foliage6.gltf",
+    "x_pos": 0,
+    "y_pos": 0,
+    "z_pos": 0,
+    "x_rot": 0,
+    "y_rot": 0,
+    "z_rot": 0,
+    "x_scale": 1,
+    "y_scale": 1,
+    "z_scale": 1,
+    "property": "static"
+},
+{
+    "model_id": 7,
     "name": "Objects1",
     "src": "../models/Objects1.gltf",
     "x_pos": 0,
@@ -90,7 +105,7 @@
     "property": "static"
 },
 {
-    "model_id": 7,
+    "model_id": 8,
     "name": "Objects2",
     "src": "../models/Objects2.gltf",
     "x_pos": 0,
@@ -105,7 +120,7 @@
     "property": "static"
 },
 {
-    "model_id": 8,
+    "model_id": 9,
     "name": "Objects3",
     "src": "../models/Objects3.gltf",
     "x_pos": 0,
@@ -120,7 +135,7 @@
     "property": "static"
 },
 {
-    "model_id": 9,
+    "model_id": 10,
     "name": "Objects4",
     "src": "../models/Objects4.gltf",
     "x_pos": 0,
@@ -135,7 +150,7 @@
     "property": "static"
 },
 {
-    "model_id": 10,
+    "model_id": 11,
     "name": "Objects5",
     "src": "../models/Objects5.gltf",
     "x_pos": 0,
@@ -150,7 +165,7 @@
     "property": "static"
 },
 {
-    "model_id": 11,
+    "model_id": 12,
     "name": "House1",
     "src": "../models/House1.gltf",
     "x_pos": 0,
@@ -165,7 +180,7 @@
     "property": "static"
 },
 {
-    "model_id": 12,
+    "model_id": 13,
     "name": "House2",
     "src": "../models/House2.gltf",
     "x_pos": 0,
@@ -180,7 +195,7 @@
     "property": "static"
 },
 {
-    "model_id": 13,
+    "model_id": 14,
     "name": "House3",
     "src": "../models/House3.gltf",
     "x_pos": 0,
@@ -195,7 +210,7 @@
     "property": "static"
 },
 {
-    "model_id": 14,
+    "model_id": 15,
     "name": "Water",
     "src": "../models/Water.gltf",
     "x_pos": 0,
@@ -210,7 +225,7 @@
     "property": "static"
 },
 {
-    "model_id": 15,
+    "model_id": 16,
     "name": "Fire1",
     "src": "../models/Fire.gltf",
     "x_pos": 11.8,
@@ -225,7 +240,7 @@
     "property": "fire"
 },
 {
-    "model_id": 16,
+    "model_id": 17,
     "name": "Fire2",
     "src": "../models/Fire.gltf",
     "x_pos": -35, 
@@ -241,7 +256,7 @@
 },
 
 {
-    "model_id": 17,
+    "model_id": 18,
     "name": "Ground",
     "src": "../models/Ground.gltf",
     "x_pos": 0,
@@ -256,7 +271,7 @@
     "property": "ground"
 },
 {
-    "model_id": 18,
+    "model_id": 19,
     "name": "Dolmen2Ground",
     "src": "../models/Dolmen2Ground.gltf",
     "x_pos": 0,
@@ -272,7 +287,7 @@
 },
 
 {
-    "model_id": 19,
+    "model_id": 20,
     "name": "Skybox1",
     "src": "../models/Skybox1.gltf",
     "x_pos": 0,
@@ -287,7 +302,7 @@
     "property": "skybox"
 },
 {
-    "model_id": 20,
+    "model_id": 21,
     "name": "Skybox2",
     "src": "../models/Skybox2.gltf",
     "x_pos": 0,
@@ -303,7 +318,7 @@
 },
 
 {
-    "model_id": 21,
+    "model_id": 22,
     "name": "Dolmen1",
     "src": "../models/Dolmen1.gltf",
     "information_id": 1,
@@ -319,7 +334,7 @@
     "property": "interactable"
 },
 {
-    "model_id": 22,
+    "model_id": 23,
     "name": "Dolmen2",
     "src": "../models/Dolmen2.gltf",
     "information_id": 1,
@@ -335,7 +350,7 @@
     "property": "interactable"
 },
 {
-    "model_id": 23,
+    "model_id": 24,
     "name": "Pottery",
     "src": "../models/Pottery.gltf",
     "information_id": 2,
@@ -351,7 +366,7 @@
     "property": "interactable"
 },
 {
-    "model_id": 24,
+    "model_id": 25,
     "name": "Scratchplough",
     "src": "../models/Scratchplough.gltf",
     "information_id": 3,
@@ -367,7 +382,7 @@
     "property": "interactable"
 },
 {
-    "model_id": 25,
+    "model_id": 26,
     "name": "Wheat",
     "src": "../models/Wheat.gltf",
     "information_id": 4,
@@ -383,7 +398,7 @@
     "property": "interactable"
 },
 {
-    "model_id": 26,
+    "model_id": 27,
     "name": "Cattle",
     "src": "../models/Cattle.gltf",
     "information_id": 5,
@@ -399,7 +414,7 @@
     "property": "interactable"
 },
 {
-    "model_id": 27,
+    "model_id": 28,
     "name": "Taurus1",
     "src": "../models/Taurus_male.gltf",
     "x_pos": 20,
@@ -414,7 +429,7 @@
     "property": "animal"
 },
 {
-    "model_id": 28,
+    "model_id": 29,
     "name": "Taurus2",
     "src": "../models/Taurus_female.gltf",
     "x_pos": 25.5,
@@ -429,7 +444,7 @@
     "property": "animal"
 },
 {
-    "model_id": 29,
+    "model_id": 30,
     "name": "Boar1",
     "src": "../models/Boar.gltf",
     "x_pos": 22,
@@ -444,7 +459,7 @@
     "property": "animal"
 },
 {
-    "model_id": 30,
+    "model_id": 31,
     "name": "Boar2",
     "src": "../models/Boar.gltf",
     "x_pos": 25,
@@ -459,7 +474,7 @@
     "property": "animal"
 },
 {
-    "model_id": 31,
+    "model_id": 32,
     "name": "Boar3",
     "src": "../models/Boar.gltf",
     "x_pos": 17,
@@ -474,7 +489,7 @@
     "property": "animal"
 },
 {
-    "model_id": 32,
+    "model_id": 33,
     "name": "Pawprint",
     "src": "../models/Pawprint.gltf",
     "x_pos": -24,
@@ -489,7 +504,7 @@
     "property": "transparent"
 },
 {
-    "model_id": 33,
+    "model_id": 34,
     "name": "Pawprint interactable",
     "src": "../models/Pawprint_interactable.gltf",
     "information_id": 6,
@@ -506,7 +521,7 @@
 },
 
 {
-    "model_id": 34,
+    "model_id": 35,
     "npc_id": 1,
     "name": "Linne",
     "src": "../models/Linne1.gltf",
@@ -524,7 +539,7 @@
     "property": "npc"
 },
 {
-    "model_id": 35,
+    "model_id": 36,
     "npc_id": 2,
     "name": "Ida",
     "src": "../models/Ida1.gltf",
@@ -542,7 +557,7 @@
     "property": "npc"
 },
 {
-    "model_id": 36,
+    "model_id": 37,
     "npc_id": 3,
     "name": "Rolfe",
     "src": "../models/Rolfe1.gltf",
@@ -561,7 +576,7 @@
 },
 
 {
-    "model_id": 37,
+    "model_id": 38,
     "name": "Ida Quest",
     "src": "../models/BoneTable_quest.gltf",
     "quest_id": 1,
@@ -577,7 +592,7 @@
     "property": "questInactive"
 },
 {
-    "model_id": 38,
+    "model_id": 39,
     "name": "Rolfe Quest",
     "src": "../models/BirchSap_quest.gltf",
     "quest_id": 2,
@@ -593,7 +608,7 @@
     "property": "questInactive"
 },
 {
-    "model_id": 39,
+    "model_id": 40,
     "npc_id": 4,
     "name": "Lejo",
     "src": "../models/Lejo1.gltf",
@@ -611,7 +626,7 @@
     "property": "npc"
 },
 {
-    "model_id": 40,
+    "model_id": 41,
     "npc_id": 5,
     "name": "Kalie",
     "src": "../models/Kalie1.gltf",
