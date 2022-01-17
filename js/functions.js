@@ -9,7 +9,7 @@ let blinkingDone = false;
 let festivalList = [];
 
 const animationTime = 3000;
-const festivalTime = 10000;
+const festivalTime = 30000;
 
 function Blinking(phase){
     document.getElementById("blink").style.display = "flex";
@@ -88,6 +88,14 @@ function StartFestival(){
     document.getElementById("dn_slider").style.opacity = 0;
     document.getElementById("help").style.opacity = 0;
 
+    if(document.getElementById("dialogue")){
+        document.getElementById("dialogue").style.opacity = 0;
+    }
+    if(document.getElementById("interaction")){
+        document.getElementById("interaction").style.opacity = 0;
+    }
+    
+
     //Check every s seconds if Blinking() is done
     let interval = setInterval(function(){
         if(blinkingDone){
@@ -144,8 +152,15 @@ function StartFestival(){
             }); 
             
             //Change audio
-            bgAudio.src = "../audio/questsound.mp3";
+            bgAudio.src = "../audio/bg2.ogg";
             bgAudio.play();
+
+            //Festival npc's sounds
+            let LinneAudio = new Audio("../audio/Linne_festival.ogg"); LinneAudio.loop = true; LinneAudio.play();
+            let IdaAudio = new Audio("../audio/Ida_festival.ogg"); IdaAudio.loop = true; IdaAudio.play();
+            let RolfeAudio = new Audio("../audio/Rolfe_festival.ogg"); RolfeAudio.loop = true; RolfeAudio.play();
+            let LejoAudio = new Audio("../audio/Lejo_festival.ogg"); LejoAudio.loop = true; LejoAudio.play();
+            let KalieAudio = new Audio("../audio/Kalie_festival.ogg"); KalieAudio.loop = true; KalieAudio.play();
 
             //Disable black screen
             document.documentElement.style.setProperty('--opacity', "0");
@@ -160,7 +175,6 @@ function StartFestival(){
 }
 
 function EndApplication(){
-    console.log("applicatie eindigen");
     localStorage.setItem("festival", JSON.stringify(festivalModels));
     window.location.href = "end.html";
 }

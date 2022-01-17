@@ -14,7 +14,7 @@ const clock = new THREE.Clock();
 const modelsList = loader.modelsList;
 let bgAudio;
 
-document.body.appendChild(debug.stats.dom);
+//document.body.appendChild(debug.stats.dom);
 
 document.getElementById("help").addEventListener("click", function(){
 	movement.camera.position.x = 0;
@@ -28,7 +28,7 @@ window.addEventListener('load', function(){
 	RenderLoop();
 	
 	//Zoom out the camera. When the camera is back at the ground the player doesn't have the initial look around lag
-	movement.camera.position.y = 120;
+	movement.camera.position.y = 100;
 	movement.camera.lookAt(0,0,0);
 
 	//Check if loader is true
@@ -48,7 +48,7 @@ window.addEventListener('load', function(){
 				//Start the app by making it look like the player blinks
 				functions.Blinking("start");
 				//Start the bg audio
-				bgAudio = new Audio("../audio/bg.mp3");
+				bgAudio = new Audio("../audio/bg.ogg");
 				bgAudio.loop = true;
 				bgAudio.play();
 

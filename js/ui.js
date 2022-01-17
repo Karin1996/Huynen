@@ -4,11 +4,10 @@ let dialogue = require("../local_db/dialogue.json");
 let festivalList = require("../local_db/festivalList.json");
 import {camera, raycaster, mouse, scene, THREE} from "./scene_setup";
 import {modelsList} from "./loader";
-import {DisplayRay} from "./debug";
+//import {DisplayRay} from "./debug";
 import {fpcontrols, LOOK_SPEED} from "./movement";
 import {RotateNPC, ResetRotationNPC} from "./npc"
 import {AnimationController, animationDone, AudioController} from "./functions";
-import { cloneUniforms } from "three";
 
 let uiVisible = false;
 //On click execute CheckUI
@@ -302,7 +301,7 @@ function UpdateQuest(object, btn){
 							~remove && quests.splice(remove, 1)
 							
 							UpdateQuestUI();
-							console.log("festival JSON", festivalList)
+
 							festivalList.forEach(item => {
 								if(item.quest_id == correctObject.quest_id){
 									item.property = "show";

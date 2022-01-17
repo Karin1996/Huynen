@@ -1,0 +1,55 @@
+Date : 2022-01-17 00:32:10
+Directory : g:\Xampp\htdocs\Huynen
+Total : 22 files,  8961 codes, 161 comments, 259 blanks, all 9381 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |          6 |      7,364 |          0 |          7 |      7,371 |
+| JavaScript |         10 |      1,086 |        157 |        209 |      1,452 |
+| SCSS       |          1 |        413 |          4 |         30 |        447 |
+| HTML       |          2 |         95 |          0 |         13 |        108 |
+| XML        |          2 |          2 |          0 |          0 |          2 |
+| Markdown   |          1 |          1 |          0 |          0 |          1 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                              | files      | code       | comment    | blank      | total      |
++---------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                 |         22 |      8,961 |        161 |        259 |      9,381 |
+| images                                            |          2 |          2 |          0 |          0 |          2 |
+| js                                                |         10 |      1,086 |        157 |        209 |      1,452 |
+| local_db                                          |          4 |        846 |          0 |          5 |        851 |
+| styles                                            |          1 |        413 |          4 |         30 |        447 |
++---------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                          | language   | code       | comment    | blank      | total      |
++---------------------------------------------------+------------+------------+------------+------------+------------+
+| g:\Xampp\htdocs\Huynen\README.md                  | Markdown   |          1 |          0 |          0 |          1 |
+| g:\Xampp\htdocs\Huynen\end.html                   | HTML       |         33 |          0 |          5 |         38 |
+| g:\Xampp\htdocs\Huynen\images\circle-01.svg       | XML        |          1 |          0 |          0 |          1 |
+| g:\Xampp\htdocs\Huynen\images\logo.svg            | XML        |          1 |          0 |          0 |          1 |
+| g:\Xampp\htdocs\Huynen\index.html                 | HTML       |         62 |          0 |          8 |         70 |
+| g:\Xampp\htdocs\Huynen\js\cycle.js                | JavaScript |         66 |         13 |         19 |         98 |
+| g:\Xampp\htdocs\Huynen\js\debug.js                | JavaScript |         85 |          8 |         16 |        109 |
+| g:\Xampp\htdocs\Huynen\js\end.js                  | JavaScript |         26 |          5 |          8 |         39 |
+| g:\Xampp\htdocs\Huynen\js\functions.js            | JavaScript |        138 |         13 |         27 |        178 |
+| g:\Xampp\htdocs\Huynen\js\gamemanager.js          | JavaScript |        118 |         25 |         18 |        161 |
+| g:\Xampp\htdocs\Huynen\js\loader.js               | JavaScript |        153 |         17 |         21 |        191 |
+| g:\Xampp\htdocs\Huynen\js\movement.js             | JavaScript |         79 |         10 |         17 |        106 |
+| g:\Xampp\htdocs\Huynen\js\npc.js                  | JavaScript |         32 |          0 |         13 |         45 |
+| g:\Xampp\htdocs\Huynen\js\scene_setup.js          | JavaScript |         70 |         17 |         17 |        104 |
+| g:\Xampp\htdocs\Huynen\js\ui.js                   | JavaScript |        319 |         49 |         53 |        421 |
+| g:\Xampp\htdocs\Huynen\local_db\dialogue.json     | JSON       |         41 |          0 |          0 |         41 |
+| g:\Xampp\htdocs\Huynen\local_db\festivalList.json | JSON       |        132 |          0 |          0 |        132 |
+| g:\Xampp\htdocs\Huynen\local_db\information.json  | JSON       |         32 |          0 |          0 |         32 |
+| g:\Xampp\htdocs\Huynen\local_db\model.json        | JSON       |        641 |          0 |          5 |        646 |
+| g:\Xampp\htdocs\Huynen\package-lock.json          | JSON       |      6,494 |          0 |          1 |      6,495 |
+| g:\Xampp\htdocs\Huynen\package.json               | JSON       |         24 |          0 |          1 |         25 |
+| g:\Xampp\htdocs\Huynen\styles\main.scss           | SCSS       |        413 |          4 |         30 |        447 |
+| Total                                             |            |      8,961 |        161 |        259 |      9,381 |
++---------------------------------------------------+------------+------------+------------+------------+------------+
