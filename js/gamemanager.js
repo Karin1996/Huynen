@@ -32,7 +32,6 @@ document.getElementById("help").addEventListener("click", function(){
 
 document.getElementById("audio").addEventListener("click", function(){
 	if(audioMuted){
-		console.log("audio was already muted, unmute now");
 		audioMuted = false;
 		this.querySelector("img").src = "../images/audio_on.png";
 
@@ -44,10 +43,9 @@ document.getElementById("audio").addEventListener("click", function(){
 		KalieAudio.muted = false;
 	}
 	else{
-		console.log("audio was on, muted now")
-		this.querySelector("img").src = "../images/audio_off.png";
-		
 		audioMuted = true;
+		this.querySelector("img").src = "../images/audio_off.png";
+
 		bgAudio.muted = true;
 		LinneAudio.muted = true;
 		IdaAudio.muted = true;
