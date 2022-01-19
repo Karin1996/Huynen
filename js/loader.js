@@ -115,6 +115,8 @@ models.forEach(element => {
                         model.action = model.mixer.clipAction(model.clip);     
 
                         model.audio = new Audio(element.audio);
+
+                        o.frustumCulled = false;
                         
                         if(o.name.toLowerCase().includes("outline")){
                             o.material = new THREE.MeshBasicMaterial({color: 0xe32d00, visible:false});
@@ -174,7 +176,7 @@ models.forEach(element => {
         modelsList.push(model);
         scene.add(model);
        
-        if(modelsList.length >= models.length - 10 ){
+        if(modelsList.length >= models.length - 2){
             loaded = true;
         }
     });

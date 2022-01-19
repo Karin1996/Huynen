@@ -9,7 +9,7 @@ scene.fog = new THREE.Fog(0xc1dcf7, 30, 80);
 //scene.fog = new THREE.FogExp2(0xc1dcf7, 0.01);
 
 //Camera
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.01, 120);
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 120);
 camera.position.set(0,0,0);
 
 //Renderer
@@ -23,7 +23,7 @@ renderer.shadowMapSoft = true;
 renderer.physicallyCorrectLights = true;
 renderer.physicallyBasedShading = true;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.2; 
+renderer.toneMappingExposure = 1.25; 
 renderer.outputEncoding = THREE.sRGBEncoding;
 
 //Ray and mouse
@@ -66,7 +66,7 @@ pointLightFire2.position.set(-35, 1, 14.3);
 //scene.add(dirHelper);
 
 //Light settings
-dirLight.position.set(2, 20, 0);
+dirLight.position.set(6, 15, 0);
 
 //Shadows are to dark, currently this is the lightest method to reduce shadow intensity
 let dirLight2 = dirLight.clone();

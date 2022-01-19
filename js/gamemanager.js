@@ -12,7 +12,15 @@ let THREE = scene_setup.THREE;
 const clock = new THREE.Clock();
 //let canMutate = true;
 const modelsList = loader.modelsList;
-let bgAudio;
+//All audio
+let bgAudio = functions.bgAudio
+;
+let LinneAudio = functions.LinneAudio;
+let IdaAudio = functions.IdaAudio;
+let RolfeAudio = functions.RolfeAudio;
+let LejoAudio = functions.LejoAudio;
+let KalieAudio = functions.KalieAudio;
+var audioMuted = false;
 
 //document.body.appendChild(debug.stats.dom);
 
@@ -21,6 +29,34 @@ document.getElementById("help").addEventListener("click", function(){
 	movement.camera.position.y = movement.DISTANCE_GROUND;
     movement.camera.position.z = 0;
 });
+
+document.getElementById("audio").addEventListener("click", function(){
+	if(audioMuted){
+		console.log("audio was already muted, unmute now");
+		audioMuted = false;
+		this.querySelector("img").src = "../images/audio_on.png";
+
+		bgAudio.muted = false;
+		LinneAudio.muted = false;
+		IdaAudio.muted = false;
+		RolfeAudio.muted = false;
+		LejoAudio.muted = false;
+		KalieAudio.muted = false;
+	}
+	else{
+		console.log("audio was on, muted now")
+		this.querySelector("img").src = "../images/audio_off.png";
+		
+		audioMuted = true;
+		bgAudio.muted = true;
+		LinneAudio.muted = true;
+		IdaAudio.muted = true;
+		RolfeAudio.muted = true;
+		LejoAudio.muted = true;
+		KalieAudio.muted = true;
+	}
+});
+
 
 
 window.addEventListener('load', function(){
@@ -48,7 +84,6 @@ window.addEventListener('load', function(){
 				//Start the app by making it look like the player blinks
 				functions.Blinking("start");
 				//Start the bg audio
-				bgAudio = new Audio("../audio/bg.ogg");
 				bgAudio.loop = true;
 				bgAudio.play();
 
@@ -157,5 +192,5 @@ function RenderLoop() {
 }
 
 export{
-	bgAudio
+	audioMuted
 }

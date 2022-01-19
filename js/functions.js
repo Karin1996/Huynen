@@ -1,12 +1,19 @@
 import {THREE, scene,} from "./scene_setup";
 import {camera, fpcontrols, DISTANCE_GROUND} from "./movement";
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
-import {bgAudio} from "./gamemanager";
+import {audioMuted} from "./gamemanager";
 let festivalModels = require("../local_db/festivalList.json");
 let animationDone = false;
 let festival = false;
 let blinkingDone = false;
 let festivalList = [];
+
+let bgAudio = new Audio("../audio/bg.ogg");
+let LinneAudio = new Audio("../audio/Linne_festival.ogg");;
+let IdaAudio = new Audio("../audio/Ida_festival.ogg");;
+let RolfeAudio = new Audio("../audio/Rolfe_festival.ogg");;
+let LejoAudio = new Audio("../audio/Lejo_festival.ogg");;
+let KalieAudio = new Audio("../audio/Kalie_festival.ogg");;       
 
 const animationTime = 3000;
 const festivalTime = 30000;
@@ -76,6 +83,13 @@ function AudioController(object, playAudio, loop=true){
     else{
         object.audio.pause();
         object.audio.currentTime = 0;
+    }
+
+    if(audioMuted){
+        object.audio.muted = true;
+    }
+    else{
+        object.audio.muted = false;
     }
 }
 
@@ -156,15 +170,17 @@ function StartFestival(){
             bgAudio.play();
 
             //Festival npc's sounds
-            let LinneAudio = new Audio("../audio/Linne_festival.ogg"); LinneAudio.loop = true; LinneAudio.play();
-            let IdaAudio = new Audio("../audio/Ida_festival.ogg"); IdaAudio.loop = true; IdaAudio.play();
-            let RolfeAudio = new Audio("../audio/Rolfe_festival.ogg"); RolfeAudio.loop = true; RolfeAudio.play();
-            let LejoAudio = new Audio("../audio/Lejo_festival.ogg"); LejoAudio.loop = true; LejoAudio.play();
-            let KalieAudio = new Audio("../audio/Kalie_festival.ogg"); KalieAudio.loop = true; KalieAudio.play();
+            LinneAudio.loop = true; LinneAudio.play(); LinneAudio.volume = 0.6;
+            IdaAudio.loop = true; IdaAudio.play();
+            RolfeAudio.loop = true; RolfeAudio.play(); RolfeAudio.volume = 0.5;
+            LejoAudio.loop = true; LejoAudio.play(); LejoAudio.volume = 1;
+            KalieAudio.loop = true; KalieAudio.play();            
 
             //Disable black screen
-            document.documentElement.style.setProperty('--opacity', "0");
-            document.getElementById("blink").style.display = "none";
+            setTimeout(function(){
+                document.documentElement.style.setProperty('--opacity', "0");
+                document.getElementById("blink").style.display = "none";
+            }, 1500)
 
             //After x seconds end application
             setTimeout(function(){
@@ -189,4 +205,5 @@ export{
     StartFestival, 
     festival,
     festivalList,
+    bgAudio, LinneAudio, IdaAudio, RolfeAudio, LejoAudio, KalieAudio 
 }
