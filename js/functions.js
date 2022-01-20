@@ -16,7 +16,7 @@ let LejoAudio = new Audio("../audio/Lejo_festival.ogg");;
 let KalieAudio = new Audio("../audio/Kalie_festival.ogg");;       
 
 const animationTime = 3000;
-const festivalTime = 30000;
+const festivalTime = 15000;
 
 function Blinking(phase){
     document.getElementById("blink").style.display = "flex";
