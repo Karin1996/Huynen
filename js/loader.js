@@ -80,7 +80,7 @@ models.forEach(element => {
 
                     case "interactable":
                         if(o.name.toLowerCase().includes("outline")){
-                            o.material = new THREE.MeshBasicMaterial({color: 0xe32d00, visible:false});
+                            o.material = new THREE.MeshBasicMaterial({color: 0x034a35, visible:true});
                             o.receiveShadow = false;
                             o.castShadow = false;
                         }

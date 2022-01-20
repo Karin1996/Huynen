@@ -66,6 +66,18 @@ function MakeUI(type, object){
 			information.forEach(info => {
 				if(info.information_id == information_id){
 					correctInfo = info;
+
+					object.traverse((o) => {
+						if(o.isMesh){
+							setInterval(function(){
+								//Disable the outline
+								if(o.name.toLowerCase().includes("outline")){
+									o.material.visible = false;
+								}
+							})	
+						}
+					});
+
 				}
 			});
 
