@@ -59,6 +59,7 @@ models.forEach(element => {
 
                     case "skybox":
                         o.material = new THREE.MeshBasicMaterial({map: o.material.map});
+                        o.material.side = THREE.BackSide;
                         o.receiveShadow = false;
                         o.castShadow = false;
                         o.material.transparent = true;
