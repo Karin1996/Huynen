@@ -114,6 +114,7 @@ models.forEach(element => {
                         model.clips = gltf.animations;
                         model.clip = THREE.AnimationClip.findByName(model.clips, "Idle");
                         model.action = model.mixer.clipAction(model.clip);     
+                        model.mixer.timeScale = 1.3;  
 
                         model.audio = new Audio(element.audio);
 
@@ -154,7 +155,7 @@ models.forEach(element => {
                             let clipToPlay = model.clips[Math.floor(Math.random() * model.clips.length)]
                             model.clip = THREE.AnimationClip.findByName(model.clips, clipToPlay.name);
                         }
-                        model.action = model.mixer.clipAction(model.clip);     
+                        model.action = model.mixer.clipAction(model.clip);   
                         break;
 
                     case "static":
