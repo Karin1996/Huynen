@@ -18,7 +18,7 @@ let slider = document.getElementById("slider");
 let fill = document.getElementById("fill");
 let bar = document.getElementById("bar");
 
-let timer = 240000; //time in milliseconds (5 min = 300000. 4 min = 240 000)
+let timer = 300000; //time in milliseconds (5 min = 300000. 4 min = 240 000)
 let increase = slider.width / timer; //the stepsize that needs to be taken to get to the endposition in x time
 let widthAndMargin = 0; //save the width and margin that the elements need to have in this var (css doesnt read small int values)
 let granularity = 30; //Smoothness of slider movement / delay
