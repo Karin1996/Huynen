@@ -4,15 +4,53 @@ import {
     renderer,
     THREE,
     mouse,
-    raycaster
+    raycaster,
+    scene
 } from "../js/scene_setup";
 import {uiVisible} from "./ui";
 import {FirstPersonControls} from 'three/examples/jsm/controls/FirstPersonControls';
 import {modelsList, loaded} from "./loader";
 import {DisplayRay} from "./debug";
 import {festival} from "./functions";
+import {moveable} from "./gamemanager";
+import {PointerLockControls} from 'three/examples/jsm/controls/PointerLockControls'
+
+let target = new THREE.Vector2();
+const DISTANCE_GROUND = 1.52;
+//const controls = new PointerLockControls(camera, renderer.domElement)
+
+document.body.addEventListener("mousemove", function(e){
+    //If the bool moveable is true you can look around, moveable is imported from gamemanager
+    if(moveable){
+        mouse.x = -(e.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+        //controls.change();
+        //Get the mouse positions and make it world space
+        //const windowHalf = new THREE.Vector2( window.innerWidth / 2, window.innerHeight / 2 );
+        //mouse.x = ( e.clientX - windowHalf.x );
+	    //mouse.y = ( e.clientY - windowHalf.y );
+    }
+})
+
+function LookAround(){
+    camera.rotation.y = THREE.MathUtils.lerp(camera.rotation.y, (mouse.x * Math.PI) / 8, 0.1)
+    camera.rotation.x = THREE.MathUtils.lerp(camera.rotation.x, (mouse.y * Math.PI) / 8, 0.1)
+}
+//function lookAround() {
+
+    //target.x = (1 - mouse.x) * 0.002;
+    //target.y = (1 - mouse.y) * 0.002;
+
+    //camera.rotation.x += 0.05 * (target.x - camera.rotation.x);
+    //camera.rotation.y += 0.05 * (target.y - camera.rotation.y);
+
+    //requestAnimationFrame(lookAround);
+    //renderer.render( scene, camera );
+//}
 
 
+
+/*
 //Var declarations
 const fpcontrols = new FirstPersonControls(camera, renderer.domElement);
 fpcontrols.movementSpeed = 0;
@@ -101,6 +139,7 @@ function AnimatePosition(a, b, distance, camera, percentage=0){
     }, 30);
 }
 
+*/
 export{
-    fpcontrols, LOOK_SPEED, DISTANCE_GROUND, camera
+    /*fpcontrols, LOOK_SPEED, DISTANCE_GROUND, */camera, moveable, DISTANCE_GROUND, LookAround
 };

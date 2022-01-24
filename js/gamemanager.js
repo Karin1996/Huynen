@@ -12,9 +12,9 @@ let THREE = scene_setup.THREE;
 const clock = new THREE.Clock();
 //let canMutate = true;
 const modelsList = loader.modelsList;
+let moveable = false;
 //All audio
-let bgAudio = functions.bgAudio
-;
+let bgAudio = functions.bgAudio;
 let LinneAudio = functions.LinneAudio;
 let IdaAudio = functions.IdaAudio;
 let RolfeAudio = functions.RolfeAudio;
@@ -73,6 +73,7 @@ window.addEventListener('load', function(){
 			clearInterval(interval);
 			//Zoom the camera back in
 			movement.camera.position.y = movement.DISTANCE_GROUND;
+			movement.camera.lookAt(0,0,0);
 			//Enable btn
 			document.getElementById("btn").style.opacity = 1;
 			document.getElementById("loading").style.opacity = 0;
@@ -94,6 +95,8 @@ window.addEventListener('load', function(){
 
 				setTimeout(function() {
 					document.getElementById("help").style.opacity = 1;
+					//Player can now look around
+					moveable = true;
 					cycle.Cycle();
 				}, 3000);
 			});
@@ -168,7 +171,7 @@ function CursorChanger(){
 function RenderLoop() {
 	const delta = 0.75 * clock.getDelta();
     if(!debug.debug_mode || !functions.festival){
-		movement.fpcontrols.update(delta); //To be able to look around
+		//movement.fpcontrols.update(delta); //To be able to look around
 	} 
 	//Update the animations
 	modelsList.forEach(modelInList =>{
@@ -186,9 +189,12 @@ function RenderLoop() {
 	debug.stats.update();
 	requestAnimationFrame(RenderLoop);
 	scene_setup.Render();
-	movement.fpcontrols.handleResize();
+	movement.LookAround();
+	//movement.controls.update()
+	//movement.lookAround();
+	//movement.fpcontrols.handleResize();
 }
 
 export{
-	audioMuted
+	audioMuted, moveable
 }
