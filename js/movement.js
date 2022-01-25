@@ -11,7 +11,7 @@ import {festival} from "./functions";
 import {moveable} from "./gamemanager";
 
 const DISTANCE_GROUND = 1.52;
-const STEP = 0.07;
+const STEP = 0.06;
 const SPEED = {NORMAL: 0.007, SLOW: 0.001, NONE: 0};
 //let LOOK_SPEED = {SPEED: SPEED.NORMAL};
 LOOK_SPEED = SPEED.NORMAL;

@@ -79,7 +79,8 @@ window.addEventListener('load', function(){
 			movement.camera.position.y = movement.DISTANCE_GROUND;
 			//Enable btn
 			document.getElementById("btn").style.opacity = 1;
-			document.getElementById("loading").style.opacity = 0;
+			document.getElementById("loading").remove();
+
 			document.getElementById("btn").addEventListener("click", function(){
 				//Delete div, Start blink animation, start DayNight cycle on click of the btn
 				document.getElementById("front_page").remove();
