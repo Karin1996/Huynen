@@ -4,7 +4,7 @@ let dialogue = require("../local_db/dialogue.json");
 let festivalList = require("../local_db/festivalList.json");
 import {camera, raycaster, mouse, scene} from "./scene_setup";
 import {modelsList} from "./loader";
-import {LOOK_SPEED, SPEED} from "./movement";
+import {SPEED} from "./movement";
 import {RotateNPC, ResetRotationNPC} from "./npc"
 import {AnimationController, animationDone, AudioController} from "./functions";
 
@@ -51,7 +51,7 @@ function CheckUI(){
 function MakeUI(type, object){	
 	//If there is no visible ui make the ui
 	if(!uiVisible){
-		LOOK_SPEED.SPEED = SPEED.NONE;
+		LOOK_SPEED = SPEED.NONE;
 		uiVisible = true;
 		//Create UI div
 		let ui = document.createElement('div');
@@ -262,7 +262,7 @@ function DeleteUI(){
 			}, 1000);
 		}
 		uiVisible = false;
-		LOOK_SPEED.SPEED = SPEED.NORMAL;
+		LOOK_SPEED = SPEED.NORMAL;
 	}
 	else{
 		return;
@@ -367,7 +367,7 @@ function UpdateQuestUI(){
 
 function FinishQuest(object){
 	//If the animation is playing, lower the lookaround speed
-	LOOK_SPEED.SPEED = SPEED.SLOW;
+	LOOK_SPEED = SPEED.SLOW;
 	
 	//Play the animation
 	if(object.action){
@@ -403,7 +403,7 @@ function FinishQuest(object){
 
 		//When the animation is done
 		if (animationDone || !object.action) {
-			LOOK_SPEED.SPEED = SPEED.NORMAL;
+			LOOK_SPEED = SPEED.NORMAL;
 
 			//Update the quest data
 			quests.forEach(quest => {

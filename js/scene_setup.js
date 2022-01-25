@@ -30,7 +30,7 @@ const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 //Set the length of the raycaster ray
 raycaster.near = 0;
-raycaster.far = 30;
+raycaster.far = 10;
 
 /*
 Update aspect ratio

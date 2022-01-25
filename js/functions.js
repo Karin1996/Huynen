@@ -109,6 +109,7 @@ function StartFestival(){
 
             //Change camera position and rotation
             camera.position.set(-23,DISTANCE_GROUND,23);
+            camera.lookAt(-26, 0, 20);
 
             //Remove all npc 1 from scene
             let tempList = [];

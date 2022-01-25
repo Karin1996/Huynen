@@ -13,23 +13,24 @@ import {moveable} from "./gamemanager";
 const DISTANCE_GROUND = 1.52;
 const STEP = 0.07;
 const SPEED = {NORMAL: 0.007, SLOW: 0.001, NONE: 0};
-let LOOK_SPEED = {SPEED: SPEED.NORMAL};
+//let LOOK_SPEED = {SPEED: SPEED.NORMAL};
+LOOK_SPEED = SPEED.NORMAL;
 
 document.body.addEventListener("mouseenter", function(){
-    LOOK_SPEED.SPEED = !uiVisible ? SPEED.NORMAL : SPEED.NONE;
+    LOOK_SPEED = !uiVisible ? SPEED.NORMAL : SPEED.NONE;
 });
 
 //Player's mouse is not in the window
 document.body.addEventListener("mouseleave", function(){
-    LOOK_SPEED.SPEED = SPEED.NONE;
+    LOOK_SPEED = SPEED.NONE;
 });
 
 [document.getElementById("help"), document.getElementById("audio")].forEach(element => {
     element.addEventListener("mouseenter", function(){
-        LOOK_SPEED.SPEED = SPEED.NONE;
+        LOOK_SPEED = SPEED.NONE;
     });
     element.addEventListener("mouseleave", function(){
-        LOOK_SPEED.SPEED = SPEED.NORMAL;
+       LOOK_SPEED = SPEED.NORMAL;
     });
 });
 
@@ -58,8 +59,8 @@ function LookAround(){
     if ((mouse.x > -0.1 && mouse.x < 0.1 && mouse.y > -0.2 && mouse.y < 0.2)) return;
 
     //You want the camera middle to catch up with cursor. So the cursor is almost always in the middle. Making 360 rotation possible.
-    camera.rotation.y += (-mouse.x) * Math.PI * LOOK_SPEED.SPEED;
-    camera.rotation.x += (-mouse.y) * Math.PI * LOOK_SPEED.SPEED;
+    camera.rotation.y += (-mouse.x) * Math.PI * LOOK_SPEED;
+    camera.rotation.x += (-mouse.y) * Math.PI * LOOK_SPEED;
 
     //Clamp the rotation in [-pi/3, pi/3]
     camera.rotation.x = Clamp(camera.rotation.x, -Math.PI/3, Math.PI/3);
@@ -100,10 +101,10 @@ function MovePlayer(location){
 
 function AnimatePosition(a, b, distance, camera, percentage=0){
     if (percentage >= 0.2) {
-        LOOK_SPEED.SPEED = SPEED.NORMAL;
+        LOOK_SPEED = SPEED.NORMAL;
         return;
     }
-    LOOK_SPEED.SPEED = SPEED.NONE;
+    LOOK_SPEED = SPEED.NONE;
     //Determine the amount of steps
     let steps = Math.round(distance / STEP);
     let percentage_step = 1 / steps;
@@ -115,5 +116,5 @@ function AnimatePosition(a, b, distance, camera, percentage=0){
 }
 
 export{
-    camera, moveable, DISTANCE_GROUND, LookAround, LOOK_SPEED, SPEED
+    camera, moveable, DISTANCE_GROUND, LookAround, SPEED 
 };
