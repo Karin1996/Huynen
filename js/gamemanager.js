@@ -72,8 +72,11 @@ window.addEventListener('load', function(){
 			//Clear the interval
 			clearInterval(interval);
 			//Zoom the camera back in
+			movement.camera.rotation.x = 0;
+			movement.camera.rotation.y = 0;
+			movement.camera.rotation.z = 0;
+
 			movement.camera.position.y = movement.DISTANCE_GROUND;
-			movement.camera.lookAt(0,0,0);
 			//Enable btn
 			document.getElementById("btn").style.opacity = 1;
 			document.getElementById("loading").style.opacity = 0;
@@ -170,9 +173,9 @@ function CursorChanger(){
 
 function RenderLoop() {
 	const delta = 0.75 * clock.getDelta();
-    if(!debug.debug_mode || !functions.festival){
+    //if(!debug.debug_mode || !functions.festival){
 		//movement.fpcontrols.update(delta); //To be able to look around
-	} 
+	//} 
 	//Update the animations
 	modelsList.forEach(modelInList =>{
 		if(modelInList.mixer){
@@ -190,9 +193,6 @@ function RenderLoop() {
 	requestAnimationFrame(RenderLoop);
 	scene_setup.Render();
 	movement.LookAround();
-	//movement.controls.update()
-	//movement.lookAround();
-	//movement.fpcontrols.handleResize();
 }
 
 export{

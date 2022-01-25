@@ -37,8 +37,6 @@ function ResetRotationNPC(object){
 
 }
 
-
-
 export{
 	RotateNPC,
 	ResetRotationNPC

@@ -1,5 +1,5 @@
 import {THREE, scene,} from "./scene_setup";
-import {camera, fpcontrols, DISTANCE_GROUND} from "./movement";
+import {camera, DISTANCE_GROUND} from "./movement";
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
 import {audioMuted} from "./gamemanager";
 let festivalModels = require("../local_db/festivalList.json");
@@ -52,7 +52,6 @@ function AnimationController(object, to, loop=true){
     animationDone = false;
     object.action.stop();
 
-    const previousClip = object.clip;
     object.clip = THREE.AnimationClip.findByName(object.clips, to);
     object.action = object.mixer.clipAction(object.clip);
 
@@ -62,7 +61,7 @@ function AnimationController(object, to, loop=true){
         //Only do the animation once and leave it on the last keyframe
         object.action.setLoop(THREE.LoopOnce);
         object.action.clampWhenFinished = true;
-        object.mixer.addEventListener('finished', function(e) {
+        object.mixer.addEventListener('finished', function() {
             animationDone = true;
         });
     }
@@ -70,12 +69,9 @@ function AnimationController(object, to, loop=true){
 
 
 function AudioController(object, playAudio, loop=true){
-    if(loop){
-        object.audio.loop = true;
-    }
-    else{
-        object.audio.loop = false;
-    }
+
+    object.audio.loop = loop;
+    object.audio.muted = audioMuted;
 
     if(playAudio){
         object.audio.play();
@@ -83,13 +79,6 @@ function AudioController(object, playAudio, loop=true){
     else{
         object.audio.pause();
         object.audio.currentTime = 0;
-    }
-
-    if(audioMuted){
-        object.audio.muted = true;
-    }
-    else{
-        object.audio.muted = false;
     }
 }
 
@@ -120,15 +109,12 @@ function StartFestival(){
 
             //Change camera position and rotation
             camera.position.set(-23,DISTANCE_GROUND,23);
-            fpcontrols.lookAt(-26, 0, 20);
 
             //Remove all npc 1 from scene
             let tempList = [];
             scene.traverse(function(child){
-                if(child.type == "Group"){
-                    if(child.property == "npc"){
-                        tempList.push(child);
-                    }
+                if(child.type == "Group" && child.property == "npc"){
+                    tempList.push(child);
                 }
             });
             tempList.forEach(element => {

@@ -1,6 +1,5 @@
 //Imports
 import * as THREE from 'three';
-import { Light } from 'three';
 
 //Scene
 const scene = new THREE.Scene();
@@ -9,7 +8,7 @@ scene.fog = new THREE.Fog(0xc1dcf7, 30, 80);
 //scene.fog = new THREE.FogExp2(0xc1dcf7, 0.01);
 
 //Camera
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 130);
+const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 130);
 camera.position.set(0,0,0);
 
 //Renderer
@@ -58,7 +57,6 @@ sceneCanvas.appendChild(renderer.domElement);
 //Lights
 let ambientLight = new THREE.AmbientLight(0xcce0ff, 0.4);
 let dirLight = new THREE.DirectionalLight(0xfff5c7);
-let dirHelper = new THREE.DirectionalLightHelper(dirLight, 5);
 const pointLightFire1 =  new THREE.PointLight(0xff3c00, 2, 12);
 pointLightFire1.position.set(11.8, 0, -13.5);
 const pointLightFire2 =  new THREE.PointLight(0xff3c00, 3, 12);
@@ -100,5 +98,5 @@ export{
     raycaster, 
     mouse,
     dirLight, 
-    dirLight2
+    dirLight2,
 };

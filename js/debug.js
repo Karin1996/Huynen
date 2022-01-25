@@ -15,7 +15,6 @@ import Stats from 'three/examples/jsm/libs/stats.module';
 //Var declarations
 const controls = new TransformControls(camera, renderer.domElement);
 const stats = Stats();
-let selectedObject;
 let debug_mode = false;
 
 
