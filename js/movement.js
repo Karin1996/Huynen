@@ -52,7 +52,6 @@ function Clamp(x, a, b) {
 }
 
 function LookAround(){
-    console.log(camera.rotation);
     //Change the order, otherwise the camera tilts when looking left right and up down
     camera.rotation.order = "YXZ";
 
