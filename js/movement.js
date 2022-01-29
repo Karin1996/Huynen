@@ -12,7 +12,7 @@ import {moveable} from "./gamemanager";
 
 const DISTANCE_GROUND = 1.52;
 const STEP = 0.06;
-const SPEED = {NORMAL: 0.006, SLOW: 0.001, NONE: 0};
+const SPEED = {NORMAL: 0.005, SLOW: 0.001, NONE: 0};
 //let LOOK_SPEED = {SPEED: SPEED.NORMAL};
 LOOK_SPEED = SPEED.NORMAL;
 

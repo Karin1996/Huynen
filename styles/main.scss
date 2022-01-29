@@ -19,8 +19,8 @@ $lightBlue: #adbac2;
 html{
     font-size: 100%;
     font-family: $mainFont;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
+    -webkit-box-sizing: padding-box;
+    -moz-box-sizing: padding-box;
     box-sizing: border-box;
 }
 *, *::before, *::after{
@@ -145,7 +145,6 @@ p.info{
 #grid{
     width: auto;
     display: grid;
-    grid-template-rows: 50% 50%;
     column-gap: 0.6rem;
     row-gap: 1rem;
 }
