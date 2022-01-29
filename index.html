@@ -8,6 +8,7 @@
     <meta name="description" content="Met Huynen kan je kijken nemen in een trechterbekervolk hun dorp. Wat hadden en deden deze hunebedbouwers? Kom er achter met Huynen.">
     <meta name="keywords" content="trechterbeker, trechterbekervolk, hunebed, hunebedbouwers, steentijd, prehistorisch, prehistorie, neolithicum">
     <link rel="stylesheet" href="styles/main.scss">
+    <link rel="stylesheet" href="styles/media.scss">
     <script src="js/gamemanager.js" defer></script>
     <title>Huynen - Prehistorisch trechterbekervolk hun dorp</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
@@ -19,42 +20,56 @@
     </script>
 
     <div id="front_page">
-        <h1 id="title">Huynen</h1>
-        <h3 id="subtitle">Een blik in het verre verleden</h3>
+        <div>
+            <h1 id="title">Huynen</h1>
+            <h3 id="subtitle">Een blik in het verre verleden</h3>
+            <img class="logo" src="images/logo.svg" alt="Logo">
+    
+            <div class="story">
+                <h4>Het Trechterbekervolk</h4>
+                <hr>
+                <p>                    
+                     In het Noorden, op en bij de Hondsrug staan al meer dan 5000 jaar hunebedden. 
+                     Dit zijn grote monumenten achtergelaten door het trechterbekervolk, ze worden dan ook wel hunebedbouwers genoemd.
+                     De andere naam, trechterbekervolk, hebben ze te danken aan de vorm van hun aardewerk.
+                     <br><br>
+                     Neem eens een kijkje in dit prehistorische dorp en kom meer te weten over dit volk en hun gebruiken.
+                 </p>
+            </div>
+            
 
-        <p class="story">In het Noorden, op en bij de Hondsrug staan meer dan 5000 jaar hunebedden. 
-            Dit zijn grote monumenten achtergelaten door het trechterbekervolk, ze worden dan ook wel hunebedbouwers genoemd.
-            De andere naam, trechterbekervolk, hebben ze te danken aan de vorm van hun aardewerk.
-            <br><br>
-            Neem eens een kijkje in dit prehistorische dorp en kom meer te weten over dit volk en hun gebruiken.</p>
-
-        <p class="info">Binnen de applicatie kan je alle handelingen met de muis doen</p>
-        <div id="grid">
-            <div class="explanation">
-                <img src="images/cursor_move.png" alt="Bewegen">
-                <p>Lopen</p>
+            <div id="btn">
+                <p>Naar het dorp</p>
             </div>
-            <div class="explanation">
-                <img src="images/cursor_talk.png" alt="Praten">
-                <p>Praten</p>
-            </div>
-            <div class="explanation">
-                <img src="images/cursor_questionmark.png" alt="Informatie">
-                <p>Informatie</p>
-            </div>
-            <div class="explanation">
-                <img src="images/cursor_disabled.png" alt="Niet Toegestaan">
-                <p>Niet Toegestaan</p>
+            <div id="loading">
+                <img src="images/loading.gif" alt="Laden">
+                <p>Bezig met het dorp laden...</p>
             </div>
         </div>
 
-        <div id="btn">
-            <p>Naar het dorp</p>
-        </div>
-        <div id="loading">
-            <img src="images/loading.gif" alt="Laden">
-            <p>Bezig met laden...</p>
-        </div>
+        <div>
+            <p class="info">Binnen het dorp kan je alle acties met de muis doen</p>
+            <div id="grid">
+                <div class="explanation">
+                    <img src="images/cursor_move.png" alt="Bewegen">
+                    <p>Lopen</p>
+                </div>
+                <div class="explanation">
+                    <img src="images/cursor_talk.png" alt="Praten">
+                    <p>Praten</p>
+                </div>
+                <div class="explanation">
+                    <img src="images/cursor_questionmark.png" alt="Informatie">
+                    <p>Informatie</p>
+                </div>
+                <div class="explanation">
+                    <img src="images/cursor_disabled.png" alt="Niet Toegestaan">
+                    <p>Niet Toegestaan</p>
+                </div>
+            </div>
+    
+            
+        </div>        
     </div>
 
     <div id="blink">

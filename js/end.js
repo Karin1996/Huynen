@@ -1,8 +1,4 @@
-//import {fest} from "./functions";
-
 window.addEventListener('load', function(){
-    document.getElementsByClassName("info")[0].style.marginTop = "4rem";
-    document.getElementsByClassName("story")[0].style.marginBottom = "0";
 
     //Add click event to button
     document.getElementById("btn").addEventListener("click", function(){

@@ -1,0 +1,48 @@
+@media only screen and (max-width: 1401px){
+    #front_page{
+        grid-template-columns: 70% 30%;
+    }
+    .explanation{
+        height: 9rem;
+    }
+    p.story{
+        margin-top: 3rem;
+        margin-bottom: 3.5rem;
+    }
+
+}
+
+@media only screen and (max-width: 897px){
+    #front_page{
+        display: flex;
+        flex-direction: column;
+        padding: 2rem;
+    }
+    img.logo{
+        max-width: 30rem;
+    }
+    p.story{
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+    #front_page > div{
+        padding: 2rem 0;
+    }
+    #grid{
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 50% 50%;
+        column-gap: 0.6rem;
+        row-gap: 1rem;
+    }
+}
+
+@media only screen and (max-height: 800px){
+    #front_page{ 
+      padding: 3rem 2rem;
+    }
+    p.story{
+        margin-bottom: 3rem;
+        margin-top: 3rem;
+    }
+}
