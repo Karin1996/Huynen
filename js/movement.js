@@ -12,7 +12,7 @@ import {moveable} from "./gamemanager";
 
 const DISTANCE_GROUND = 1.52;
 const STEP = 0.06;
-const SPEED = {NORMAL: 0.007, SLOW: 0.001, NONE: 0};
+const SPEED = {NORMAL: 0.006, SLOW: 0.001, NONE: 0};
 //let LOOK_SPEED = {SPEED: SPEED.NORMAL};
 LOOK_SPEED = SPEED.NORMAL;
 
@@ -52,13 +52,14 @@ function Clamp(x, a, b) {
 }
 
 function LookAround(){
+    console.log(camera.rotation);
     //Change the order, otherwise the camera tilts when looking left right and up down
     camera.rotation.order = "YXZ";
 
     //If the cursor is in the predetermined 'deadzone' do not move
     if ((mouse.x > -0.1 && mouse.x < 0.1 && mouse.y > -0.2 && mouse.y < 0.2)) return;
 
-    //You want the camera middle to catch up with cursor. So the cursor is almost always in the middle. Making 360 rotation possible.
+    //You want the camera to be able to rotate 360 degrees.
     camera.rotation.y += (-mouse.x) * Math.PI * LOOK_SPEED;
     camera.rotation.x += (-mouse.y) * Math.PI * LOOK_SPEED;
 

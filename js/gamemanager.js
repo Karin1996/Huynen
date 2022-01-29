@@ -73,7 +73,7 @@ window.addEventListener('load', function(){
 			clearInterval(interval);
 			//Zoom the camera back in
 			movement.camera.rotation.x = 0;
-			movement.camera.rotation.y = 0;
+			movement.camera.rotation.y = -0.6;
 			movement.camera.rotation.z = 0;
 
 			movement.camera.position.y = movement.DISTANCE_GROUND;
